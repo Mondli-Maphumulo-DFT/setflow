@@ -7,6 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
@@ -877,7 +880,16 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
           <option value="hold">On hold</option>
           <option value="inquiry">Inquiry</option>
         </select>
-        <button class="btn primary" onclick="openModal('add')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> New booking</button>
+
+        <button class="btn" onclick="signInWithGoogle()" style="height:36px; padding:0 12px; cursor:pointer;">
+          Sign in
+        </button>
+
+        <button class="btn primary" onclick="openModal('add')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg> New booking
+        </button>
       </div>
     </div>
     <div class="table-card">
@@ -1815,18 +1827,37 @@ async function loadArtistsFromDb(){
   }
 }
 
-async function loadGigsFromDb(){
-  const { data, error } = await sb.from('gigs').select('*').order('gig_date',{ascending:true});
-  if(error){ console.warn('gigs load error:', error); return; }
+/* Helper to ensure user is authenticated before DB action */
+async function getAuthenticatedUser() {
+  const { data: { user }, error } = await sb.auth.getUser();
+  if (error || !user) {
+    console.error("User not logged in");
+    // Optionally trigger your login UI here
+    return null;
+  }
+  return user;
+}
+
+async function loadGigsFromDb() {
+  // Optional: check auth first
+  const { data, error } = await sb.from('gigs')
+    .select('*')
+    .order('gig_date', { ascending: true });
+    
+  if (error) { console.warn('gigs load error:', error); return; }
   GIGS = (data || []).map(rowToGig);
 }
 
-async function dbInsertGig(g){
+async function dbInsertGig(g) {
+  const user = await getAuthenticatedUser();
+  if (!user) throw new Error("Must be logged in to insert a gig");
+
   const row = gigToRow(g);
-  row.owner_id  = currentUser.id;
+  row.owner_id  = user.id; // Use the verified user ID
   row.artist_id = curArtist;
+  
   const { data, error } = await sb.from('gigs').insert(row).select().single();
-  if(error){ console.error('gig insert error:', error); throw error; }
+  if (error) { console.error('gig insert error:', error); throw error; }
   return rowToGig(data);
 }
 
@@ -2216,20 +2247,31 @@ function runPreloader(){
           preloader.style.opacity = '0';
           preloader.style.transform = 'scale(1.03)';
           setTimeout(() => { preloader.style.display = 'none'; }, 580);
-          init();
+          
+          // Now proceed to init or check session
+          initializeApp();
         }, 600);
       }
     }, i * 360 + 200);
   });
 }
 
-// On load: restore an existing session, otherwise show the login screen
-document.addEventListener("DOMContentLoaded", async () => {
-  selectRole("manager");
-  const restored = await restoreSession();
-  if(!restored){
-    // No active session — login screen is already visible by default
+// Custom function to handle post-load logic
+async function initializeApp() {
+  const { data: { session } } = await window.sb.auth.getSession();
+  
+  if (session) {
+    console.log("Session restored for:", session.user.email);
+    init(); // Run your app initialization
+  } else {
+    console.log("No session, showing login UI");
+    // Ensure your login screen is visible here
   }
+}
+
+// On load: check session
+document.addEventListener("DOMContentLoaded", async () => {
+  // Logic to run before preloader or during
 });
 </script>
 </body>
