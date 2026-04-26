@@ -65,7 +65,7 @@ body{display:flex;overflow-x:hidden}
 .brand-mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#007A4D 0%,#FFB612 40%,#DE3831 70%,#002395 100%);display:flex;align-items:center;justify-content:center;font-family:'Google Sans';font-weight:700;font-size:16px;color:#fff;flex-shrink:0;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,122,77,0.35)}
 .brand-mark::after{content:'';position:absolute;inset:0;border:1px solid rgba(255,255,255,0.18);border-radius:8px}
 .brand-name{font-family:'Google Sans';font-size:18px;font-weight:500;letter-spacing:-0.2px}
-.brand-name .l1{color:#007A4D}.brand-name .l2{color:#DE3831}.brand-name .l3{color:#FFB612}.brand-name .l4{color:#002395}.brand-name .l5{color:#007A4D}.brand-name .l6{color:#DE3831}.brand-name .l7{color:#FFB612}
+.brand-name .l1{color:#007A4D}.brand-name .l2{color:#DE3831}.brand-name .l3{color:#FFB612}.brand-name .l4{color:#002395}.brand-name .l5{color:#000000}.brand-name .l6{color:#DE3831}.brand-name .l7{color:#FFB612}
 .brand-tag{font-size:9px;font-family:'Roboto Mono';color:var(--gold-h);letter-spacing:0.16em;text-transform:uppercase;font-weight:500;margin-top:1px}
 
 .workspace-block{padding:14px 16px;border-bottom:1px solid var(--border-soft)}
@@ -464,15 +464,15 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
 .login-logo{text-align:center;margin-bottom:28px}
 .login-logo-mark{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#007A4D 0%,#FFB612 45%,#DE3831 70%,#002395 100%);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:#fff;margin:0 auto 14px;box-shadow:0 8px 32px rgba(0,122,77,0.4)}
 .login-wordmark{font-size:26px;font-weight:500;letter-spacing:-0.5px}
-.login-wordmark .l1{color:#007A4D}.login-wordmark .l2{color:#DE3831}.login-wordmark .l3{color:#FFB612}.login-wordmark .l4{color:#002395}.login-wordmark .l5{color:#007A4D}.login-wordmark .l6{color:#DE3831}.login-wordmark .l7{color:#FFB612}
+.login-wordmark .l1{color:#007A4D}.login-wordmark .l2{color:#DE3831}.login-wordmark .l3{color:#FFB612}.login-wordmark .l4{color:#002395}.login-wordmark .l5{color:#FFFFFF}.login-wordmark .l6{color:#DE3831}.login-wordmark .l7{color:#FFB612}
 .login-sub{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);font-family:'Roboto Mono',monospace;margin-top:4px}
-.login-roles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
-.role-btn{padding:16px 14px;border-radius:14px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);cursor:pointer;transition:all 0.2s;text-align:left;color:#fff}
+.login-roles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:28px}
+.role-btn{padding:14px 10px;border-radius:14px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);cursor:pointer;transition:all 0.2s;text-align:left;color:#fff}
 .role-btn:hover{border-color:rgba(201,169,97,0.6);background:rgba(201,169,97,0.08)}
 .role-btn.selected{border-color:#C9A961;background:rgba(201,169,97,0.14);box-shadow:0 0 0 1px rgba(201,169,97,0.4)}
-.role-btn-icon{font-size:24px;margin-bottom:8px}
-.role-btn-name{font-size:13px;font-weight:500}
-.role-btn-desc{font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px}
+.role-btn-icon{font-size:22px;margin-bottom:6px}
+.role-btn-name{font-size:12px;font-weight:500}
+.role-btn-desc{font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px;line-height:1.35}
 .login-form .field-label{color:rgba(255,255,255,0.5);font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:6px}
 .login-form .field-input{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#fff;border-radius:10px;width:100%;height:44px;padding:0 16px;font-size:14px;outline:none;transition:border-color 0.2s;font-family:inherit}
 .login-form .field-input::placeholder{color:rgba(255,255,255,0.25)}
@@ -527,7 +527,12 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
       <div class="role-btn" id="role-artist" onclick="selectRole('artist')">
         <div class="role-btn-icon">🎧</div>
         <div class="role-btn-name">Artist</div>
-        <div class="role-btn-desc">Your bookings & rider</div>
+        <div class="role-btn-desc">Bookings & rider</div>
+      </div>
+      <div class="role-btn" id="role-promoter" onclick="selectRole('promoter')">
+        <div class="role-btn-icon">🎪</div>
+        <div class="role-btn-name">Promoter</div>
+        <div class="role-btn-desc">Magic link from email</div>
       </div>
     </div>
     <div class="login-form">
@@ -594,7 +599,7 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
     backdrop-filter:blur(12px);
     margin-bottom:32px;
   ">
-    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:rgba(255,255,255,0.4);font-family:'Roboto Mono',monospace;margin-bottom:12px">Loading your upcoming gigs</div>
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.14em;color:rgba(255,255,255,0.4);font-family:'Roboto Mono',monospace;margin-bottom:12px">Syncing your tour</div>
     <div id="preload-gigs" style="display:flex;flex-direction:column;gap:8px"></div>
   </div>
 
@@ -748,7 +753,7 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
     <div class="page-head">
       <div>
         <div class="page-title">Dashboard</div>
-        <div class="page-sub">Black Coffee · <b>14 confirmed</b> gigs in next 90 days · <b>R5.8M</b> locked revenue</div>
+        <div class="page-sub">Black Coffee · <b>14 confirmed</b> gigs in next 90 days · <b>R22.4M</b> pipeline value · <b>R16.3M</b> locked YTD</div>
       </div>
       <div class="page-actions">
         <button class="btn" onclick="exportData()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export</button>
@@ -819,7 +824,7 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
       <div class="chart-head">
         <div>
           <div class="chart-title">Revenue trend · Last 12 months</div>
-          <div class="chart-big">$892,400<span class="chart-delta">↑ 31% YoY</span></div>
+          <div class="chart-big">R16.3M<span class="chart-delta">↑ 31% YoY</span></div>
         </div>
         <div class="sec-tabs">
           <button class="sec-tab active" onclick="setChartRange('12M',this)">12M</button>
@@ -840,7 +845,7 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
     <div class="sec-head">
       <div>
         <div class="sec-title">Booking Pipeline</div>
-        <div class="sec-meta" id="pipelineSum">Loading…</div>
+        <div class="sec-meta" id="pipelineSum">Building your pipeline view…</div>
       </div>
       <button class="btn ghost sm">View all <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
@@ -932,9 +937,10 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
     </div>
     <div class="map-card">
       <div id="worldMap" style="width:100%;min-height:490px;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border-soft);position:relative;background:var(--surface-2)">
-        <div id="map-loading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;z-index:2;background:var(--surface-2)">
+        <div id="map-loading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;z-index:2;background:var(--surface-2);padding:20px;text-align:center">
           <div style="width:36px;height:36px;border:3px solid var(--border);border-top-color:#007A4D;border-radius:50%;animation:spin 0.8s linear infinite"></div>
-          <div style="font-size:12px;color:var(--muted);font-family:'Roboto Mono'">Loading tour map…</div>
+          <div style="font-size:13px;color:var(--ink-2);font-family:'Google Sans';font-weight:500;margin-top:4px">Plotting your tour</div>
+          <div style="font-size:11px;color:var(--muted);font-family:'Roboto Mono';max-width:260px;line-height:1.5">Mapping confirmed gigs · calculating travel days · flagging back-to-back routings</div>
         </div>
       </div>
       <div style="padding:6px 4px 2px;font-size:10px;color:var(--muted);font-family:'Roboto Mono';">Powered by © Google Maps · showing confirmed tour stops</div>
@@ -1001,7 +1007,7 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
     <div class="page-head">
       <div>
         <div class="page-title">Contracts</div>
-        <div class="page-sub"><b>3 pending signature</b> · DocuSign + native e-sign enabled</div>
+        <div class="page-sub"><b>3 pending signature</b> · Native e-sign · No third-party signup required</div>
       </div>
       <div class="page-actions">
         <button class="btn primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> New contract</button>
@@ -1064,66 +1070,65 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
     <!-- 4 Tier cards -->
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px">
 
-      <!-- 1. Foundations -->
+      <!-- 1. Starter -->
       <div class="cmp-card" style="position:relative">
-        <div class="cmp-card-tag" style="color:#5F6368;background:#F1F3F4">Foundations</div>
-        <div class="cmp-card-price" id="price-foundations">R950<span class="cmp-card-suffix">/ mo</span></div>
+        <div class="cmp-card-tag" style="color:#5F6368;background:#F1F3F4">Starter</div>
+        <div class="cmp-card-price" id="price-starter">R0<span class="cmp-card-suffix">/ forever</span></div>
         <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);font-family:'Roboto Mono';margin:10px 0 4px">Target</div>
-        <div style="font-size:12px;color:var(--ink-2);margin-bottom:12px;font-weight:500">Emerging / Local Artists</div>
-        <div class="cmp-card-desc">Essential booking tools, zero overwhelm. Perfect for artists starting to book local club gigs.</div>
+        <div style="font-size:12px;color:var(--ink-2);margin-bottom:12px;font-weight:500">Artists exploring the platform</div>
+        <div class="cmp-card-desc">Essential booking tools, zero overwhelm. Perfect for artists tracking their first gigs.</div>
         <ul class="cmp-list">
-          <li>Up to 20 bookings / year</li>
-          <li>Basic pipeline kanban</li>
-          <li>Calendar view</li>
-          <li>Single artist profile</li>
-          <li>Rider builder (read-only share)</li>
+          <li>Up to 5 active bookings</li>
+          <li>Single artist workspace</li>
+          <li>Basic rider builder</li>
+          <li>Mobile-first interface</li>
           <li>ZAR + 1 foreign currency</li>
-          <li>Email support</li>
+          <li>Community support</li>
         </ul>
-        <button style="width:100%;margin-top:16px;padding:10px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:500;color:var(--ink-2);cursor:pointer;font-family:'Google Sans',sans-serif;transition:all 0.2s" onmouseover="this.style.background='var(--surface-3)'" onmouseout="this.style.background='var(--surface-2)'">Get started free</button>
+        <button style="width:100%;margin-top:16px;padding:10px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:500;color:var(--ink-2);cursor:pointer;font-family:'Google Sans',sans-serif;transition:all 0.2s" onmouseover="this.style.background='var(--surface-3)'" onmouseout="this.style.background='var(--surface-2)'">Start free</button>
       </div>
 
       <!-- 2. Pro (featured) -->
       <div class="cmp-card featured" style="position:relative;border:2px solid #FFB612!important">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#FFB612;color:#000;font-size:10px;font-weight:700;padding:3px 14px;border-radius:100px;letter-spacing:0.08em;white-space:nowrap;box-shadow:0 2px 8px rgba(255,182,18,0.4)">MOST POPULAR</div>
         <div class="cmp-card-tag">Pro</div>
-        <div class="cmp-card-price" id="price-pro">R4 500<span class="cmp-card-suffix">/ mo</span></div>
+        <div class="cmp-card-price" id="price-pro">R5,400<span class="cmp-card-suffix">/ artist / mo</span></div>
         <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);font-family:'Roboto Mono';margin:10px 0 4px">Target</div>
         <div style="font-size:12px;color:rgba(255,255,255,0.85);margin-bottom:12px;font-weight:500">Touring Acts &amp; Headliners</div>
         <div class="cmp-card-desc">Full automation — hold expiry, multi-currency, e-sign, riders, and agent/manager split.</div>
         <ul class="cmp-list">
           <li>Unlimited bookings</li>
-          <li>Multi-currency (EUR/USD/GBP/ZAR)</li>
+          <li>5 team seats per artist</li>
+          <li>Multi-currency (ZAR/USD/EUR/GBP/AUD/CHF/BRL)</li>
           <li>Hold expiry automation</li>
           <li>Native e-sign contracts</li>
           <li>Full rider builder + PDF export</li>
           <li>Agent + manager permissions</li>
           <li>Tour map with route view</li>
-          <li>Revenue analytics</li>
           <li>Priority support</li>
         </ul>
         <button style="width:100%;margin-top:16px;padding:10px;background:#FFB612;border:none;border-radius:8px;font-size:13px;font-weight:700;color:#000;cursor:pointer;font-family:'Google Sans',sans-serif;transition:all 0.2s;box-shadow:0 2px 12px rgba(255,182,18,0.35)" onmouseover="this.style.background='#FFC933'" onmouseout="this.style.background='#FFB612'">Start Pro trial →</button>
       </div>
 
-      <!-- 3. Agency -->
+      <!-- 3. Headliner -->
       <div class="cmp-card" style="position:relative;border-color:var(--gold)">
-        <div class="cmp-card-tag" style="color:#B8860B;background:#FFF8E1;border:1px solid #FFE082">Agency</div>
-        <div class="cmp-card-price" id="price-agency">R10 500<span class="cmp-card-suffix">/ mo</span></div>
+        <div class="cmp-card-tag" style="color:#B8860B;background:#FFF8E1;border:1px solid #FFE082">Headliner</div>
+        <div class="cmp-card-price" id="price-headliner">R14,400<span class="cmp-card-suffix">/ mo</span></div>
         <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);font-family:'Roboto Mono';margin:10px 0 4px">Target</div>
-        <div style="font-size:12px;color:var(--ink-2);margin-bottom:12px;font-weight:500">Boutique Agencies (3–10 artists)</div>
-        <div class="cmp-card-desc">Multi-artist workspace with full admin delegation and cross-roster reporting.</div>
+        <div style="font-size:12px;color:var(--ink-2);margin-bottom:12px;font-weight:500">Agencies &amp; rosters (5+ artists)</div>
+        <div class="cmp-card-desc">Multi-artist roster with unlimited team seats, API access, and dedicated success.</div>
         <ul class="cmp-list">
           <li>Everything in Pro</li>
-          <li>Up to 10 artist profiles</li>
+          <li>Multi-artist roster (unlimited)</li>
+          <li>Unlimited team seats</li>
           <li>Multi-artist dashboard</li>
-          <li>Role-based team access</li>
-          <li>Admin delegation controls</li>
-          <li>Bulk contract management</li>
           <li>Cross-artist revenue reports</li>
+          <li>API access</li>
+          <li>Custom integrations</li>
           <li>White-label PDF exports</li>
-          <li>Dedicated account manager</li>
+          <li>Dedicated success manager</li>
         </ul>
-        <button style="width:100%;margin-top:16px;padding:10px;background:var(--surface-2);border:1px solid var(--gold);border-radius:8px;font-size:13px;font-weight:500;color:var(--gold-h);cursor:pointer;font-family:'Google Sans',sans-serif;transition:all 0.2s" onmouseover="this.style.background='var(--gold-bg)'" onmouseout="this.style.background='var(--surface-2)'">Talk to us</button>
+        <button style="width:100%;margin-top:16px;padding:10px;background:var(--surface-2);border:1px solid var(--gold);border-radius:8px;font-size:13px;font-weight:500;color:var(--gold-h);cursor:pointer;font-family:'Google Sans',sans-serif;transition:all 0.2s" onmouseover="this.style.background='var(--gold-bg)'" onmouseout="this.style.background='var(--surface-2)'">Talk to sales</button>
       </div>
 
       <!-- 4. Enterprise -->
@@ -1134,7 +1139,7 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
         <div style="font-size:12px;color:rgba(255,255,255,0.65);margin-bottom:12px;font-weight:500">Global Management Firms</div>
         <div class="cmp-card-desc" style="color:rgba(255,255,255,0.5)">API access, white-labelling, audit trails, and SLA guarantees. Priced per engagement.</div>
         <ul class="cmp-list">
-          <li style="color:rgba(255,255,255,0.65)">Everything in Agency</li>
+          <li style="color:rgba(255,255,255,0.65)">Everything in Headliner</li>
           <li style="color:rgba(255,255,255,0.65)">Unlimited artists &amp; users</li>
           <li style="color:rgba(255,255,255,0.65)">Full REST API access</li>
           <li style="color:rgba(255,255,255,0.65)">White-label branding</li>
@@ -1159,9 +1164,9 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
         <thead>
           <tr>
             <th style="width:28%">Feature</th>
-            <th>Foundations</th>
+            <th>Starter</th>
             <th class="sf">Pro ★</th>
-            <th class="sf">Agency</th>
+            <th class="sf">Headliner</th>
             <th class="sf">Enterprise</th>
             <th>Gigwell</th>
             <th>Spreadsheet</th>
@@ -1700,6 +1705,10 @@ const ROLE_PERMS = {
   artist:{
     allow:['Your confirmed bookings','Your calendar','Your rider (view)','Your profile'],
     deny:['Financial details hidden','Cannot edit bookings','Cannot view other artists']
+  },
+  promoter:{
+    allow:['Review rider for your booking','Native e-sign acknowledgement','Pay deposit invoice','Download signed contract'],
+    deny:['No login or password required','No dashboard to learn','See only your own deal']
   }
 };
 let currentUser = null;       // { id, email, full_name, role, av, cls }
@@ -1719,6 +1728,29 @@ function selectRole(role){
     ...perms.allow.map(p=>`<div class="perm-item allow">${p}</div>`),
     ...perms.deny.map(p=>`<div class="perm-item deny">${p}</div>`)
   ].join('');
+
+  /* Promoter doesn't sign in — they get a magic link per booking */
+  const loginForm = document.querySelector('.login-form');
+  const promoterMsg = document.getElementById('promoter-msg');
+  if(role === 'promoter'){
+    if(loginForm) loginForm.style.display = 'none';
+    if(!promoterMsg){
+      const msg = document.createElement('div');
+      msg.id = 'promoter-msg';
+      msg.style.cssText = 'margin-top:18px;padding:18px 18px 16px;background:rgba(255,182,18,0.06);border:1px solid rgba(255,182,18,0.25);border-radius:12px;color:rgba(255,255,255,0.85);font-size:13px;line-height:1.55';
+      msg.innerHTML = `
+        <div style="font-family:'Google Sans';font-size:14px;font-weight:500;color:#fff;margin-bottom:8px">Promoters don't sign in.</div>
+        <div style="margin-bottom:10px;color:rgba(255,255,255,0.7)">When a manager confirms your booking, you receive an email with a secure link to your deal. Review the rider, sign, pay your deposit, download the contract — no account, no password, no app.</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.45);font-family:'Roboto Mono';letter-spacing:0.04em">Looking for a deal? Search your inbox for <span style="color:#FFB612">setflow.app/booking</span></div>
+      `;
+      loginForm.parentNode.insertBefore(msg, loginForm.nextSibling);
+    } else {
+      promoterMsg.style.display = 'block';
+    }
+  } else {
+    if(loginForm) loginForm.style.display = 'block';
+    if(promoterMsg) promoterMsg.style.display = 'none';
+  }
 }
 
 function toggleAuthMode(){
@@ -2169,9 +2201,9 @@ function renderTeam(){
 /* ═══════════════════════════════════════════════════ BILLING TOGGLE ═══ */
 let billingMode = 'monthly';
 const PRICES = {
-  foundations: { monthly: 'R950',    annual: 'R792' },
-  pro:         { monthly: 'R4 500',  annual: 'R3 750' },
-  agency:      { monthly: 'R10 500', annual: 'R8 750' },
+  starter:    { monthly: 'R0',      annual: 'R0' },
+  pro:        { monthly: 'R5,400',  annual: 'R4,500' },
+  headliner:  { monthly: 'R14,400', annual: 'R12,000' },
 };
 function setBilling(mode){
   billingMode = mode;
@@ -2180,7 +2212,17 @@ function setBilling(mode){
     : '<span class="cmp-card-suffix">/ mo</span>';
   Object.keys(PRICES).forEach(t => {
     const el = document.getElementById('price-' + t);
-    if(el) el.innerHTML = PRICES[t][mode] + suffix;
+    if(!el) return;
+    /* Keep "/ forever" for free Starter tier */
+    if(t === 'starter'){
+      el.innerHTML = PRICES[t][mode] + '<span class="cmp-card-suffix">/ forever</span>';
+    } else if(t === 'pro'){
+      el.innerHTML = PRICES[t][mode] + (mode === 'annual'
+        ? '<span class="cmp-card-suffix">/ artist / mo · billed annually</span>'
+        : '<span class="cmp-card-suffix">/ artist / mo</span>');
+    } else {
+      el.innerHTML = PRICES[t][mode] + suffix;
+    }
   });
   /* Banner */
   const banner = document.getElementById('annual-banner');
@@ -2331,7 +2373,7 @@ function runPreloader(){
   const statuses = [
     'Initialising workspace…',
     'Syncing booking pipeline…',
-    'Loading tour map…',
+    'Plotting tour route…',
     'Calibrating multi-currency…',
     'Ready — Press Play 🇿🇦'
   ];
