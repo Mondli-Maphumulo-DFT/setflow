@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>SetFlow · The Operating System for Touring Artists</title>
-<meta name="description" content="The all-in-one tour management platform for artists, managers, and promoters. Built in South Africa, made for the world."/>
-<meta property="og:title" content="SetFlow · The OS for Touring Artists"/>
-<meta property="og:description" content="Replace spreadsheets and WhatsApp with one beautiful platform. Built for headliners."/>
+<title>SetFlow · Press Play.</title>
+<meta name="description" content="The premier platform for global touring artists and the teams that move them. Built in South Africa, made for the world."/>
+<meta property="og:title" content="SetFlow · Press Play."/>
+<meta property="og:description" content="The premier platform for global touring artists. Replace spreadsheets and WhatsApp with one beautiful platform."/>
 <meta property="og:type" content="website"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -214,7 +214,14 @@ html,body{font-family:'Roboto',system-ui,-apple-system,sans-serif;background:var
 .cmp-p{color:var(--g-yel-ink);font-weight:500}
 
 /* ────────────────────────────────────────────────── PRICING */
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+/* Billing toggle */
+.billing-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:8px}
+.billing-toggle{display:inline-flex;align-items:center;gap:0;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;padding:4px;position:relative}
+.billing-opt{font-family:inherit;font-size:13px;font-weight:500;height:34px;padding:0 18px;border-radius:100px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all var(--t);position:relative;z-index:1}
+.billing-opt.active{background:var(--ink);color:#fff;box-shadow:0 2px 8px rgba(32,33,36,0.18)}
+.billing-opt .save{font-size:10px;font-family:'Roboto Mono';margin-left:6px;background:var(--gold);color:#fff;padding:2px 7px;border-radius:100px;letter-spacing:0.04em;font-weight:500}
+.billing-opt.active .save{background:var(--gold-light);color:var(--ink)}
 .price-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:32px;position:relative;transition:all var(--t)}
 .price-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--gold)}
 .price-card.featured{background:linear-gradient(135deg,#0E2A5C 0%,#1A4FA0 50%,#1A73E8 100%);color:#fff;border:none;overflow:hidden;transform:scale(1.04)}
@@ -237,6 +244,16 @@ html,body{font-family:'Roboto',system-ui,-apple-system,sans-serif;background:var
 .price-cta:hover{background:var(--surface-2);border-color:var(--border-hover)}
 .price-card.featured .price-cta{background:var(--gold);border-color:var(--gold-h);color:#fff}
 .price-card.featured .price-cta:hover{background:var(--gold-h)}
+.price-card.enterprise{background:linear-gradient(135deg,#1A1D24 0%,#26303D 50%,#1F2530 100%);color:#fff;border:none;overflow:hidden;position:relative}
+.price-card.enterprise::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-light) 50%,transparent)}
+.price-card.enterprise .price-name{color:#fff}
+.price-card.enterprise .price-tag{background:rgba(201,169,97,0.12);color:var(--gold-light);border:1px solid var(--gold)}
+.price-card.enterprise .price-desc{color:rgba(255,255,255,0.78)}
+.price-card.enterprise .price-list li{color:rgba(255,255,255,0.92)}
+.price-card.enterprise .price-list li::before{color:var(--gold-light)}
+.price-card.enterprise .price-cta{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);color:#fff}
+.price-card.enterprise .price-cta:hover{background:rgba(255,255,255,0.12);border-color:var(--gold)}
+.price-amount-text{font-family:'Google Sans';font-size:42px;font-weight:500;letter-spacing:-1px;line-height:1;margin-top:14px;margin-bottom:6px}
 
 /* ────────────────────────────────────────────────── TESTIMONIALS */
 .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
@@ -304,6 +321,9 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
 .login-btn:disabled{opacity:0.6;cursor:not-allowed}
 
 /* ────────────────────────────────────────────────── RESPONSIVE */
+@media (max-width:1100px){
+  .pricing-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+}
 @media (max-width:980px){
   .hero{grid-template-columns:1fr;padding:40px 22px 60px;gap:40px}
   .hero-h1{font-size:38px}
@@ -348,7 +368,7 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
       <div class="brand-mark">S</div>
       <div>
         <div class="brand-name"><span class="l1">S</span><span class="l2">e</span><span class="l3">t</span><span class="l4">F</span><span class="l5">l</span><span class="l6">o</span><span class="l7">w</span></div>
-        <div class="brand-tag">Touring · 2025</div>
+        <div class="brand-tag">Press Play.</div>
       </div>
     </a>
     <div class="nav-links">
@@ -373,7 +393,7 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
 <section class="hero">
   <div>
     <div class="hero-pre"><span class="ball"></span>BUILT IN SOUTH AFRICA · MADE FOR THE WORLD</div>
-    <h1 class="hero-h1">The operating system for <span class="blue">touring artists</span> and the <span class="gold">teams that move them.</span></h1>
+    <h1 class="hero-h1">The premier platform for <span class="blue">global touring artists</span> and the <span class="gold">teams that move them.</span></h1>
     <p class="hero-sub">Replace spreadsheets, WhatsApp threads, and inbox chaos with one beautiful platform. From Black Coffee to David Guetta — SetFlow is the command centre touring artists actually deserve.</p>
     <div class="hero-cta-row">
       <button class="btn primary lg" onclick="openLogin('signup')">Start your trial</button>
@@ -401,7 +421,7 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
         <div class="mockup-body">
           <div class="mockup-feature-card">
             <div class="mockup-greeting">GOOD EVENING ✦</div>
-            <div class="mockup-name">Welcome back, Coffee.</div>
+            <div class="mockup-name">Welcome back, Shaun.</div>
             <div class="mockup-stats">
               <div class="mockup-stat"><div class="mockup-stat-label">YTD</div><div class="mockup-stat-val">R16.3M<span class="delta">↑31%</span></div></div>
               <div class="mockup-stat"><div class="mockup-stat-label">AVG FEE</div><div class="mockup-stat-val">R350k</div></div>
@@ -686,55 +706,94 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
 
 <!-- ════════════════════════════════════════════════════ PRICING ══ -->
 <section class="sec" id="pricing">
-  <div class="sec-tag">PRICING</div>
-  <h2 class="sec-h2">Simple, honest pricing. <span class="blue">Built to scale with your tour.</span></h2>
-  <p class="sec-sub">Start free. Upgrade when you're booking real gigs. Cancel anytime. No fine print, no annual lock-in, no setup fees.</p>
+  <div class="sec-tag">PLANS &amp; PRICING</div>
+  <div class="billing-row">
+    <div>
+      <h2 class="sec-h2" style="margin-bottom:6px">Plans &amp; Pricing.</h2>
+      <p class="sec-sub" style="margin-bottom:0">From bedroom producer to global management firm — scale as you grow.</p>
+    </div>
+    <div class="billing-toggle" role="tablist" aria-label="Billing cycle">
+      <button class="billing-opt active" id="billMonthly" onclick="setBilling('monthly')" type="button">Monthly</button>
+      <button class="billing-opt" id="billAnnual" onclick="setBilling('annual')" type="button">Annual <span class="save">−17%</span></button>
+    </div>
+  </div>
 
   <div class="pricing-grid">
     <div class="price-card">
-      <div class="price-tag">STARTER</div>
-      <div class="price-name">Free</div>
-      <div class="price-amount">R0<span class="small">/ forever</span></div>
-      <div class="price-desc">For artists exploring the platform. Up to 5 active bookings.</div>
+      <div class="price-tag">FOUNDATIONS</div>
+      <div class="price-amount" data-monthly="950" data-annual="789">R950<span class="small" data-suffix-monthly="/mo" data-suffix-annual="/mo billed annually">/mo</span></div>
+      <div class="price-eyebrow" style="font-size:10px;font-family:'Roboto Mono';color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;font-weight:500;margin-top:14px;margin-bottom:4px">TARGET</div>
+      <div class="price-name">Emerging / Local Artists</div>
+      <div class="price-desc">Essential booking tools, zero overwhelm. Perfect for artists starting to book local club gigs.</div>
       <ul class="price-list">
-        <li>5 active bookings</li>
-        <li>Basic rider builder</li>
-        <li>Single artist workspace</li>
-        <li>Mobile-first interface</li>
+        <li>Up to 20 bookings / year</li>
+        <li>Basic pipeline kanban</li>
+        <li>Calendar view</li>
+        <li>Single artist profile</li>
+        <li>Rider builder (read-only share)</li>
+        <li>ZAR + 1 foreign currency</li>
+        <li>Email support</li>
       </ul>
-      <button class="price-cta" onclick="openLogin('signup')">Start free</button>
+      <button class="price-cta" onclick="openLogin('signup')">Get started free</button>
     </div>
 
     <div class="price-card featured">
       <div class="price-tag">★ MOST POPULAR</div>
-      <div class="price-name">SetFlow Pro</div>
-      <div class="price-amount">R5,400<span class="small">/ artist / month</span></div>
-      <div class="price-desc">For working touring artists and their managers. Everything they need.</div>
+      <div class="price-amount" data-monthly="4500" data-annual="3735">R4,500<span class="small" data-suffix-monthly="/mo" data-suffix-annual="/mo billed annually">/mo</span></div>
+      <div class="price-eyebrow" style="font-size:10px;font-family:'Roboto Mono';color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.12em;font-weight:500;margin-top:14px;margin-bottom:4px">TARGET</div>
+      <div class="price-name">Touring Acts &amp; Headliners</div>
+      <div class="price-desc">Full automation — hold expiry, multi-currency, e-sign, riders, and agent/manager split.</div>
       <ul class="price-list">
         <li>Unlimited bookings</li>
-        <li>5 team seats per artist</li>
-        <li>Native rider builder + e-sign</li>
-        <li>Multi-currency revenue</li>
-        <li>Pipeline + calendar + tour map</li>
+        <li>Multi-currency (EUR/USD/GBP/ZAR)</li>
+        <li>Hold expiry automation</li>
+        <li>Native e-sign contracts</li>
+        <li>Full rider builder + PDF export</li>
+        <li>Agent + manager permissions</li>
+        <li>Tour map with route view</li>
+        <li>Revenue analytics</li>
         <li>Priority support</li>
       </ul>
-      <button class="price-cta" onclick="openLogin('signup')">Start 14-day trial</button>
+      <button class="price-cta" onclick="openLogin('signup')">Start Pro trial →</button>
     </div>
 
     <div class="price-card">
-      <div class="price-tag">HEADLINER</div>
-      <div class="price-name">For Rosters</div>
-      <div class="price-amount">R14,400<span class="small">/ month</span></div>
-      <div class="price-desc">For agencies & rosters managing 5+ artists. Custom integrations.</div>
+      <div class="price-tag">AGENCY</div>
+      <div class="price-amount" data-monthly="10500" data-annual="8715">R10,500<span class="small" data-suffix-monthly="/mo" data-suffix-annual="/mo billed annually">/mo</span></div>
+      <div class="price-eyebrow" style="font-size:10px;font-family:'Roboto Mono';color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;font-weight:500;margin-top:14px;margin-bottom:4px">TARGET</div>
+      <div class="price-name">Boutique Agencies (3–10 artists)</div>
+      <div class="price-desc">Multi-artist workspace with full admin delegation and cross-roster reporting.</div>
       <ul class="price-list">
-        <li>Multi-artist roster (unlimited)</li>
-        <li>Unlimited team seats</li>
-        <li>API access</li>
-        <li>Custom integrations</li>
-        <li>Dedicated success manager</li>
-        <li>SLA-backed support</li>
+        <li>Everything in Pro</li>
+        <li>Up to 10 artist profiles</li>
+        <li>Multi-artist dashboard</li>
+        <li>Role-based team access</li>
+        <li>Admin delegation controls</li>
+        <li>Bulk contract management</li>
+        <li>Cross-artist revenue reports</li>
+        <li>White-label PDF exports</li>
+        <li>Dedicated account manager</li>
       </ul>
-      <button class="price-cta" onclick="openLogin('signup')">Talk to sales</button>
+      <button class="price-cta" onclick="openLogin('signup')">Talk to us</button>
+    </div>
+
+    <div class="price-card enterprise">
+      <div class="price-tag">ENTERPRISE</div>
+      <div class="price-amount-text">Custom</div>
+      <div class="price-eyebrow" style="font-size:10px;font-family:'Roboto Mono';color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.12em;font-weight:500;margin-top:14px;margin-bottom:4px">TARGET</div>
+      <div class="price-name">Global Management Firms</div>
+      <div class="price-desc">API access, white-labelling, audit trails, and SLA guarantees. Priced per engagement.</div>
+      <ul class="price-list">
+        <li>Everything in Agency</li>
+        <li>Unlimited artists &amp; users</li>
+        <li>Full REST API access</li>
+        <li>White-label branding</li>
+        <li>Audit trails &amp; compliance logs</li>
+        <li>SSO / SAML integration</li>
+        <li>99.9% uptime SLA</li>
+        <li>Dedicated solutions engineer</li>
+      </ul>
+      <button class="price-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a call →</button>
     </div>
   </div>
 
@@ -783,10 +842,10 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
         <div class="brand-mark">S</div>
         <div>
           <div class="brand-name"><span class="l1">S</span><span class="l2">e</span><span class="l3">t</span><span class="l4">F</span><span class="l5">l</span><span class="l6">o</span><span class="l7">w</span></div>
-          <div class="brand-tag">Touring · 2025</div>
+          <div class="brand-tag">Press Play.</div>
         </div>
       </a>
-      <p class="foot-tagline">The operating system for touring artists. Built in Johannesburg, made for the world.</p>
+      <p class="foot-tagline">The premier platform for global touring artists. Built in Johannesburg, made for the world.</p>
     </div>
     <div>
       <div class="foot-col-title">Product</div>
@@ -875,6 +934,21 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
 /* ═══════════════════════════════════════════════════ AUTH MODAL ═══ */
 let authMode = 'signin';   // 'signin' | 'signup'
 let modalRole = 'manager'; // 'manager' | 'artist' | 'promoter'
+
+/* ═══════════════════════════════════════════════════ BILLING TOGGLE ═══ */
+let billingCycle = 'monthly';
+function setBilling(cycle){
+  billingCycle = cycle;
+  document.getElementById('billMonthly').classList.toggle('active', cycle === 'monthly');
+  document.getElementById('billAnnual').classList.toggle('active', cycle === 'annual');
+  document.querySelectorAll('.price-amount[data-monthly]').forEach(el => {
+    const v = cycle === 'annual' ? el.dataset.annual : el.dataset.monthly;
+    const small = el.querySelector('.small');
+    const suffix = small ? (cycle === 'annual' ? small.dataset.suffixAnnual : small.dataset.suffixMonthly) : '';
+    el.firstChild.nodeValue = 'R' + Number(v).toLocaleString();
+    if(small) small.textContent = suffix;
+  });
+}
 
 function openLogin(mode){
   authMode = mode || 'signin';
