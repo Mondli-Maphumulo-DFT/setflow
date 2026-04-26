@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SetFlow · Press Play.</title>
-<meta name="description" content="The premier platform for global touring artists and the teams that move them. Built in South Africa, made for the world."/>
+<meta name="description" content="The Premier Management Platform for the Global Stage. Orchestrate your career with unmatched operational precision and creative fluidity."/>
 <meta property="og:title" content="SetFlow · Press Play."/>
-<meta property="og:description" content="The premier platform for global touring artists. Replace spreadsheets and WhatsApp with one beautiful platform."/>
+<meta property="og:description" content="The Premier Management Platform for the Global Stage. Orchestrate your career with unmatched operational precision and creative fluidity."/>
 <meta property="og:type" content="website"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,8 +34,8 @@
   --g-red:#EA4335; --g-red-bg:#FCE8E6; --g-red-bd:#F8C0BB;
   --g-yel:#F9AB00; --g-yel-bg:#FEF7E0; --g-yel-bd:#FDE293; --g-yel-ink:#A8530A;
   --g-grn:#34A853; --g-grn-bg:#E6F4EA; --g-grn-bd:#A8D5B5;
-  /* SA flag */
-  --sa-green:#007A4D; --sa-gold:#FFB81C; --sa-red:#DE3831; --sa-blue:#002395;
+  /* Brand accent */
+  --brand-green:#1A6B4A; --brand-gold-alt:#C9A961;
   /* Gold edge */
   --gold:#C9A961; --gold-h:#B89548; --gold-light:#E8DBB7;
   --gold-bg:rgba(201,169,97,0.08); --gold-glow:rgba(201,169,97,0.18);
@@ -63,10 +63,10 @@ html,body{font-family:'Roboto',system-ui,-apple-system,sans-serif;background:var
 .nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border-soft)}
 .nav-inner{max-width:1240px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:36px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);flex-shrink:0}
-.brand-mark{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--sa-green),#00A86B);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Google Sans';font-weight:700;font-size:17px;box-shadow:0 2px 8px rgba(0,122,77,0.30);position:relative;overflow:hidden}
+.brand-mark{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#F9AB00 0%,#EA4335 25%,#9C27B0 50%,#1A73E8 75%,#34A853 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Google Sans';font-weight:700;font-size:17px;box-shadow:0 2px 8px rgba(234,67,53,0.30);position:relative;overflow:hidden}
 .brand-mark::after{content:'';position:absolute;inset:0;border:1px solid rgba(255,255,255,0.18);border-radius:8px}
 .brand-name{font-family:'Google Sans';font-size:20px;font-weight:500;letter-spacing:-0.3px;line-height:1}
-.brand-name .l1{color:var(--sa-green)}.brand-name .l2{color:var(--sa-gold)}.brand-name .l3{color:var(--sa-red)}.brand-name .l4{color:var(--sa-blue)}.brand-name .l5{color:#000}.brand-name .l6{color:var(--sa-green)}.brand-name .l7{color:var(--sa-gold)}
+.brand-name .l1{color:#007A4D}.brand-name .l2{color:#FFB81C}.brand-name .l3{color:#DE3831}.brand-name .l4{color:#002395}.brand-name .l5{color:#000}.brand-name .l6{color:#007A4D}.brand-name .l7{color:#FFB81C}
 .brand-tag{font-size:9px;font-family:'Roboto Mono';color:var(--gold-h);letter-spacing:0.16em;text-transform:uppercase;font-weight:500;margin-top:2px;line-height:1}
 
 .nav-links{display:flex;align-items:center;gap:6px;flex:1}
@@ -83,9 +83,8 @@ html,body{font-family:'Roboto',system-ui,-apple-system,sans-serif;background:var
 .btn.lg{height:48px;padding:0 26px;font-size:14px}
 .btn.ghost{background:transparent;border-color:transparent}
 .btn.ghost:hover{background:var(--surface-2)}
-.btn-sa{background:linear-gradient(135deg,var(--sa-green),#00A86B);border-color:var(--sa-green);color:#fff}
-.btn-sa:hover{box-shadow:0 4px 14px rgba(0,122,77,0.32)}
-
+.btn-brand{background:linear-gradient(135deg,var(--brand-green),#1E8A5E);border-color:var(--brand-green);color:#fff}
+.btn-brand:hover{box-shadow:0 4px 14px rgba(26,107,74,0.32)}
 .menu-btn{display:none;width:38px;height:38px;border-radius:50%;background:transparent;border:none;cursor:pointer;align-items:center;justify-content:center}
 .menu-btn:hover{background:var(--surface-2)}
 
@@ -261,7 +260,7 @@ html,body{font-family:'Roboto',system-ui,-apple-system,sans-serif;background:var
 .testimonial::before{content:'"';position:absolute;top:8px;left:18px;font-family:'Google Sans';font-size:64px;color:var(--gold);opacity:0.32;line-height:1}
 .testimonial-quote{font-size:14px;line-height:1.65;color:var(--ink-2);margin-bottom:18px;margin-top:14px;position:relative;z-index:1}
 .testimonial-author{display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--border-soft)}
-.testimonial-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--sa-green),#00A86B);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:500;font-size:13px;flex-shrink:0}
+.testimonial-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--brand-green),#1E8A5E);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:500;font-size:13px;flex-shrink:0}
 .testimonial-name{font-size:13px;font-weight:500;color:var(--ink)}
 .testimonial-role{font-size:11px;color:var(--muted);font-family:'Roboto Mono';margin-top:1px}
 
@@ -300,7 +299,7 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
 .modal::before{content:'';position:absolute;top:0;left:24px;right:24px;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 50%,transparent)}
 .overlay.open .modal{transform:scale(1) translateY(0)}
 .modal-head{padding:28px 28px 8px;text-align:center}
-.modal-logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--sa-green),#00A86B);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Google Sans';font-weight:700;font-size:20px;margin:0 auto 14px;box-shadow:0 4px 12px rgba(0,122,77,0.3)}
+.modal-logo{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--brand-green),#1E8A5E);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Google Sans';font-weight:700;font-size:20px;margin:0 auto 14px;box-shadow:0 4px 12px rgba(26,107,74,0.3)}
 .modal-title{font-family:'Google Sans';font-size:22px;font-weight:500;letter-spacing:-0.3px}
 .modal-sub{font-size:13px;color:var(--muted);margin-top:4px}
 .modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all var(--t)}
@@ -393,8 +392,8 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
 <section class="hero">
   <div>
     <div class="hero-pre"><span class="ball"></span>BUILT IN SOUTH AFRICA · MADE FOR THE WORLD</div>
-    <h1 class="hero-h1">The premier platform for <span class="blue">global touring artists</span> and the <span class="gold">teams that move them.</span></h1>
-    <p class="hero-sub">Replace spreadsheets, WhatsApp threads, and inbox chaos with one beautiful platform. From Black Coffee to David Guetta — SetFlow is the command centre touring artists actually deserve.</p>
+    <h1 class="hero-h1">The Premier Management Platform for the <span class="blue">Global Stage.</span></h1>
+    <p class="hero-sub">Orchestrate your career with unmatched operational precision and creative fluidity. SetFlow centralizes your logistics, financial oversight, and touring agreements into a single, high-performance interface.</p>
     <div class="hero-cta-row">
       <button class="btn primary lg" onclick="openLogin('signup')">Start your trial</button>
       <button class="btn lg" onclick="openLogin('signin')">Sign in</button>
@@ -402,7 +401,7 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
     <div class="hero-trust">
       <span>★ ★ ★ ★ ★</span>
       <span class="hero-trust-dot"></span>
-      <span>Trusted by SA touring acts</span>
+      <span>Trusted by world-class touring acts</span>
       <span class="hero-trust-dot"></span>
       <span>14-day free trial · No card needed</span>
     </div>
@@ -416,7 +415,7 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
           <div class="mockup-dot"></div>
           <div class="mockup-dot"></div>
           <div class="mockup-dot"></div>
-          <div class="mockup-url">setflows.netlify.app/app</div>
+          <div class="mockup-url">app.setflow.io</div>
         </div>
         <div class="mockup-body">
           <div class="mockup-feature-card">
@@ -437,23 +436,23 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
           <div class="mockup-pipeline">
             <div class="mockup-col">
               <div class="mockup-col-head"><div class="mockup-col-dot" style="background:var(--g-blue)"></div>Inquiry</div>
-              <div class="mockup-gig"><div class="mockup-gig-name">Output NYC</div><div class="mockup-gig-fee">R450k</div></div>
-              <div class="mockup-gig"><div class="mockup-gig-name">Circoloco AMS</div><div class="mockup-gig-fee">R380k</div></div>
+              <div class="mockup-gig"><div class="mockup-gig-name">Club XS · NYC</div><div class="mockup-gig-fee">R450k</div></div>
+              <div class="mockup-gig"><div class="mockup-gig-name">Venue AMS</div><div class="mockup-gig-fee">R380k</div></div>
             </div>
             <div class="mockup-col">
               <div class="mockup-col-head"><div class="mockup-col-dot" style="background:var(--g-yel)"></div>On hold</div>
-              <div class="mockup-gig"><div class="mockup-gig-name">Watergate</div><div class="mockup-gig-fee">R280k</div></div>
-              <div class="mockup-gig"><div class="mockup-gig-name">Boiler Room CT</div><div class="mockup-gig-fee">R150k</div></div>
+              <div class="mockup-gig"><div class="mockup-gig-name">Club Berlin</div><div class="mockup-gig-fee">R280k</div></div>
+              <div class="mockup-gig"><div class="mockup-gig-name">Studio 54 CT</div><div class="mockup-gig-fee">R150k</div></div>
             </div>
             <div class="mockup-col">
               <div class="mockup-col-head"><div class="mockup-col-dot" style="background:var(--g-grn)"></div>Confirmed</div>
               <div class="mockup-gig"><div class="mockup-gig-name">Pacha Ibiza</div><div class="mockup-gig-fee">R820k</div></div>
-              <div class="mockup-gig"><div class="mockup-gig-name">Tomorrowland</div><div class="mockup-gig-fee">R1.5M</div></div>
+              <div class="mockup-gig"><div class="mockup-gig-name">Grand Festival</div><div class="mockup-gig-fee">R1.5M</div></div>
             </div>
             <div class="mockup-col">
               <div class="mockup-col-head"><div class="mockup-col-dot" style="background:#5F6368"></div>Done</div>
-              <div class="mockup-gig"><div class="mockup-gig-name">Coachella</div><div class="mockup-gig-fee">R1.7M</div></div>
-              <div class="mockup-gig"><div class="mockup-gig-name">Ultra Miami</div><div class="mockup-gig-fee">R1.4M</div></div>
+              <div class="mockup-gig"><div class="mockup-gig-name">Apex Festival</div><div class="mockup-gig-fee">R1.7M</div></div>
+              <div class="mockup-gig"><div class="mockup-gig-name">Arena Miami</div><div class="mockup-gig-fee">R1.4M</div></div>
             </div>
           </div>
         </div>
@@ -464,54 +463,53 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
 
 <!-- ════════════════════════════════════════════════════ LOGO STRIP ══ -->
 <div class="logo-strip">
-  <div class="logo-strip-label">DESIGNED FOR THE GLOBAL TOURING ELITE</div>
+  <div class="logo-strip-label">TRUSTED BY THE GLOBAL TOURING ELITE</div>
   <div class="logo-strip-row">
-    <div class="logo-strip-name">Afro House</div>
-    <div class="logo-strip-name">Ibiza Circuit</div>
-    <div class="logo-strip-name">Festival Tier</div>
-    <div class="logo-strip-name">Boiler Room</div>
-    <div class="logo-strip-name">Tomorrowland</div>
+    <div class="logo-strip-name">DJ MrWez</div>
+    <div class="logo-strip-name">Luna Solaris</div>
+    <div class="logo-strip-name">Andre V</div>
+    <div class="logo-strip-name">K-Sync</div>
   </div>
 </div>
 
 <!-- ════════════════════════════════════════════════════ 3-PILLAR ══ -->
 <section class="sec" id="for-artists">
   <div class="sec-tag">BUILT FOR THREE ROLES</div>
-  <h2 class="sec-h2">One platform. <span class="blue">Three perfectly tailored views.</span></h2>
-  <p class="sec-sub">Artists see their gigs and rider. Managers run the whole pipeline. Promoters confirm bookings and pay deposits. Each role gets exactly what they need — nothing more, nothing less.</p>
+  <h2 class="sec-h2">One platform. <span class="blue">Three perfectly calibrated views.</span></h2>
+  <p class="sec-sub">Every stakeholder in the touring ecosystem operates with precision. Artists command their calendar and rider. Managers govern the full pipeline. Promoters execute confirmations with confidence. Each role receives exactly the intelligence it requires.</p>
 
   <div class="pillars">
     <div class="pillar artist" id="for-artists">
       <div class="pillar-icon">🎧</div>
       <div class="pillar-title">For Artists</div>
-      <div class="pillar-desc">See your tour at a glance. Confirmed gigs, your rider, and where the money is. Without spreadsheets.</div>
+      <div class="pillar-desc">Your entire touring operation, distilled to clarity. Confirmed engagements, your technical rider, and financial status — available at a glance, anywhere in the world.</div>
       <ul class="pillar-list">
-        <li>Your bookings calendar</li>
-        <li>Rider auto-attached to gigs</li>
-        <li>Travel & hotel info in one place</li>
-        <li>Mobile-first — built for the road</li>
+        <li>Complete bookings calendar with status intelligence</li>
+        <li>Rider auto-attached to every confirmed engagement</li>
+        <li>Travel, accommodation, and logistics in one view</li>
+        <li>Mobile-first — engineered for life on the road</li>
       </ul>
     </div>
     <div class="pillar manager" id="for-managers">
       <div class="pillar-icon">👔</div>
       <div class="pillar-title">For Managers</div>
-      <div class="pillar-desc">Run the entire pipeline. Holds, contracts, deposits, multi-currency revenue, all your artists in one workspace.</div>
+      <div class="pillar-desc">Full command of the pipeline. Holds, contracts, deposits, and multi-currency revenue across your entire roster — governed from a single, authoritative workspace.</div>
       <ul class="pillar-list">
-        <li>Pipeline kanban with hold timers</li>
-        <li>Multi-currency revenue (ZAR-first)</li>
-        <li>Multiple artists in one view</li>
-        <li>Native rider builder + e-sign</li>
+        <li>Pipeline command with automated hold timers</li>
+        <li>Multi-currency revenue, normalized in real time</li>
+        <li>Full roster visibility in one unified view</li>
+        <li>Native rider builder with integrated e-sign</li>
       </ul>
     </div>
     <div class="pillar promoter" id="for-promoters">
       <div class="pillar-icon">🎪</div>
       <div class="pillar-title">For Promoters</div>
-      <div class="pillar-desc">Confirm bookings, sign contracts, pay deposits. A clean portal with the artist's rider attached and the timeline locked in.</div>
+      <div class="pillar-desc">A dedicated portal designed for decisiveness. Confirm bookings, execute contracts, and settle deposits — with the artist's full technical rider already attached.</div>
       <ul class="pillar-list">
-        <li>Booking confirmations</li>
-        <li>Rider previews + sign-off</li>
-        <li>Deposit & balance tracking</li>
-        <li>Direct comms with management</li>
+        <li>Streamlined booking confirmations</li>
+        <li>Rider previews with single-click sign-off</li>
+        <li>Deposit and balance tracking, transparently</li>
+        <li>Direct channel to artist management</li>
       </ul>
     </div>
   </div>
@@ -519,58 +517,58 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
 
 <!-- ════════════════════════════════════════════════════ FEATURES ══ -->
 <section class="sec" id="features">
-  <div class="sec-tag gold">CENTRALIZED PRODUCTIVITY</div>
-  <h2 class="sec-h2">Everything you need to run a touring career — <span class="gold">finally in one place.</span></h2>
-  <p class="sec-sub">Stop bouncing between Notion, Google Calendar, WhatsApp groups, DocuSign, and a chaotic spreadsheet. SetFlow consolidates the entire workflow.</p>
+  <div class="sec-tag gold">OPERATIONAL EXCELLENCE</div>
+  <h2 class="sec-h2">Eliminate operational friction. <span class="gold">Every detail, in command.</span></h2>
+  <p class="sec-sub">SetFlow centralizes your logistics, financial oversight, and touring agreements into a single, high-performance interface. Time saved is leverage regained — and revenue secured is a career compounding on itself.</p>
 
   <!-- Feature 1: Pipeline -->
   <div class="feature-row">
     <div>
-      <div class="feature-eyebrow">PIPELINE</div>
-      <h3 class="feature-h3">From inquiry to confirmed in one view.</h3>
-      <p class="feature-text">Visual kanban that mirrors how booking actually works. Drag cards through stages, set hold expiry timers that auto-release, and see your locked revenue in real time.</p>
+      <div class="feature-eyebrow">PIPELINE INTELLIGENCE</div>
+      <h3 class="feature-h3">Every engagement, from first inquiry to final payment.</h3>
+      <p class="feature-text">A visual command pipeline that mirrors how high-calibre bookings actually move. Advance each engagement through stages with precision — and let automated hold timers protect your leverage without a single follow-up.</p>
       <ul class="feature-points">
-        <li>4-stage pipeline: Inquiry → Hold → Confirmed → Completed</li>
-        <li>Auto-release timers on holds prevent ghosting promoters</li>
-        <li>Each card opens to full booking details</li>
-        <li>Multi-artist columns for managers running rosters</li>
+        <li>Four-stage pipeline: Inquiry → Hold → Confirmed → Completed</li>
+        <li>Automated hold expiry — no manual chasing required</li>
+        <li>Full booking detail accessible from every card</li>
+        <li>Multi-artist columns for managers running rosters at scale</li>
       </ul>
     </div>
     <div class="feature-visual">
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px">
         <div style="background:var(--surface-2);border-radius:8px;padding:10px">
           <div style="font-size:10px;font-family:'Roboto Mono';color:var(--muted);margin-bottom:6px">⬤ INQUIRY</div>
-          <div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:6px;padding:8px;margin-bottom:4px;font-size:10px"><b>Output NYC</b><br><span style="color:var(--gold-h);font-family:'Roboto Mono'">$25k</span></div>
+          <div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:6px;padding:8px;margin-bottom:4px;font-size:10px"><b>Club XS · NYC</b><br><span style="color:var(--gold-h);font-family:'Roboto Mono'">$25k</span></div>
         </div>
         <div style="background:var(--surface-2);border-radius:8px;padding:10px">
           <div style="font-size:10px;font-family:'Roboto Mono';color:var(--g-yel-ink);margin-bottom:6px">⬤ ON HOLD</div>
-          <div style="background:var(--surface);border-left:3px solid var(--g-red);border-radius:6px;padding:8px;margin-bottom:4px;font-size:10px"><b>Watergate</b><br><span style="color:var(--gold-h);font-family:'Roboto Mono'">€15k</span></div>
+          <div style="background:var(--surface);border-left:3px solid var(--g-red);border-radius:6px;padding:8px;margin-bottom:4px;font-size:10px"><b>Club Berlin</b><br><span style="color:var(--gold-h);font-family:'Roboto Mono'">€15k</span></div>
         </div>
         <div style="background:var(--surface-2);border-radius:8px;padding:10px">
           <div style="font-size:10px;font-family:'Roboto Mono';color:var(--g-grn);margin-bottom:6px">⬤ CONFIRMED</div>
           <div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:6px;padding:8px;margin-bottom:4px;font-size:10px"><b>Pacha Ibiza</b><br><span style="color:var(--gold-h);font-family:'Roboto Mono'">€45k</span></div>
-          <div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:6px;padding:8px;font-size:10px"><b>Tomorrowland</b><br><span style="color:var(--gold-h);font-family:'Roboto Mono'">€85k</span></div>
+          <div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:6px;padding:8px;font-size:10px"><b>Grand Festival</b><br><span style="color:var(--gold-h);font-family:'Roboto Mono'">€85k</span></div>
         </div>
         <div style="background:var(--surface-2);border-radius:8px;padding:10px">
           <div style="font-size:10px;font-family:'Roboto Mono';color:var(--muted);margin-bottom:6px">⬤ DONE</div>
-          <div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:6px;padding:8px;font-size:10px"><b>Coachella</b><br><span style="color:var(--gold-h);font-family:'Roboto Mono'">$95k</span></div>
+          <div style="background:var(--surface);border:1px solid var(--border-soft);border-radius:6px;padding:8px;font-size:10px"><b>Apex Festival</b><br><span style="color:var(--gold-h);font-family:'Roboto Mono'">$95k</span></div>
         </div>
       </div>
-      <div style="font-size:11px;font-family:'Roboto Mono';color:var(--muted);margin-top:14px;text-align:center">⏱ 36 hours until Watergate hold expires</div>
+      <div style="font-size:11px;font-family:'Roboto Mono';color:var(--muted);margin-top:14px;text-align:center">⏱ 36 hours until Club Berlin hold expires</div>
     </div>
   </div>
 
   <!-- Feature 2: Revenue (visual on left) -->
   <div class="feature-row reverse">
     <div>
-      <div class="feature-eyebrow">REVENUE</div>
-      <h3 class="feature-h3">Multi-currency, normalized to Rand.</h3>
-      <p class="feature-text">Every gig fee in EUR, USD, GBP, or ZAR — instantly normalized to your home currency. See real revenue, regional breakdowns, and where the money's late.</p>
+      <div class="feature-eyebrow">FINANCIAL COMMAND</div>
+      <h3 class="feature-h3">Your global revenue, unified and clear.</h3>
+      <p class="feature-text">Every fee in EUR, USD, GBP, or your home currency — normalized in real time. See where the money stands across every region, every engagement, and every outstanding balance without leaving the platform.</p>
       <ul class="feature-points">
-        <li>FX-aware pipeline value (ZAR-first, by default)</li>
-        <li>Regional revenue: Europe, Americas, Africa, Asia</li>
-        <li>Deposit + balance tracker per gig</li>
-        <li>Export to QuickBooks, Xero, or PDF</li>
+        <li>FX-aware pipeline value, normalized to your preferred currency</li>
+        <li>Regional revenue breakdowns: Europe, Americas, Africa, Asia-Pacific</li>
+        <li>Deposit and balance tracker per engagement</li>
+        <li>Export to QuickBooks, Xero, or PDF for your accounting team</li>
       </ul>
     </div>
     <div class="feature-visual">
@@ -595,14 +593,14 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
   <!-- Feature 3: Rider builder -->
   <div class="feature-row">
     <div>
-      <div class="feature-eyebrow">RIDER BUILDER</div>
-      <h3 class="feature-h3">Rider + e-sign in one workflow.</h3>
-      <p class="feature-text">Build your standard rider once. Auto-attach to every confirmed booking. Promoters acknowledge with a click. No more PDF email chains.</p>
+      <div class="feature-eyebrow">RIDER & AGREEMENTS</div>
+      <h3 class="feature-h3">Your technical requirements, executed without friction.</h3>
+      <p class="feature-text">Build your standard rider once. It auto-attaches to every confirmed engagement. Promoters acknowledge with a single interaction. The era of PDF email chains is over.</p>
       <ul class="feature-points">
-        <li>Section-based rider: sound, stage, hospitality, travel</li>
-        <li>Per-booking customization in seconds</li>
+        <li>Section-based rider: sound, stage, hospitality, and travel</li>
+        <li>Per-booking customization in moments, not hours</li>
         <li>Promoter acknowledgement with native e-sign</li>
-        <li>Live progress tracking — what's been confirmed</li>
+        <li>Live confirmation tracking — always know what's locked in</li>
       </ul>
     </div>
     <div class="feature-visual">
@@ -633,66 +631,35 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════════ COMPARISON ══ -->
-<section class="cmp-section">
-  <div class="sec">
-    <div class="sec-tag">COMPETITIVE LANDSCAPE</div>
-    <h2 class="sec-h2">Why touring acts choose <span class="gold">SetFlow.</span></h2>
-    <p class="sec-sub">Gigwell was built for US booking agencies. Spreadsheets break the moment you have multi-currency. SetFlow is built for the global touring artist — with the African market in mind first.</p>
-
-    <table class="cmp-table">
-      <thead>
-        <tr>
-          <th>Feature</th>
-          <th class="sf">SetFlow</th>
-          <th>Gigwell</th>
-          <th>Muzeek</th>
-          <th>Spreadsheet</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Multi-currency normalisation</td><td class="sf"><span class="cmp-y">●</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-n">○</span></td></tr>
-        <tr><td>Hold expiry timers + auto-release</td><td class="sf"><span class="cmp-y">●</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-n">○</span></td></tr>
-        <tr><td>Artist-facing design (not agency CRM)</td><td class="sf"><span class="cmp-y">●</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-y">●</span></td><td><span class="cmp-n">○</span></td></tr>
-        <tr><td>Built-in rider builder</td><td class="sf"><span class="cmp-y">●</span></td><td><span class="cmp-p">◐</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-n">○</span></td></tr>
-        <tr><td>Native contract e-sign</td><td class="sf"><span class="cmp-y">●</span></td><td><span class="cmp-y">●</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-n">○</span></td></tr>
-        <tr><td>Agent / Manager / Artist permissions</td><td class="sf"><span class="cmp-y">●</span></td><td><span class="cmp-p">◐</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-n">○</span></td></tr>
-        <tr><td>Tour map with route view</td><td class="sf"><span class="cmp-y">●</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-n">○</span></td></tr>
-        <tr><td>Mobile-first interface</td><td class="sf"><span class="cmp-y">●</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-p">◐</span></td><td><span class="cmp-n">○</span></td></tr>
-        <tr><td>South African market focus</td><td class="sf"><span class="cmp-y">●</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-n">○</span></td><td><span class="cmp-n">○</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
 
 <!-- ════════════════════════════════════════════════════ TESTIMONIALS ══ -->
 <section class="sec">
-  <div class="sec-tag">SOCIAL PROOF</div>
-  <h2 class="sec-h2">What touring teams are saying.</h2>
+  <div class="sec-tag">CLIENT VOICES</div>
+  <h2 class="sec-h2">What touring teams are <span class="gold">saying.</span></h2>
 
   <div class="testimonials">
     <div class="testimonial">
-      <div class="testimonial-quote">SetFlow replaced four spreadsheets, two Notion pages, and a WhatsApp group. We finally know where every booking stands without asking three people.</div>
+      <div class="testimonial-quote">SetFlow gave us a single source of truth across four artists and two continents. The clarity it brings to every hold, every contract, every outstanding deposit — it's changed how we operate at a fundamental level.</div>
       <div class="testimonial-author">
         <div class="testimonial-avatar">TM</div>
         <div>
           <div class="testimonial-name">Tina M.</div>
-          <div class="testimonial-role">Tour Manager · Cape Town</div>
+          <div class="testimonial-role">Tour Manager · Global</div>
         </div>
       </div>
     </div>
     <div class="testimonial">
-      <div class="testimonial-quote">Multi-currency was the killer feature. Seeing my European fees in Rand without doing the maths in my head — that alone is worth the subscription.</div>
+      <div class="testimonial-quote">The financial oversight alone justifies the investment. Seeing every fee normalized to a single currency in real time — without manual conversion — is the kind of operational precision a touring career at this level demands.</div>
       <div class="testimonial-author">
         <div class="testimonial-avatar" style="background:linear-gradient(135deg,#EA4335,#FB6156)">JO</div>
         <div>
           <div class="testimonial-name">James O.</div>
-          <div class="testimonial-role">Booking Agent · Johannesburg</div>
+          <div class="testimonial-role">Booking Agent · International</div>
         </div>
       </div>
     </div>
     <div class="testimonial">
-      <div class="testimonial-quote">The rider builder saved us a whole role. Promoters acknowledge with one click, and the rider auto-attaches to every confirmed gig.</div>
+      <div class="testimonial-quote">The rider workflow transformed our pre-show process. Promoters receive, review, and acknowledge in one seamless flow — and the rider follows every confirmed booking automatically. This is how touring should work.</div>
       <div class="testimonial-author">
         <div class="testimonial-avatar" style="background:linear-gradient(135deg,#F9AB00,#FCC934)">SK</div>
         <div>
@@ -709,8 +676,8 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
   <div class="sec-tag">PLANS &amp; PRICING</div>
   <div class="billing-row">
     <div>
-      <h2 class="sec-h2" style="margin-bottom:6px">Plans &amp; Pricing.</h2>
-      <p class="sec-sub" style="margin-bottom:0">From bedroom producer to global management firm — scale as you grow.</p>
+      <h2 class="sec-h2" style="margin-bottom:6px">Investment &amp; Scale.</h2>
+      <p class="sec-sub" style="margin-bottom:0">Whether you're building a touring career or governing a global roster — SetFlow scales with your ambition.</p>
     </div>
     <div class="billing-toggle" role="tablist" aria-label="Billing cycle">
       <button class="billing-opt active" id="billMonthly" onclick="setBilling('monthly')" type="button">Monthly</button>
@@ -723,15 +690,15 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
       <div class="price-tag">FOUNDATIONS</div>
       <div class="price-amount" data-monthly="950" data-annual="789">R950<span class="small" data-suffix-monthly="/mo" data-suffix-annual="/mo billed annually">/mo</span></div>
       <div class="price-eyebrow" style="font-size:10px;font-family:'Roboto Mono';color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;font-weight:500;margin-top:14px;margin-bottom:4px">TARGET</div>
-      <div class="price-name">Emerging / Local Artists</div>
-      <div class="price-desc">Essential booking tools, zero overwhelm. Perfect for artists starting to book local club gigs.</div>
+      <div class="price-name">Emerging Artists</div>
+      <div class="price-desc">The essential toolkit for artists beginning to build a professional touring presence.</div>
       <ul class="price-list">
         <li>Up to 20 bookings / year</li>
-        <li>Basic pipeline kanban</li>
+        <li>Pipeline kanban</li>
         <li>Calendar view</li>
         <li>Single artist profile</li>
         <li>Rider builder (read-only share)</li>
-        <li>ZAR + 1 foreign currency</li>
+        <li>Home currency + 1 foreign currency</li>
         <li>Email support</li>
       </ul>
       <button class="price-cta" onclick="openLogin('signup')">Get started free</button>
@@ -741,8 +708,8 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
       <div class="price-tag">★ MOST POPULAR</div>
       <div class="price-amount" data-monthly="4500" data-annual="3735">R4,500<span class="small" data-suffix-monthly="/mo" data-suffix-annual="/mo billed annually">/mo</span></div>
       <div class="price-eyebrow" style="font-size:10px;font-family:'Roboto Mono';color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.12em;font-weight:500;margin-top:14px;margin-bottom:4px">TARGET</div>
-      <div class="price-name">Touring Acts &amp; Headliners</div>
-      <div class="price-desc">Full automation — hold expiry, multi-currency, e-sign, riders, and agent/manager split.</div>
+      <div class="price-name">Touring Headliners</div>
+      <div class="price-desc">The complete platform for established touring acts and their management. Full automation, full control.</div>
       <ul class="price-list">
         <li>Unlimited bookings</li>
         <li>Multi-currency (EUR/USD/GBP/ZAR)</li>
@@ -805,9 +772,9 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
 <!-- ════════════════════════════════════════════════════ CTA BANNER ══ -->
 <div class="cta-banner">
   <div class="cta-inner">
-    <div class="cta-pre">READY TO PRESS PLAY?</div>
-    <h2 class="cta-h2">Stop running your career on spreadsheets.</h2>
-    <p class="cta-sub">Join the touring acts who've already moved to SetFlow. Your stage is set.</p>
+    <div class="cta-pre">YOUR STAGE IS SET</div>
+    <h2 class="cta-h2">The global stage awaits. Are you ready to perform?</h2>
+    <p class="cta-sub">Join the world-class touring acts who have elevated their operations with SetFlow. Precision starts here.</p>
     <div class="cta-row">
       <button class="btn lg" style="background:rgba(255,255,255,0.92);color:var(--ink);border:none" onclick="openLogin('signup')">Start your free trial</button>
       <button class="btn lg" style="background:transparent;border:1px solid rgba(255,255,255,0.4);color:#fff" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to sales</button>
@@ -818,8 +785,8 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
 <!-- ════════════════════════════════════════════════════ CONTACT ══ -->
 <section class="sec" id="contact">
   <div class="sec-tag">GET IN TOUCH</div>
-  <h2 class="sec-h2">We'd love to hear from you.</h2>
-  <p class="sec-sub">Manager, agent, promoter, or artist — tell us about your touring setup and we'll show you how SetFlow fits.</p>
+  <h2 class="sec-h2">Let's talk about your touring operation.</h2>
+  <p class="sec-sub">Whether you're an artist, manager, agent, or promoter — share the details of your setup and we'll show you exactly how SetFlow elevates it.</p>
 
   <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleContact(event)">
     <input type="hidden" name="form-name" value="contact">
@@ -845,7 +812,7 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
           <div class="brand-tag">Press Play.</div>
         </div>
       </a>
-      <p class="foot-tagline">The premier platform for global touring artists. Built in Johannesburg, made for the world.</p>
+      <p class="foot-tagline">The Premier Management Platform for the Global Stage. Precision-built for world-class touring acts and the teams that move them.</p>
     </div>
     <div>
       <div class="foot-col-title">Product</div>
@@ -868,8 +835,8 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
     </div>
   </div>
   <div class="foot-bottom">
-    <div>© 2025 SetFlow · DithaNimba Holdings · Built in Johannesburg 🇿🇦</div>
-    <div>Powered by <a href="#">Supabase</a> · <a href="#">Netlify</a></div>
+    <div>© 2025 SetFlow · All rights reserved.</div>
+    <div style="color:var(--muted)">The Premier Management Platform for the Global Stage.</div>
   </div>
 </footer>
 
@@ -1052,17 +1019,16 @@ async function signOut(){
 
 /* ═══════════════════════════════════════════════════ CONTACT FORM ═══ */
 function handleContact(e){
-  // Netlify will intercept and POST naturally — but we show success state in-page
+  // Form submission handler — shows in-page success state
   const result = document.getElementById('contact-result');
   result.textContent = 'Sending…';
   result.style.color = 'var(--muted)';
-  // Allow Netlify form-handling to proceed natively (don't preventDefault)
-  // Netlify Forms detects form submission and intercepts on its end
+  // Allow native form submission to proceed
   setTimeout(()=>{
     result.textContent = '✓ Message sent. We\'ll be in touch within 1 business day.';
     result.style.color = 'var(--g-grn)';
   }, 600);
-  // Note: actual submission happens via Netlify's <form data-netlify="true"> handling
+  // Native form handling
 }
 
 function toggleMenu(){
