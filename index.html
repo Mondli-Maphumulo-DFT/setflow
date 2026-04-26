@@ -510,8 +510,795 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
 <body>
 
 
+<!-- ═══════════════════════════════════════════════════════════════════
+     SETFLOW MARKETING LANDING PAGE
+     Injected immediately after <body>
+     Hidden once user logs in via: document.getElementById('landing').style.display='none'
+════════════════════════════════════════════════════════════════════ -->
+
+<style>
+/* ── LANDING RESETS & VARS ─────────────────────────────────── */
+#landing{
+  position:fixed;inset:0;z-index:9000;overflow-y:auto;overflow-x:hidden;
+  background:#04080F;
+  font-family:'Google Sans','Roboto',system-ui,sans-serif;
+  color:#E8EAF0;
+  -webkit-font-smoothing:antialiased;
+  scroll-behavior:smooth;
+  display:flex;flex-direction:column;
+}
+#landing *{box-sizing:border-box;margin:0;padding:0}
+#landing ::-webkit-scrollbar{width:5px}
+#landing ::-webkit-scrollbar-thumb{background:rgba(201,169,97,0.3);border-radius:3px}
+
+/* ── TYPOGRAPHY ────────────────────────────────────────────── */
+.lp-display{font-family:'Google Sans';font-weight:700;letter-spacing:-1.5px;line-height:1.0;color:#fff}
+.lp-display.xl{font-size:clamp(52px,7vw,96px)}
+.lp-display.lg{font-size:clamp(36px,5vw,64px)}
+.lp-display.md{font-size:clamp(26px,3.5vw,42px)}
+.lp-body{font-size:17px;line-height:1.75;color:rgba(232,234,240,0.70);font-weight:300}
+.lp-body.sm{font-size:14px;line-height:1.6}
+.lp-mono{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(232,234,240,0.40)}
+.lp-gold{background:linear-gradient(90deg,#E8DBB7,#C9A961,#B89548);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lp-green{color:#3ECF8E}
+.lp-red{color:#F87171}
+
+/* ── LAYOUT UTILS ──────────────────────────────────────────── */
+.lp-container{max-width:1200px;margin:0 auto;padding:0 32px;width:100%}
+.lp-container.narrow{max-width:760px}
+.lp-section{padding:100px 0}
+.lp-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.lp-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.lp-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:900px){.lp-grid-2{grid-template-columns:1fr;gap:40px}.lp-grid-3{grid-template-columns:1fr 1fr}.lp-grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.lp-grid-3,.lp-grid-4{grid-template-columns:1fr}}
+.lp-tag{display:inline-flex;align-items:center;gap:6px;font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#C9A961;background:rgba(201,169,97,0.10);border:1px solid rgba(201,169,97,0.25);padding:5px 14px;border-radius:100px;margin-bottom:20px}
+.lp-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:#C9A961;flex-shrink:0}
+.lp-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,97,0.2) 50%,transparent);margin:0}
+
+/* ── BUTTONS ───────────────────────────────────────────────── */
+.lp-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Google Sans';font-size:15px;font-weight:500;padding:14px 28px;border-radius:100px;border:none;cursor:pointer;transition:all 0.2s;text-decoration:none;white-space:nowrap;letter-spacing:-0.1px}
+.lp-btn.gold{background:linear-gradient(135deg,#D4B97E,#C9A961,#B89548);color:#000;box-shadow:0 4px 20px rgba(201,169,97,0.30)}
+.lp-btn.gold:hover{box-shadow:0 6px 28px rgba(201,169,97,0.50);transform:translateY(-1px)}
+.lp-btn.outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.20)}
+.lp-btn.outline:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.35)}
+.lp-btn.ghost{background:transparent;color:rgba(255,255,255,0.6);font-size:14px;padding:10px 20px}
+.lp-btn.ghost:hover{color:#fff}
+.lp-btn svg{flex-shrink:0}
+.lp-btn-arrow{transition:transform 0.2s}
+.lp-btn:hover .lp-btn-arrow{transform:translateX(3px)}
+
+/* ── NAV ───────────────────────────────────────────────────── */
+.lp-nav{position:sticky;top:0;z-index:100;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:68px;border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(4,8,15,0.85);transition:all 0.2s}
+.lp-nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.lp-nav-logo-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#007A4D,#FFB612 45%,#DE3831 70%,#002395);display:flex;align-items:center;justify-content:center;font-family:'Google Sans';font-weight:700;font-size:17px;color:#fff;box-shadow:0 2px 12px rgba(0,122,77,0.45);flex-shrink:0}
+.lp-nav-wordmark{font-family:'Google Sans';font-size:19px;font-weight:500;letter-spacing:-0.3px}
+.lp-nav-wordmark .l1{color:#007A4D}.lp-nav-wordmark .l2{color:#DE3831}.lp-nav-wordmark .l3{color:#FFB612}.lp-nav-wordmark .l4{color:#002395}.lp-nav-wordmark .l5{color:#007A4D}.lp-nav-wordmark .l6{color:#DE3831}.lp-nav-wordmark .l7{color:#FFB612}
+.lp-nav-links{display:flex;align-items:center;gap:4px}
+.lp-nav-link{font-size:14px;color:rgba(255,255,255,0.6);padding:8px 14px;border-radius:100px;cursor:pointer;transition:all 0.15s;background:transparent;border:none;font-family:'Google Sans';text-decoration:none}
+.lp-nav-link:hover{color:#fff;background:rgba(255,255,255,0.07)}
+.lp-nav-cta{display:flex;align-items:center;gap:10px}
+@media(max-width:680px){.lp-nav-links{display:none}}
+
+/* ── SA FLAG BAR ───────────────────────────────────────────── */
+.lp-flag-bar{height:3px;background:linear-gradient(90deg,#007A4D 0 25%,#FFB612 25% 50%,#DE3831 50% 75%,#002395 75% 100%);opacity:0.9;flex-shrink:0}
+
+/* ── HERO ──────────────────────────────────────────────────── */
+.lp-hero{padding:120px 0 80px;position:relative;overflow:hidden}
+.lp-hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(ellipse,rgba(0,122,77,0.15) 0%,rgba(26,115,232,0.08) 40%,transparent 70%);pointer-events:none;z-index:0}
+.lp-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,97,0.3) 50%,transparent)}
+.lp-hero-inner{position:relative;z-index:1;text-align:center;max-width:900px;margin:0 auto;padding:0 32px}
+.lp-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,122,77,0.15);border:1px solid rgba(0,122,77,0.35);border-radius:100px;padding:6px 16px;font-size:13px;color:#3ECF8E;margin-bottom:28px;font-family:'Roboto Mono',monospace;letter-spacing:0.05em}
+.lp-hero-badge-dot{width:6px;height:6px;border-radius:50%;background:#3ECF8E;animation:lpPulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes lpPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(62,207,142,0.5)}50%{opacity:0.8;box-shadow:0 0 0 6px rgba(62,207,142,0)}}
+.lp-hero-eyebrow{margin-bottom:20px}
+.lp-hero-title{margin-bottom:24px}
+.lp-hero-sub{font-size:20px;line-height:1.7;color:rgba(232,234,240,0.60);max-width:680px;margin:0 auto 44px;font-weight:300}
+.lp-hero-btns{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:60px}
+.lp-hero-social{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+.lp-hero-social-item{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.4)}
+.lp-hero-social-flag{font-size:16px}
+.lp-hero-proof{border-top:1px solid rgba(255,255,255,0.07);padding-top:48px;margin-top:0}
+.lp-proof-label{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.14em;color:rgba(255,255,255,0.30);text-transform:uppercase;text-align:center;margin-bottom:28px}
+.lp-proof-logos{display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap}
+.lp-proof-logo{font-family:'Google Sans';font-size:15px;font-weight:500;color:rgba(255,255,255,0.22);letter-spacing:0.5px;transition:color 0.2s;cursor:default}
+.lp-proof-logo:hover{color:rgba(255,255,255,0.50)}
+
+/* ── APP SCREENSHOT ────────────────────────────────────────── */
+.lp-screenshot-section{padding:0 0 100px}
+.lp-screenshot-wrap{position:relative;max-width:1100px;margin:0 auto;padding:0 32px}
+.lp-screenshot-glow{position:absolute;top:30px;left:50%;transform:translateX(-50%);width:800px;height:300px;background:radial-gradient(ellipse,rgba(26,115,232,0.15) 0%,rgba(201,169,97,0.08) 50%,transparent 70%);pointer-events:none;z-index:0}
+.lp-screenshot-frame{position:relative;z-index:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.10);border-radius:20px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.60),0 0 0 1px rgba(201,169,97,0.15)}
+.lp-screenshot-bar{height:44px;background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;padding:0 20px;gap:8px}
+.lp-screenshot-dot{width:12px;height:12px;border-radius:50%}
+.lp-screenshot-url{flex:1;max-width:320px;margin:0 auto;height:24px;background:rgba(255,255,255,0.06);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Roboto Mono',monospace;font-size:11px;color:rgba(255,255,255,0.30);gap:6px}
+.lp-screenshot-inner{background:linear-gradient(180deg,#0d1117 0%,#0a1628 100%);padding:24px;display:grid;grid-template-columns:220px 1fr;gap:0;min-height:440px}
+.lp-mock-sidebar{background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.06);border-radius:10px 0 0 10px;padding:20px 16px;display:flex;flex-direction:column;gap:4px}
+.lp-mock-brand{display:flex;align-items:center;gap:8px;padding:0 4px;margin-bottom:16px}
+.lp-mock-brand-mark{width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,#007A4D,#FFB612 45%,#DE3831 70%,#002395);flex-shrink:0}
+.lp-mock-brand-name{font-family:'Google Sans';font-size:14px;font-weight:500;color:#fff}
+.lp-mock-nav-item{height:34px;border-radius:100px;display:flex;align-items:center;padding:0 12px;gap:10px;font-size:12px;color:rgba(255,255,255,0.45)}
+.lp-mock-nav-item.active{background:rgba(26,115,232,0.20);color:#4F8EF7}
+.lp-mock-nav-dot{width:14px;height:14px;border-radius:50%;background:currentColor;opacity:0.5;flex-shrink:0}
+.lp-mock-content{padding:0 0 0 24px;display:flex;flex-direction:column;gap:12px}
+.lp-mock-title{font-family:'Google Sans';font-size:22px;font-weight:500;color:#fff;margin-bottom:8px}
+.lp-mock-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.lp-mock-stat{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;position:relative;overflow:hidden}
+.lp-mock-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.lp-mock-stat.b::before{background:#1A73E8}.lp-mock-stat.g::before{background:#34A853}.lp-mock-stat.y::before{background:#F9AB00}.lp-mock-stat.r::before{background:#EA4335}
+.lp-mock-stat-label{font-size:9px;font-family:'Roboto Mono',monospace;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
+.lp-mock-stat-val{font-family:'Google Sans';font-size:20px;font-weight:500;color:#fff}
+.lp-mock-stat-sub{font-size:10px;font-family:'Roboto Mono',monospace;color:#5BB974;margin-top:4px}
+.lp-mock-pipeline{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+.lp-mock-col{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:10px}
+.lp-mock-col-head{font-size:10px;font-family:'Roboto Mono',monospace;color:rgba(255,255,255,0.4);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.lp-mock-col-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.lp-mock-gig{background:rgba(255,255,255,0.06);border-radius:7px;padding:8px;margin-bottom:5px;font-size:10px;color:rgba(255,255,255,0.7)}
+.lp-mock-gig-fee{font-family:'Roboto Mono',monospace;color:#FFB612;font-weight:500}
+
+/* ── FEATURES SECTION ──────────────────────────────────────── */
+.lp-feature-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:32px;transition:all 0.3s;cursor:default;position:relative;overflow:hidden}
+.lp-feature-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,169,97,0.04) 0%,transparent 60%);opacity:0;transition:opacity 0.3s;border-radius:20px}
+.lp-feature-card:hover{border-color:rgba(201,169,97,0.30);transform:translateY(-3px);box-shadow:0 20px 60px rgba(0,0,0,0.30)}
+.lp-feature-card:hover::before{opacity:1}
+.lp-feature-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;flex-shrink:0}
+.lp-feature-icon.blue{background:rgba(26,115,232,0.15);border:1px solid rgba(26,115,232,0.20)}
+.lp-feature-icon.green{background:rgba(52,168,83,0.15);border:1px solid rgba(52,168,83,0.20)}
+.lp-feature-icon.gold{background:rgba(201,169,97,0.15);border:1px solid rgba(201,169,97,0.20)}
+.lp-feature-icon.red{background:rgba(234,67,53,0.15);border:1px solid rgba(234,67,53,0.20)}
+.lp-feature-icon.purple{background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.20)}
+.lp-feature-icon.teal{background:rgba(0,188,212,0.15);border:1px solid rgba(0,188,212,0.20)}
+.lp-feature-title{font-family:'Google Sans';font-size:17px;font-weight:500;color:#fff;margin-bottom:10px}
+.lp-feature-body{font-size:14px;line-height:1.7;color:rgba(232,234,240,0.55)}
+.lp-feature-tag{display:inline-block;font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;margin-top:14px;background:rgba(62,207,142,0.12);color:#3ECF8E;border:1px solid rgba(62,207,142,0.20)}
+
+/* ── STATS BAND ────────────────────────────────────────────── */
+.lp-stats-band{padding:80px 0;background:rgba(255,255,255,0.02);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)}
+.lp-stat-big{text-align:center}
+.lp-stat-big-val{font-family:'Google Sans';font-size:clamp(40px,5vw,64px);font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:8px}
+.lp-stat-big-label{font-size:14px;color:rgba(255,255,255,0.45)}
+
+/* ── HOW IT WORKS ──────────────────────────────────────────── */
+.lp-step{display:flex;gap:24px;align-items:flex-start;padding:28px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.lp-step:last-child{border-bottom:none}
+.lp-step-num{width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,169,97,0.30);display:flex;align-items:center;justify-content:center;font-family:'Roboto Mono',monospace;font-size:14px;color:#C9A961;flex-shrink:0;margin-top:2px}
+.lp-step-body{}
+.lp-step-title{font-family:'Google Sans';font-size:18px;font-weight:500;color:#fff;margin-bottom:6px}
+.lp-step-desc{font-size:14px;color:rgba(232,234,240,0.55);line-height:1.65}
+
+/* ── PRICING ───────────────────────────────────────────────── */
+.lp-pricing-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.10);border-radius:24px;padding:36px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.lp-pricing-card.featured{background:rgba(201,169,97,0.08);border-color:rgba(201,169,97,0.40);box-shadow:0 0 0 1px rgba(201,169,97,0.20),0 20px 60px rgba(201,169,97,0.10)}
+.lp-pricing-card.featured::before{content:'MOST POPULAR';position:absolute;top:24px;right:24px;font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:0.16em;color:#C9A961;background:rgba(201,169,97,0.15);border:1px solid rgba(201,169,97,0.30);padding:3px 10px;border-radius:100px}
+.lp-pricing-plan{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:16px}
+.lp-pricing-price{font-family:'Google Sans';font-size:48px;font-weight:700;letter-spacing:-2px;color:#fff;line-height:1;margin-bottom:6px}
+.lp-pricing-price sup{font-size:24px;letter-spacing:0;vertical-align:super;font-weight:400;color:rgba(255,255,255,0.60)}
+.lp-pricing-price .per{font-size:16px;letter-spacing:0;font-weight:400;color:rgba(255,255,255,0.45)}
+.lp-pricing-desc{font-size:14px;color:rgba(255,255,255,0.45);margin-bottom:28px;line-height:1.6}
+.lp-pricing-sep{height:1px;background:rgba(255,255,255,0.08);margin:24px 0}
+.lp-pricing-features{flex:1;display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.lp-pricing-feature{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(232,234,240,0.75);line-height:1.5}
+.lp-pricing-feature::before{content:'✓';color:#3ECF8E;font-weight:700;font-size:13px;flex-shrink:0;margin-top:1px}
+.lp-pricing-feature.muted::before{content:'–';color:rgba(255,255,255,0.25)}
+.lp-pricing-feature.muted{color:rgba(255,255,255,0.30)}
+.lp-pricing-btn{width:100%;height:48px;border-radius:100px;font-family:'Google Sans';font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s;border:none;margin-top:auto}
+.lp-pricing-btn.fill{background:linear-gradient(135deg,#D4B97E,#C9A961,#B89548);color:#000;box-shadow:0 4px 16px rgba(201,169,97,0.30)}
+.lp-pricing-btn.fill:hover{box-shadow:0 6px 24px rgba(201,169,97,0.50);transform:translateY(-1px)}
+.lp-pricing-btn.border{background:transparent;border:1px solid rgba(255,255,255,0.20);color:#fff}
+.lp-pricing-btn.border:hover{background:rgba(255,255,255,0.07)}
+
+/* ── TESTIMONIALS ──────────────────────────────────────────── */
+.lp-testi{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;position:relative}
+.lp-testi-quote{font-size:36px;line-height:1;color:rgba(201,169,97,0.25);font-family:Georgia,serif;margin-bottom:4px}
+.lp-testi-text{font-size:15px;line-height:1.7;color:rgba(232,234,240,0.75);margin-bottom:20px;font-style:italic}
+.lp-testi-author{display:flex;align-items:center;gap:12px}
+.lp-testi-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:#fff;flex-shrink:0}
+.lp-testi-name{font-family:'Google Sans';font-size:14px;font-weight:500;color:#fff}
+.lp-testi-role{font-size:12px;color:rgba(255,255,255,0.40)}
+
+/* ── FAQ ───────────────────────────────────────────────────── */
+.lp-faq-item{border-bottom:1px solid rgba(255,255,255,0.07);padding:20px 0;cursor:pointer}
+.lp-faq-q{display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'Google Sans';font-size:16px;font-weight:500;color:#fff;user-select:none}
+.lp-faq-chevron{width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;color:rgba(255,255,255,0.45);font-size:10px}
+.lp-faq-item.open .lp-faq-chevron{background:rgba(201,169,97,0.15);border-color:rgba(201,169,97,0.35);color:#C9A961;transform:rotate(180deg)}
+.lp-faq-a{display:none;font-size:14px;color:rgba(232,234,240,0.60);line-height:1.75;padding-top:14px}
+.lp-faq-item.open .lp-faq-a{display:block}
+
+/* ── CTA SECTION ───────────────────────────────────────────── */
+.lp-cta{position:relative;overflow:hidden;text-align:center;padding:120px 32px;background:radial-gradient(ellipse at center,rgba(0,122,77,0.20) 0%,rgba(26,115,232,0.10) 40%,transparent 70%)}
+.lp-cta::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,97,0.4) 50%,transparent)}
+.lp-cta::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,97,0.4) 50%,transparent)}
+
+/* ── FOOTER ────────────────────────────────────────────────── */
+.lp-footer{padding:60px 32px 40px;border-top:1px solid rgba(255,255,255,0.06)}
+.lp-footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;max-width:1200px;margin:0 auto 48px}
+@media(max-width:800px){.lp-footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.lp-footer-grid{grid-template-columns:1fr}}
+.lp-footer-brand-name{font-family:'Google Sans';font-size:20px;font-weight:500;margin-bottom:12px}
+.lp-footer-tagline{font-size:14px;color:rgba(255,255,255,0.40);line-height:1.65;max-width:260px}
+.lp-footer-heading{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.30);margin-bottom:14px}
+.lp-footer-link{display:block;font-size:14px;color:rgba(255,255,255,0.50);margin-bottom:10px;text-decoration:none;cursor:pointer;transition:color 0.15s}
+.lp-footer-link:hover{color:#fff}
+.lp-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:28px;border-top:1px solid rgba(255,255,255,0.06);max-width:1200px;margin:0 auto;font-size:13px;color:rgba(255,255,255,0.30)}
+.lp-footer-za{display:flex;align-items:center;gap:6px;font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.30)}
+</style>
+
+<div id="landing">
+  <!-- SA flag bar top -->
+  <div class="lp-flag-bar"></div>
+
+  <!-- ── NAV ─────────────────────────────────────────────── -->
+  <nav class="lp-nav">
+    <a href="#" class="lp-nav-logo">
+      <div class="lp-nav-logo-mark">S</div>
+      <div class="lp-nav-wordmark"><span class="l1">S</span><span class="l2">e</span><span class="l3">t</span><span class="l4">F</span><span class="l5">l</span><span class="l6">o</span><span class="l7">w</span></div>
+    </div>
+    <div class="lp-nav-links">
+      <a class="lp-nav-link" onclick="lpScroll('features')">Features</a>
+      <a class="lp-nav-link" onclick="lpScroll('how')">How it works</a>
+      <a class="lp-nav-link" onclick="lpScroll('pricing')">Pricing</a>
+      <a class="lp-nav-link" onclick="lpScroll('faq')">FAQ</a>
+    </div>
+    <div class="lp-nav-cta">
+      <button class="lp-btn ghost" onclick="lpOpenLogin()">Sign in</button>
+      <button class="lp-btn gold" onclick="lpOpenLogin()" style="height:38px;padding:0 20px;font-size:14px">Get started free</button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ────────────────────────────────────────────── -->
+  <section class="lp-hero">
+    <div class="lp-hero-inner">
+      <div class="lp-hero-badge">
+        <div class="lp-hero-badge-dot"></div>
+        Built in South Africa · Used worldwide
+      </div>
+      <div class="lp-hero-eyebrow">
+        <span class="lp-mono">The artist ops platform</span>
+      </div>
+      <h1 class="lp-display xl lp-hero-title">
+        Your stage is set.<br><span class="lp-gold">Press Play.</span>
+      </h1>
+      <p class="lp-hero-sub">
+        The all-in-one management platform for working artists and their teams — bookings, contracts, revenue, rider, and tour intelligence in one place.
+      </p>
+      <div class="lp-hero-btns">
+        <button class="lp-btn gold" onclick="lpOpenLogin()">
+          Start for free
+          <svg class="lp-btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="lp-btn outline" onclick="lpScroll('features')">
+          See all features
+        </button>
+      </div>
+      <div class="lp-hero-social">
+        <div class="lp-hero-social-item"><span class="lp-hero-social-flag">🇿🇦</span> Johannesburg</div>
+        <div class="lp-hero-social-item"><span class="lp-hero-social-flag">🇬🇧</span> London</div>
+        <div class="lp-hero-social-item"><span class="lp-hero-social-flag">🇪🇸</span> Ibiza</div>
+        <div class="lp-hero-social-item"><span class="lp-hero-social-flag">🇦🇪</span> Dubai</div>
+        <div class="lp-hero-social-item"><span class="lp-hero-social-flag">🇺🇸</span> Miami</div>
+      </div>
+    </div>
+
+    <!-- Proof strip -->
+    <div class="lp-hero-proof">
+      <div class="lp-container">
+        <div class="lp-proof-label">Trusted by managers of artists performing at</div>
+        <div class="lp-proof-logos">
+          <div class="lp-proof-logo">Tomorrowland</div>
+          <div class="lp-proof-logo">Coachella</div>
+          <div class="lp-proof-logo">Pacha Ibiza</div>
+          <div class="lp-proof-logo">Ultra Music</div>
+          <div class="lp-proof-logo">Fabric London</div>
+          <div class="lp-proof-logo">Boiler Room</div>
+          <div class="lp-proof-logo">DC10 Ibiza</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── APP SCREENSHOT MOCKUP ───────────────────────────── -->
+  <section class="lp-screenshot-section">
+    <div class="lp-screenshot-wrap">
+      <div class="lp-screenshot-glow"></div>
+      <div class="lp-screenshot-frame">
+        <div class="lp-screenshot-bar">
+          <div class="lp-screenshot-dot" style="background:#FF5F57"></div>
+          <div class="lp-screenshot-dot" style="background:#FFBD2E"></div>
+          <div class="lp-screenshot-dot" style="background:#28C840"></div>
+          <div class="lp-screenshot-url">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            setflow.co.za/dashboard
+          </div>
+        </div>
+        <div class="lp-screenshot-inner">
+          <!-- Mock sidebar -->
+          <div class="lp-mock-sidebar">
+            <div class="lp-mock-brand">
+              <div class="lp-mock-brand-mark"></div>
+              <div class="lp-mock-brand-name">SetFlow</div>
+            </div>
+            <div class="lp-mock-nav-item active"><div class="lp-mock-nav-dot"></div>Dashboard</div>
+            <div class="lp-mock-nav-item"><div class="lp-mock-nav-dot"></div>Bookings</div>
+            <div class="lp-mock-nav-item"><div class="lp-mock-nav-dot"></div>Calendar</div>
+            <div class="lp-mock-nav-item"><div class="lp-mock-nav-dot"></div>Tour Map</div>
+            <div style="height:1px;background:rgba(255,255,255,0.07);margin:10px 0"></div>
+            <div class="lp-mock-nav-item"><div class="lp-mock-nav-dot"></div>Revenue</div>
+            <div class="lp-mock-nav-item"><div class="lp-mock-nav-dot"></div>Contracts</div>
+            <div style="height:1px;background:rgba(255,255,255,0.07);margin:10px 0"></div>
+            <div class="lp-mock-nav-item"><div class="lp-mock-nav-dot"></div>Rider Builder</div>
+            <div class="lp-mock-nav-item"><div class="lp-mock-nav-dot"></div>Stream Intel</div>
+          </div>
+          <!-- Mock content -->
+          <div class="lp-mock-content">
+            <div class="lp-mock-title">Dashboard</div>
+            <div class="lp-mock-stats">
+              <div class="lp-mock-stat g">
+                <div class="lp-mock-stat-label">YTD Earnings</div>
+                <div class="lp-mock-stat-val">R16.3M</div>
+                <div class="lp-mock-stat-sub">↑ 31% vs 2024</div>
+              </div>
+              <div class="lp-mock-stat b">
+                <div class="lp-mock-stat-label">Confirmed Gigs</div>
+                <div class="lp-mock-stat-val">14</div>
+                <div class="lp-mock-stat-sub">Next 90 days</div>
+              </div>
+              <div class="lp-mock-stat y">
+                <div class="lp-mock-stat-label">On-Hold Potential</div>
+                <div class="lp-mock-stat-val">R2.5M</div>
+                <div class="lp-mock-stat-sub">6 holds active</div>
+              </div>
+              <div class="lp-mock-stat r">
+                <div class="lp-mock-stat-label">Avg Fee / Gig</div>
+                <div class="lp-mock-stat-val">R350k</div>
+                <div class="lp-mock-stat-sub">↑ 8% Q over Q</div>
+              </div>
+            </div>
+            <div class="lp-mock-pipeline">
+              <div class="lp-mock-col">
+                <div class="lp-mock-col-head"><div class="lp-mock-col-dot" style="background:#1A73E8"></div>Inquiry</div>
+                <div class="lp-mock-gig">🇺🇸 Output NYC<br><span class="lp-mock-gig-fee">$25,000</span></div>
+              </div>
+              <div class="lp-mock-col">
+                <div class="lp-mock-col-head"><div class="lp-mock-col-dot" style="background:#F9AB00"></div>On Hold</div>
+                <div class="lp-mock-gig">🇩🇪 Watergate<br><span class="lp-mock-gig-fee">€15,000</span></div>
+              </div>
+              <div class="lp-mock-col">
+                <div class="lp-mock-col-head"><div class="lp-mock-col-dot" style="background:#34A853"></div>Confirmed</div>
+                <div class="lp-mock-gig">🇪🇸 Pacha Ibiza<br><span class="lp-mock-gig-fee">€45,000</span></div>
+                <div class="lp-mock-gig">🇬🇧 Fabric London<br><span class="lp-mock-gig-fee">£18,000</span></div>
+              </div>
+              <div class="lp-mock-col">
+                <div class="lp-mock-col-head"><div class="lp-mock-col-dot" style="background:#80868B"></div>Completed</div>
+                <div class="lp-mock-gig">🇺🇸 Coachella<br><span class="lp-mock-gig-fee">$95,000</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATS BAND ────────────────────────────────────────── -->
+  <div class="lp-stats-band">
+    <div class="lp-container">
+      <div class="lp-grid-4">
+        <div class="lp-stat-big">
+          <div class="lp-stat-big-val lp-gold">R16M+</div>
+          <div class="lp-stat-big-label">Avg annual revenue tracked</div>
+        </div>
+        <div class="lp-stat-big">
+          <div class="lp-stat-big-val" style="color:#3ECF8E">25+</div>
+          <div class="lp-stat-big-label">Countries on the tour map</div>
+        </div>
+        <div class="lp-stat-big">
+          <div class="lp-stat-big-val" style="color:#4F8EF7">8</div>
+          <div class="lp-stat-big-label">Currencies supported natively</div>
+        </div>
+        <div class="lp-stat-big">
+          <div class="lp-stat-big-val" style="color:#F9AB00">100%</div>
+          <div class="lp-stat-big-label">Built for the African artist</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FEATURES ─────────────────────────────────────────── -->
+  <section class="lp-section" id="features">
+    <div class="lp-container">
+      <div style="text-align:center;max-width:620px;margin:0 auto 60px">
+        <div class="lp-tag">Everything you need</div>
+        <h2 class="lp-display lg" style="margin-bottom:18px">One platform.<br>No spreadsheets.</h2>
+        <p class="lp-body">Built specifically for how working artists and managers actually operate — from first inquiry to post-show hospitality, all in ZAR primary.</p>
+      </div>
+      <div class="lp-grid-3">
+
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon blue">📋</div>
+          <div class="lp-feature-title">Booking Pipeline</div>
+          <div class="lp-feature-body">Kanban-style deal flow from inquiry to completed. Track every gig with fee, currency, contract status, and deposit in one board.</div>
+          <div class="lp-feature-tag">Multi-currency</div>
+        </div>
+
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon green">🗺️</div>
+          <div class="lp-feature-title">Interactive Tour Map</div>
+          <div class="lp-feature-body">Live world map with all venues plotted using real coordinates. Click any pin for full gig details, promoter info, and fee at a glance.</div>
+          <div class="lp-feature-tag">OpenStreetMap</div>
+        </div>
+
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon gold">💰</div>
+          <div class="lp-feature-title">Revenue Intelligence</div>
+          <div class="lp-feature-body">Category breakdowns by quarter — Club vs Festival vs Private vs Beach. See exactly which gig types earn the most per season.</div>
+          <div class="lp-feature-tag">ZAR primary</div>
+        </div>
+
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon red">🔔</div>
+          <div class="lp-feature-title">Auto-Reminders</div>
+          <div class="lp-feature-body">Automatic 14-day and 7-day email reminders go to promoters before every confirmed gig. Never chase a deposit manually again.</div>
+          <div class="lp-feature-tag">Set & forget</div>
+        </div>
+
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon purple">🎵</div>
+          <div class="lp-feature-title">Stream Research</div>
+          <div class="lp-feature-body">Track Spotify, Apple Music, and YouTube listener counts. Monitor whether your streams spike after live events — built-in research tool.</div>
+          <div class="lp-feature-tag">API-ready</div>
+        </div>
+
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon teal">🔍</div>
+          <div class="lp-feature-title">Social Intelligence</div>
+          <div class="lp-feature-body">Set keyword traps and monitor what people say about your artist across Twitter/X, Instagram, TikTok, and Reddit with sentiment scoring.</div>
+          <div class="lp-feature-tag">Live monitoring</div>
+        </div>
+
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon green">📝</div>
+          <div class="lp-feature-title">Rider Builder</div>
+          <div class="lp-feature-body">Fully editable technical rider with sections, items, and checklist status. Managers edit, artists view. Share directly with promoters as PDF.</div>
+          <div class="lp-feature-tag">Role-based access</div>
+        </div>
+
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon blue">✈️</div>
+          <div class="lp-feature-title">Show Advancing</div>
+          <div class="lp-feature-body">Per-gig advancing sheets with driver, hotel, emergency contacts and a 10-point checklist. Never miss a logistics detail before showtime.</div>
+          <div class="lp-feature-tag">Checklist</div>
+        </div>
+
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon gold">🔐</div>
+          <div class="lp-feature-title">Role-Based Logins</div>
+          <div class="lp-feature-body">Managers get full access to financials, contracts, and all artists. Artists get a focused view of their own gigs, rider, and calendar only.</div>
+          <div class="lp-feature-tag">Supabase Auth</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="lp-divider"></div>
+
+  <!-- ── HOW IT WORKS ──────────────────────────────────────── -->
+  <section class="lp-section" id="how">
+    <div class="lp-container">
+      <div class="lp-grid-2" style="gap:80px">
+        <div>
+          <div class="lp-tag">Getting started</div>
+          <h2 class="lp-display lg" style="margin-bottom:16px">Live in under<br>5 minutes.</h2>
+          <p class="lp-body" style="margin-bottom:40px">No installation, no backend required to start. Deploy to Netlify, add your gigs, and you're touring.</p>
+          <button class="lp-btn gold" onclick="lpOpenLogin()">
+            Get started now
+            <svg class="lp-btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <div>
+          <div class="lp-step">
+            <div class="lp-step-num">01</div>
+            <div class="lp-step-body">
+              <div class="lp-step-title">Deploy to Netlify</div>
+              <div class="lp-step-desc">Push to GitHub, connect Netlify — your platform is live at your custom domain in 30 seconds. Free tier covers everything for solo managers.</div>
+            </div>
+          </div>
+          <div class="lp-step">
+            <div class="lp-step-num">02</div>
+            <div class="lp-step-body">
+              <div class="lp-step-title">Add your artists & team</div>
+              <div class="lp-step-desc">Create manager and artist login accounts. Each role sees only what they need — artists get their view, managers get the full picture.</div>
+            </div>
+          </div>
+          <div class="lp-step">
+            <div class="lp-step-num">03</div>
+            <div class="lp-step-body">
+              <div class="lp-step-title">Import your bookings</div>
+              <div class="lp-step-desc">Add gigs with fees in any currency. SetFlow converts everything to ZAR automatically. The pipeline, map, and revenue charts populate instantly.</div>
+            </div>
+          </div>
+          <div class="lp-step">
+            <div class="lp-step-num">04</div>
+            <div class="lp-step-body">
+              <div class="lp-step-title">Let the platform run</div>
+              <div class="lp-step-desc">Reminders go to promoters automatically. Contracts get tracked. Revenue insights update as gigs complete. Press play and focus on the music.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lp-divider"></div>
+
+  <!-- ── PRICING ───────────────────────────────────────────── -->
+  <section class="lp-section" id="pricing">
+    <div class="lp-container">
+      <div style="text-align:center;max-width:520px;margin:0 auto 56px">
+        <div class="lp-tag">Pricing</div>
+        <h2 class="lp-display lg" style="margin-bottom:14px">Simple, honest pricing.</h2>
+        <p class="lp-body">No per-gig fees. No surprise charges. Just a flat rate that grows with your roster.</p>
+      </div>
+      <div class="lp-grid-3" style="max-width:980px;margin:0 auto">
+
+        <div class="lp-pricing-card">
+          <div class="lp-pricing-plan">Starter</div>
+          <div class="lp-pricing-price"><sup>R</sup>0<span class="per">/mo</span></div>
+          <div class="lp-pricing-desc">For solo artists self-managing. Static deploy, no backend needed.</div>
+          <div class="lp-pricing-sep"></div>
+          <div class="lp-pricing-features">
+            <div class="lp-pricing-feature">1 artist profile</div>
+            <div class="lp-pricing-feature">Full booking pipeline</div>
+            <div class="lp-pricing-feature">Tour map & calendar</div>
+            <div class="lp-pricing-feature">Rider builder</div>
+            <div class="lp-pricing-feature">HTML/Netlify deploy</div>
+            <div class="lp-pricing-feature muted">No multi-currency sync</div>
+            <div class="lp-pricing-feature muted">No auto-reminders</div>
+          </div>
+          <button class="lp-pricing-btn border" onclick="lpOpenLogin()">Get started free</button>
+        </div>
+
+        <div class="lp-pricing-card featured">
+          <div class="lp-pricing-plan">Pro</div>
+          <div class="lp-pricing-price"><sup>R</sup>799<span class="per">/mo</span></div>
+          <div class="lp-pricing-desc">For managers running 1–4 artists. Full backend, reminders, and analytics.</div>
+          <div class="lp-pricing-sep"></div>
+          <div class="lp-pricing-features">
+            <div class="lp-pricing-feature">Up to 4 artists</div>
+            <div class="lp-pricing-feature">Manager + artist logins</div>
+            <div class="lp-pricing-feature">Supabase database backend</div>
+            <div class="lp-pricing-feature">Auto promoter reminders</div>
+            <div class="lp-pricing-feature">Revenue insights & charts</div>
+            <div class="lp-pricing-feature">Social word traps</div>
+            <div class="lp-pricing-feature">Stream analytics</div>
+            <div class="lp-pricing-feature">Invoice & deposit tracking</div>
+          </div>
+          <button class="lp-pricing-btn fill" onclick="lpOpenLogin()">Start Pro free for 14 days</button>
+        </div>
+
+        <div class="lp-pricing-card">
+          <div class="lp-pricing-plan">Label / Agency</div>
+          <div class="lp-pricing-price"><sup>R</sup>2,499<span class="per">/mo</span></div>
+          <div class="lp-pricing-desc">For agencies managing 5+ artists with team collaboration needs.</div>
+          <div class="lp-pricing-sep"></div>
+          <div class="lp-pricing-features">
+            <div class="lp-pricing-feature">Unlimited artists</div>
+            <div class="lp-pricing-feature">Unlimited team members</div>
+            <div class="lp-pricing-feature">White-label option</div>
+            <div class="lp-pricing-feature">Priority support</div>
+            <div class="lp-pricing-feature">Custom domain</div>
+            <div class="lp-pricing-feature">API access</div>
+            <div class="lp-pricing-feature">Advanced reporting</div>
+          </div>
+          <button class="lp-pricing-btn border" onclick="lpOpenLogin()">Contact us</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="lp-divider"></div>
+
+  <!-- ── TESTIMONIALS ──────────────────────────────────────── -->
+  <section class="lp-section">
+    <div class="lp-container">
+      <div style="text-align:center;margin-bottom:52px">
+        <div class="lp-tag">What managers say</div>
+        <h2 class="lp-display md">Real feedback from the field.</h2>
+      </div>
+      <div class="lp-grid-3">
+        <div class="lp-testi">
+          <div class="lp-testi-quote">"</div>
+          <div class="lp-testi-text">Finally something built for how we actually work. The ZAR-first approach alone saves me 30 minutes every Monday morning converting currencies.</div>
+          <div class="lp-testi-author">
+            <div class="lp-testi-avatar" style="background:linear-gradient(135deg,#007A4D,#34A853)">SM</div>
+            <div>
+              <div class="lp-testi-name">Shaun M.</div>
+              <div class="lp-testi-role">Manager · Johannesburg</div>
+            </div>
+          </div>
+        </div>
+        <div class="lp-testi">
+          <div class="lp-testi-quote">"</div>
+          <div class="lp-testi-text">The advancing checklists and auto-reminders have cut my admin time in half. Promoters actually confirm details on time now because the system chases them.</div>
+          <div class="lp-testi-author">
+            <div class="lp-testi-avatar" style="background:linear-gradient(135deg,#1A73E8,#4285F4)">KN</div>
+            <div>
+              <div class="lp-testi-name">Khosi N.</div>
+              <div class="lp-testi-role">Booking Agent · Cape Town</div>
+            </div>
+          </div>
+        </div>
+        <div class="lp-testi">
+          <div class="lp-testi-quote">"</div>
+          <div class="lp-testi-text">The tour map with all my Ibiza gigs plotted is insane. I can see in 5 seconds that I've got 3 shows within 2km of each other — changes how I negotiate logistics.</div>
+          <div class="lp-testi-author">
+            <div class="lp-testi-avatar" style="background:linear-gradient(135deg,#EA4335,#FB6156)">TM</div>
+            <div>
+              <div class="lp-testi-name">Thabo M.</div>
+              <div class="lp-testi-role">Tour Manager · Durban</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ──────────────────────────────────────────────── -->
+  <section class="lp-section" id="faq">
+    <div class="lp-container narrow">
+      <div style="text-align:center;margin-bottom:48px">
+        <div class="lp-tag">FAQ</div>
+        <h2 class="lp-display md">Common questions.</h2>
+      </div>
+      <div id="lp-faq-list">
+        <div class="lp-faq-item" onclick="lpToggleFaq(this)">
+          <div class="lp-faq-q">Do I need a backend/server to use SetFlow?<div class="lp-faq-chevron">▾</div></div>
+          <div class="lp-faq-a">No. The Starter plan runs entirely as a static HTML file hosted on Netlify. No server, no database, no monthly cost beyond your domain name (~R200/year). When you're ready for persistent data, reminders, and multi-user logins, you upgrade to Pro which adds Supabase as a backend.</div>
+        </div>
+        <div class="lp-faq-item" onclick="lpToggleFaq(this)">
+          <div class="lp-faq-q">What currencies are supported?<div class="lp-faq-chevron">▾</div></div>
+          <div class="lp-faq-a">SetFlow supports ZAR, USD, EUR, GBP, AED, GHS, and NGN out of the box. Every fee is shown in its original currency AND converted to ZAR automatically using built-in exchange rates. ZAR is always the primary reporting currency for revenue summaries.</div>
+        </div>
+        <div class="lp-faq-item" onclick="lpToggleFaq(this)">
+          <div class="lp-faq-q">How does the artist vs manager login work?<div class="lp-faq-chevron">▾</div></div>
+          <div class="lp-faq-a">Managers get full access to everything — all artists, financials, contracts, team management, and settings. Artists log in and see only their own confirmed bookings, their calendar, and their rider. Revenue figures and contract details are hidden from artist accounts by default.</div>
+        </div>
+        <div class="lp-faq-item" onclick="lpToggleFaq(this)">
+          <div class="lp-faq-q">Can I manage multiple artists on one account?<div class="lp-faq-chevron">▾</div></div>
+          <div class="lp-faq-a">Yes. Pro accounts support up to 4 artists and the Agency plan supports unlimited artists. You switch between artist workspaces from the sidebar. Revenue, pipeline, and rider data are all scoped per artist.</div>
+        </div>
+        <div class="lp-faq-item" onclick="lpToggleFaq(this)">
+          <div class="lp-faq-q">How do the automatic promoter reminders work?<div class="lp-faq-chevron">▾</div></div>
+          <div class="lp-faq-a">When you add a confirmed gig with a promoter email, SetFlow schedules automatic reminder emails at 14 days and 7 days before the show date. The emails include advancing details, contract status, and deposit status. On the Pro plan these are sent via Netlify Functions so no manual action is needed.</div>
+        </div>
+        <div class="lp-faq-item" onclick="lpToggleFaq(this)">
+          <div class="lp-faq-q">Is my data safe? Who can see it?<div class="lp-faq-chevron">▾</div></div>
+          <div class="lp-faq-a">On the Pro plan, all data is stored in Supabase with Row Level Security enabled at the database level — meaning even if someone found a bug in the API, the database itself would not return data they shouldn't see. Artist accounts can only query their own rows. We never sell or share your data.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lp-divider"></div>
+
+  <!-- ── CTA SECTION ───────────────────────────────────────── -->
+  <section class="lp-cta">
+    <div class="lp-tag" style="margin-bottom:24px">Ready when you are</div>
+    <h2 class="lp-display xl" style="margin-bottom:22px;text-align:center">Your stage is set.<br><span class="lp-gold">Press Play.</span></h2>
+    <p class="lp-body" style="max-width:480px;margin:0 auto 40px;text-align:center">Join managers and artists who've stopped running their careers from spreadsheets.</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
+      <button class="lp-btn gold" onclick="lpOpenLogin()">
+        Get started free
+        <svg class="lp-btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <button class="lp-btn outline" onclick="lpScroll('faq')">Read the FAQ</button>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────────── -->
+  <footer class="lp-footer">
+    <div class="lp-footer-grid">
+      <div>
+        <div class="lp-footer-brand-name">
+          <span style="color:#007A4D">S</span><span style="color:#DE3831">e</span><span style="color:#FFB612">t</span><span style="color:#002395">F</span><span style="color:#007A4D">l</span><span style="color:#DE3831">o</span><span style="color:#FFB612">w</span>
+        </div>
+        <div class="lp-footer-tagline">The artist ops platform built in South Africa for working artists everywhere. Your stage is set.</div>
+      </div>
+      <div>
+        <div class="lp-footer-heading">Product</div>
+        <a class="lp-footer-link" onclick="lpScroll('features')">Features</a>
+        <a class="lp-footer-link" onclick="lpScroll('pricing')">Pricing</a>
+        <a class="lp-footer-link" onclick="lpScroll('how')">How it works</a>
+        <a class="lp-footer-link" onclick="lpOpenLogin()">Sign in</a>
+      </div>
+      <div>
+        <div class="lp-footer-heading">For artists</div>
+        <a class="lp-footer-link">Tour Map</a>
+        <a class="lp-footer-link">Rider Builder</a>
+        <a class="lp-footer-link">Stream Analytics</a>
+        <a class="lp-footer-link">Advancing</a>
+      </div>
+      <div>
+        <div class="lp-footer-heading">Company</div>
+        <a class="lp-footer-link">About</a>
+        <a class="lp-footer-link">Supabase Config</a>
+        <a class="lp-footer-link">GitHub</a>
+        <a class="lp-footer-link">Privacy</a>
+      </div>
+    </div>
+    <div class="lp-footer-bottom">
+      <div>© 2025 SetFlow. Built in 🇿🇦 South Africa.</div>
+      <div class="lp-footer-za">
+        <span style="width:5px;height:5px;border-radius:50%;background:#007A4D;flex-shrink:0"></span>
+        press play.
+      </div>
+    </div>
+  </footer>
+
+  <!-- SA flag bar bottom -->
+  <div class="lp-flag-bar"></div>
+</div>
+
+<script>
+/* ── LANDING PAGE JS ──────────────────────── */
+function lpScroll(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth'});
+  // also scroll within #landing
+  const landing = document.getElementById('landing');
+  const target = landing.querySelector('#'+id);
+  if(target){
+    landing.scrollTo({top: target.offsetTop - 80, behavior:'smooth'});
+  }
+}
+
+function lpOpenLogin(){
+  // Hide landing, reveal login screen
+  const landing = document.getElementById('landing');
+  landing.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+  landing.style.opacity = '0';
+  landing.style.transform = 'scale(1.02)';
+  setTimeout(()=>{
+    landing.style.display = 'none';
+    const loginScreen = document.getElementById('loginScreen');
+    if(loginScreen) loginScreen.style.display = 'flex';
+  }, 340);
+}
+
+function lpToggleFaq(el){
+  el.classList.toggle('open');
+}
+
+// On login success, hide landing + login and show app
+// Hook into existing doLogin / initializeApp flow
+const _origInitializeApp = typeof initializeApp === 'function' ? initializeApp : null;
+window.hideLandingAfterLogin = function(){
+  const landing = document.getElementById('landing');
+  if(landing) landing.style.display = 'none';
+};
+
+// If user already has a session on load, skip landing entirely
+document.addEventListener('DOMContentLoaded', async () => {
+  // Check if supabase client exists
+  if(window.sb){
+    const { data:{ session } } = await window.sb.auth.getSession();
+    if(session){
+      // Valid session — skip landing and login, go straight to app
+      const landing = document.getElementById('landing');
+      const loginScreen = document.getElementById('loginScreen');
+      if(landing) landing.style.display = 'none';
+      if(loginScreen) loginScreen.style.display = 'none';
+      runPreloader();
+    }
+  }
+});
+</script>
+
+
+
+
 <!-- ════════════════════════════════════════════════════ LOGIN SCREEN ══ -->
-<div class="login-screen" id="loginScreen">
+<div class="login-screen" id="loginScreen" style="display:none">
   <div class="login-box">
     <div class="login-logo">
       <div class="login-logo-mark">S</div>
@@ -682,7 +1469,7 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
     <div class="nav-group">Insights</div>
     <div class="nav-item" data-view="compare" onclick="navTo('compare',this)">
       <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
-      Why SetFlow
+      Why SetFlow / Pricing
       <span class="nav-badge gold">★</span>
     </div>
   </nav>
@@ -1045,57 +1832,141 @@ select.field-input{cursor:pointer;appearance:none;background-image:url("data:ima
   <section class="page view" id="view-compare">
     <div class="page-head">
       <div>
-        <div class="page-title">Why SetFlow wins</div>
-        <div class="page-sub">Competitive landscape · positioning · pricing</div>
+        <div class="page-title">Plans &amp; Pricing</div>
+        <div class="page-sub">From bedroom producer to global management firm · scale as you grow</div>
+      </div>
+      <div class="page-actions">
+        <div style="display:flex;align-items:center;gap:6px;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;padding:4px 6px">
+          <button id="bill-monthly" onclick="setBilling('monthly')" style="border-radius:100px;padding:5px 14px;font-size:12px;font-weight:600;background:var(--ink);color:#fff;border:none;cursor:pointer;font-family:'Google Sans',sans-serif;transition:all 0.2s">Monthly</button>
+          <button id="bill-annual" onclick="setBilling('annual')" style="border-radius:100px;padding:5px 14px;font-size:12px;font-weight:500;background:transparent;color:var(--ink-2);border:none;cursor:pointer;font-family:'Google Sans',sans-serif;transition:all 0.2s">Annual&nbsp;<span style="font-size:10px;color:#007A4D;font-weight:700">−17%</span></button>
+        </div>
       </div>
     </div>
 
-    <div class="cmp-cards">
-      <div class="cmp-card">
-        <div class="cmp-card-tag">Spreadsheet · WhatsApp</div>
-        <div class="cmp-card-price">Free</div>
-        <div class="cmp-card-desc">What 95% of African touring acts use today. Manual, fragile, no source of truth.</div>
+    <!-- Annual savings banner -->
+    <div id="annual-banner" style="display:none;align-items:center;gap:10px;background:linear-gradient(90deg,rgba(0,122,77,0.08),rgba(0,122,77,0.04));border:1px solid rgba(0,122,77,0.2);border-radius:10px;padding:11px 16px;font-size:13px;color:#007A4D;margin-bottom:20px">
+      <span style="font-size:18px">🎉</span> Annual billing active — you get <b>2 months free</b> on all plans. Billed as a single annual payment.
+    </div>
+
+    <!-- 4 Tier cards -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px">
+
+      <!-- 1. Foundations -->
+      <div class="cmp-card" style="position:relative">
+        <div class="cmp-card-tag" style="color:#5F6368;background:#F1F3F4">Foundations</div>
+        <div class="cmp-card-price" id="price-foundations">R950<span class="cmp-card-suffix">/ mo</span></div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);font-family:'Roboto Mono';margin:10px 0 4px">Target</div>
+        <div style="font-size:12px;color:var(--ink-2);margin-bottom:12px;font-weight:500">Emerging / Local Artists</div>
+        <div class="cmp-card-desc">Essential booking tools, zero overwhelm. Perfect for artists starting to book local club gigs.</div>
         <ul class="cmp-list">
-          <li>Familiar</li><li>Zero cost</li>
+          <li>Up to 20 bookings / year</li>
+          <li>Basic pipeline kanban</li>
+          <li>Calendar view</li>
+          <li>Single artist profile</li>
+          <li>Rider builder (read-only share)</li>
+          <li>ZAR + 1 foreign currency</li>
+          <li>Email support</li>
         </ul>
+        <button style="width:100%;margin-top:16px;padding:10px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:500;color:var(--ink-2);cursor:pointer;font-family:'Google Sans',sans-serif;transition:all 0.2s" onmouseover="this.style.background='var(--surface-3)'" onmouseout="this.style.background='var(--surface-2)'">Get started free</button>
       </div>
-      <div class="cmp-card featured">
-        <div class="cmp-card-tag">SetFlow Pro</div>
-        <div class="cmp-card-price">R5 490<span class="cmp-card-suffix">/ month</span></div>
-        <div class="cmp-card-desc">Built for headliners — multi-currency, mobile-first, agent + manager permissions, e-sign, riders.</div>
+
+      <!-- 2. Pro (featured) -->
+      <div class="cmp-card featured" style="position:relative;border:2px solid #FFB612!important">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#FFB612;color:#000;font-size:10px;font-weight:700;padding:3px 14px;border-radius:100px;letter-spacing:0.08em;white-space:nowrap;box-shadow:0 2px 8px rgba(255,182,18,0.4)">MOST POPULAR</div>
+        <div class="cmp-card-tag">Pro</div>
+        <div class="cmp-card-price" id="price-pro">R4 500<span class="cmp-card-suffix">/ mo</span></div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);font-family:'Roboto Mono';margin:10px 0 4px">Target</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.85);margin-bottom:12px;font-weight:500">Touring Acts &amp; Headliners</div>
+        <div class="cmp-card-desc">Full automation — hold expiry, multi-currency, e-sign, riders, and agent/manager split.</div>
         <ul class="cmp-list">
-          <li>Multi-currency normalisation</li>
+          <li>Unlimited bookings</li>
+          <li>Multi-currency (EUR/USD/GBP/ZAR)</li>
           <li>Hold expiry automation</li>
-          <li>Native rider builder</li>
-          <li>Agent / manager / artist views</li>
-          <li>Mobile-first interface</li>
-          <li>Afro house community focus</li>
+          <li>Native e-sign contracts</li>
+          <li>Full rider builder + PDF export</li>
+          <li>Agent + manager permissions</li>
+          <li>Tour map with route view</li>
+          <li>Revenue analytics</li>
+          <li>Priority support</li>
         </ul>
+        <button style="width:100%;margin-top:16px;padding:10px;background:#FFB612;border:none;border-radius:8px;font-size:13px;font-weight:700;color:#000;cursor:pointer;font-family:'Google Sans',sans-serif;transition:all 0.2s;box-shadow:0 2px 12px rgba(255,182,18,0.35)" onmouseover="this.style.background='#FFC933'" onmouseout="this.style.background='#FFB612'">Start Pro trial →</button>
       </div>
-      <div class="cmp-card">
-        <div class="cmp-card-tag">Gigwell · Muzeek</div>
-        <div class="cmp-card-price">$149<span class="cmp-card-suffix">/ month</span></div>
-        <div class="cmp-card-desc">Built for US booking agencies. Mid-tier acts. Enterprise CRM feel, not artist-first.</div>
+
+      <!-- 3. Agency -->
+      <div class="cmp-card" style="position:relative;border-color:var(--gold)">
+        <div class="cmp-card-tag" style="color:#B8860B;background:#FFF8E1;border:1px solid #FFE082">Agency</div>
+        <div class="cmp-card-price" id="price-agency">R10 500<span class="cmp-card-suffix">/ mo</span></div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);font-family:'Roboto Mono';margin:10px 0 4px">Target</div>
+        <div style="font-size:12px;color:var(--ink-2);margin-bottom:12px;font-weight:500">Boutique Agencies (3–10 artists)</div>
+        <div class="cmp-card-desc">Multi-artist workspace with full admin delegation and cross-roster reporting.</div>
         <ul class="cmp-list">
-          <li>Pipeline kanban</li><li>Calendar</li><li>Contract storage</li>
+          <li>Everything in Pro</li>
+          <li>Up to 10 artist profiles</li>
+          <li>Multi-artist dashboard</li>
+          <li>Role-based team access</li>
+          <li>Admin delegation controls</li>
+          <li>Bulk contract management</li>
+          <li>Cross-artist revenue reports</li>
+          <li>White-label PDF exports</li>
+          <li>Dedicated account manager</li>
         </ul>
+        <button style="width:100%;margin-top:16px;padding:10px;background:var(--surface-2);border:1px solid var(--gold);border-radius:8px;font-size:13px;font-weight:500;color:var(--gold-h);cursor:pointer;font-family:'Google Sans',sans-serif;transition:all 0.2s" onmouseover="this.style.background='var(--gold-bg)'" onmouseout="this.style.background='var(--surface-2)'">Talk to us</button>
+      </div>
+
+      <!-- 4. Enterprise -->
+      <div class="cmp-card" style="position:relative;background:linear-gradient(160deg,#0a1a0f,#001A4D);border-color:rgba(255,255,255,0.12)">
+        <div class="cmp-card-tag" style="color:rgba(255,255,255,0.55);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15)">Enterprise</div>
+        <div class="cmp-card-price" style="color:#fff" id="price-enterprise">Custom</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);font-family:'Roboto Mono';margin:10px 0 4px">Target</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.65);margin-bottom:12px;font-weight:500">Global Management Firms</div>
+        <div class="cmp-card-desc" style="color:rgba(255,255,255,0.5)">API access, white-labelling, audit trails, and SLA guarantees. Priced per engagement.</div>
+        <ul class="cmp-list">
+          <li style="color:rgba(255,255,255,0.65)">Everything in Agency</li>
+          <li style="color:rgba(255,255,255,0.65)">Unlimited artists &amp; users</li>
+          <li style="color:rgba(255,255,255,0.65)">Full REST API access</li>
+          <li style="color:rgba(255,255,255,0.65)">White-label branding</li>
+          <li style="color:rgba(255,255,255,0.65)">Audit trails &amp; compliance logs</li>
+          <li style="color:rgba(255,255,255,0.65)">SSO / SAML integration</li>
+          <li style="color:rgba(255,255,255,0.65)">99.9% uptime SLA</li>
+          <li style="color:rgba(255,255,255,0.65)">Dedicated solutions engineer</li>
+        </ul>
+        <button style="width:100%;margin-top:16px;padding:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:8px;font-size:13px;font-weight:500;color:rgba(255,255,255,0.85);cursor:pointer;font-family:'Google Sans',sans-serif;transition:all 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">Book a call →</button>
       </div>
     </div>
 
-    <div class="sec-head"><div class="sec-title">Feature comparison</div></div>
-    <table class="cmp-table">
-      <thead><tr><th>Feature</th><th class="sf">SetFlow</th><th>Gigwell</th><th>Muzeek</th><th>Spreadsheet</th></tr></thead>
-      <tbody id="cmpBody"></tbody>
-    </table>
+    <!-- Pricing footnote -->
+    <div style="text-align:center;font-size:11px;color:var(--muted);font-family:'Roboto Mono';margin-bottom:28px;letter-spacing:0.04em">
+      All prices in ZAR · VAT excluded · Annual billing saves 2 months · Cancel anytime
+    </div>
 
+    <!-- Feature comparison table -->
+    <div class="sec-head"><div class="sec-title">Full feature comparison</div><div class="sec-sub">SetFlow tiers vs the alternatives</div></div>
+    <div style="overflow-x:auto;margin-bottom:28px">
+      <table class="cmp-table" style="min-width:760px">
+        <thead>
+          <tr>
+            <th style="width:28%">Feature</th>
+            <th>Foundations</th>
+            <th class="sf">Pro ★</th>
+            <th class="sf">Agency</th>
+            <th class="sf">Enterprise</th>
+            <th>Gigwell</th>
+            <th>Spreadsheet</th>
+          </tr>
+        </thead>
+        <tbody id="cmpBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Wedge cards -->
     <div class="cmp-cards" style="grid-template-columns:1fr 1fr">
       <div class="cmp-card">
-        <div class="cmp-card-tag" style="color:var(--g-red);background:var(--g-red-bg)">Gigwell's blind spots</div>
-        <div style="font-size:13px;color:var(--ink-2);line-height:1.7;margin-top:6px">Built for US agency workflows and mid-tier touring acts. No multi-currency normalisation, no hold-expiry automation, the agent/manager permission split is rudimentary, and the UI feels like enterprise CRM — not an artist-first product. Zero presence in the African electronic music scene.</div>
+        <div class="cmp-card-tag" style="color:var(--g-red);background:var(--g-red-bg)">Why not Gigwell or Muzeek?</div>
+        <div style="font-size:13px;color:var(--ink-2);line-height:1.7;margin-top:6px">Built for US agency workflows. No multi-currency normalisation, no hold-expiry automation, rudimentary permission splits, and an enterprise CRM feel — not artist-first. <b>Zero presence in African electronic music.</b></div>
       </div>
       <div class="cmp-card" style="border-color:var(--gold)">
-        <div class="cmp-card-tag" style="color:var(--gold-h);background:var(--gold-bg);border:1px solid var(--gold)">SetFlow's wedge</div>
-        <div style="font-size:13px;color:var(--ink-2);line-height:1.7;margin-top:6px">Win with: <b>(1)</b> Afro house community — Black Coffee, Shimza, DBN Gogo have zero good tools. <b>(2)</b> Multi-currency-first — EUR/USD/ZAR normalised. <b>(3)</b> Artist-facing design — feels like Notion. <b>(4)</b> Rider + e-sign in one place. Sell direct to artist managers.</div>
+        <div class="cmp-card-tag" style="color:var(--gold-h);background:var(--gold-bg);border:1px solid var(--gold)">SetFlow's winning wedge</div>
+        <div style="font-size:13px;color:var(--ink-2);line-height:1.7;margin-top:6px"><b>(1)</b> Afro house community — Black Coffee, Shimza, DBN Gogo deserve proper tools. <b>(2)</b> Multi-currency-first. <b>(3)</b> Artist-facing design. <b>(4)</b> Rider + e-sign in one place. <b>(5)</b> A pricing ladder that grows with every artist.</div>
       </div>
     </div>
   </section>
@@ -1275,19 +2146,22 @@ const TEAM = [
 ];
 
 const COMP = [
-  {f:'Multi-currency normalisation',sf:true,gw:false,mz:false,xl:false},
-  {f:'Hold expiry timers + auto-release',sf:true,gw:false,mz:false,xl:false},
-  {f:'Artist-facing design (not agency CRM)',sf:true,gw:false,mz:true,xl:false},
-  {f:'Built-in rider builder',sf:true,gw:'partial',mz:false,xl:false},
-  {f:'Native contract e-sign',sf:true,gw:true,mz:false,xl:false},
-  {f:'Agent / manager permission split',sf:true,gw:'partial',mz:false,xl:false},
-  {f:'Pipeline kanban view',sf:true,gw:true,mz:true,xl:false},
-  {f:'Calendar with gig dots',sf:true,gw:true,mz:true,xl:'partial'},
-  {f:'Revenue by region breakdown',sf:true,gw:false,mz:false,xl:'partial'},
-  {f:'Deposit tracker per gig',sf:true,gw:'partial',mz:false,xl:'partial'},
-  {f:'Tour map with route view',sf:true,gw:false,mz:false,xl:false},
-  {f:'Afro house / SA market focus',sf:true,gw:false,mz:false,xl:false},
-  {f:'Mobile-first interface',sf:true,gw:false,mz:'partial',xl:false},
+  {f:'Booking pipeline kanban',       fo:true,       pr:true,  ag:true,  en:true,  gw:true,       xl:'partial'},
+  {f:'Calendar with gig dots',        fo:true,       pr:true,  ag:true,  en:true,  gw:true,       xl:'partial'},
+  {f:'Multi-currency normalisation',  fo:'partial',  pr:true,  ag:true,  en:true,  gw:false,      xl:false},
+  {f:'Hold expiry automation',        fo:false,      pr:true,  ag:true,  en:true,  gw:false,      xl:false},
+  {f:'Native e-sign contracts',       fo:false,      pr:true,  ag:true,  en:true,  gw:true,       xl:false},
+  {f:'Rider builder + PDF export',    fo:'partial',  pr:true,  ag:true,  en:true,  gw:'partial',  xl:false},
+  {f:'Agent / manager permissions',   fo:false,      pr:true,  ag:true,  en:true,  gw:'partial',  xl:false},
+  {f:'Multi-artist workspace',        fo:false,      pr:false, ag:true,  en:true,  gw:true,       xl:false},
+  {f:'Revenue by region breakdown',   fo:false,      pr:true,  ag:true,  en:true,  gw:false,      xl:'partial'},
+  {f:'Deposit tracker per gig',       fo:'partial',  pr:true,  ag:true,  en:true,  gw:'partial',  xl:'partial'},
+  {f:'Tour map with route view',      fo:false,      pr:true,  ag:true,  en:true,  gw:false,      xl:false},
+  {f:'White-label PDF exports',       fo:false,      pr:false, ag:true,  en:true,  gw:false,      xl:false},
+  {f:'Full REST API access',          fo:false,      pr:false, ag:false, en:true,  gw:false,      xl:false},
+  {f:'Audit trails & compliance',     fo:false,      pr:false, ag:false, en:true,  gw:false,      xl:false},
+  {f:'Afro house / SA market focus',  fo:true,       pr:true,  ag:true,  en:true,  gw:false,      xl:false},
+  {f:'Annual billing (2 mo free)',    fo:true,       pr:true,  ag:true,  en:true,  gw:false,      xl:false},
 ];
 
 /* ═══════════════════════════════════════════════════ UTILS ═══ */
@@ -2070,13 +2944,42 @@ function renderTeam(){
 }
 
 /* ═══════════════════════════════════════════════════ COMPARE ═══ */
+/* ═══════════════════════════════════════════════════ BILLING TOGGLE ═══ */
+let billingMode = 'monthly';
+const PRICES = {
+  foundations: { monthly: 'R950',    annual: 'R792' },
+  pro:         { monthly: 'R4 500',  annual: 'R3 750' },
+  agency:      { monthly: 'R10 500', annual: 'R8 750' },
+};
+function setBilling(mode){
+  billingMode = mode;
+  const suffix = mode === 'annual'
+    ? '<span class="cmp-card-suffix">/ mo · billed annually</span>'
+    : '<span class="cmp-card-suffix">/ mo</span>';
+  Object.keys(PRICES).forEach(t => {
+    const el = document.getElementById('price-' + t);
+    if(el) el.innerHTML = PRICES[t][mode] + suffix;
+  });
+  /* Banner */
+  const banner = document.getElementById('annual-banner');
+  if(banner) banner.style.display = mode === 'annual' ? 'flex' : 'none';
+  /* Toggle button styles */
+  const mBtn = document.getElementById('bill-monthly');
+  const aBtn = document.getElementById('bill-annual');
+  if(mBtn) { mBtn.style.background = mode==='monthly' ? 'var(--ink)' : 'transparent'; mBtn.style.color = mode==='monthly' ? '#fff' : 'var(--ink-2)'; mBtn.style.fontWeight = mode==='monthly' ? '600' : '500'; }
+  if(aBtn) { aBtn.style.background = mode==='annual'  ? 'var(--ink)' : 'transparent'; aBtn.style.color = mode==='annual'  ? '#fff' : 'var(--ink-2)'; aBtn.style.fontWeight = mode==='annual'  ? '600' : '500'; }
+}
+
+/* ═══════════════════════════════════════════════════ COMPARE ═══ */
 function renderCompare(){
-  const ic=v=>v===true?'<span class="cmp-y">●</span>':v===false?'<span class="cmp-n">○</span>':'<span class="cmp-p">◐</span>';
-  document.getElementById('cmpBody').innerHTML=COMP.map(f=>`<tr>
+  const ic = v => v===true ? '<span class="cmp-y">●</span>' : v===false ? '<span class="cmp-n">○</span>' : '<span class="cmp-p">◐</span>';
+  document.getElementById('cmpBody').innerHTML = COMP.map(f => `<tr>
     <td>${escapeHtml(f.f)}</td>
-    <td class="sf">${ic(f.sf)}</td>
+    <td>${ic(f.fo)}</td>
+    <td class="sf">${ic(f.pr)}</td>
+    <td class="sf">${ic(f.ag)}</td>
+    <td class="sf">${ic(f.en)}</td>
     <td>${ic(f.gw)}</td>
-    <td>${ic(f.mz)}</td>
     <td>${ic(f.xl)}</td>
   </tr>`).join('');
 }
