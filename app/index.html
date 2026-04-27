@@ -1941,10 +1941,8 @@ async function loadArtistsFromDb(){
       cls:   a.avatar_class || 'bc'
     }));
     curArtist = ARTISTS[0]?.id || null;
-  } else {
-    ARTISTS = [];
-    curArtist = null;
   }
+  /* If DB is empty, keep the in-file ARTISTS fallback (demo-safe) */
 }
 
 /* Helper to ensure user is authenticated before DB action */
@@ -1965,7 +1963,10 @@ async function loadGigsFromDb() {
     .order('gig_date', { ascending: true });
     
   if (error) { console.warn('gigs load error:', error); return; }
-  GIGS = (data || []).map(rowToGig);
+  /* Only replace fallback if DB has rows — demo-safe against empty schema */
+  if (data && data.length) {
+    GIGS = data.map(rowToGig);
+  }
 }
 
 async function dbInsertGig(g) {
