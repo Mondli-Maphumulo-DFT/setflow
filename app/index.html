@@ -1291,6 +1291,36 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
 });
 window.sb = sb; /* expose for console debugging */
 
+/* ═══════════════════════════════════════════════════ FX (→ ZAR) ═══ */
+/* The app normalises every fee to ZAR for stats. Rates load from the
+   public.fx_rates table (latest per currency); these are the fallback used
+   until that table is seeded, or if the fetch fails. Units = ZAR per 1 unit. */
+let FX = { ZAR:1, USD:18.4, EUR:19.9, GBP:23.2, AUD:12.1, BRL:3.4, CHF:20.6 };
+let FX_LOADED_AT = null;
+
+async function loadFxRates(){
+  try {
+    const { data, error } = await sb
+      .from('fx_rates_latest')
+      .select('base_currency,rate,fetched_at');
+    if (error) { console.warn('fx load (using fallback):', error.message); return; }
+    if (data && data.length){
+      data.forEach(r => { if (r.base_currency) FX[r.base_currency.toUpperCase()] = Number(r.rate); });
+      FX.ZAR = 1;
+      FX_LOADED_AT = data[0]?.fetched_at || null;
+    }
+  } catch(e){ console.warn('fx load threw (using fallback):', e); }
+}
+/* Convert a gig's fee to ZAR. Prefers minor units when present. */
+function gigZar(g){
+  const rate = FX[(g.cur||'ZAR').toUpperCase()] ?? 1;
+  if (typeof g.feeMinor === 'number') return (g.feeMinor/100) * rate;
+  return (Number(g.fee)||0) * rate;
+}
+const fmtZarShort = n =>
+  n>=1e6 ? 'R'+(n/1e6).toFixed(1)+'M' :
+  n>=1e3 ? 'R'+Math.round(n/1e3)+'k'  : 'R'+Math.round(n);
+
 /* ═══════════════════════════════════════════════════ DATA ═══ */
 /* NOTE: ARTISTS + GIGS are now mutable. Real data loads from Supabase after auth.
    The seed values below are kept ONLY as a fallback for local-dev / preview. */
@@ -1499,6 +1529,61 @@ function navTo(id,navEl){
 }
 
 /* ═══════════════════════════════════════════════════ DASHBOARD ═══ */
+function renderHeroStats(){
+  const YEAR = new Date().getFullYear();
+  const yy = String(YEAR).slice(2);
+  const confirmed = GIGS.filter(g=>g.status==='confirmed');
+  const holds     = GIGS.filter(g=>g.status==='hold');
+  const inquiries = GIGS.filter(g=>g.status==='inquiry');
+
+  const ytdZar      = GIGS.filter(g=>{const d=new Date(g.date); return d.getFullYear()===YEAR;})
+                          .reduce((s,g)=>s+gigZar(g),0);
+  const confirmedZar= confirmed.reduce((s,g)=>s+gigZar(g),0);
+  const holdZar     = holds.reduce((s,g)=>s+gigZar(g),0);
+  const avgZar      = confirmed.length ? confirmedZar/confirmed.length : 0;
+  const cities      = new Set(GIGS.map(g=>g.city).filter(Boolean)).size;
+  const depositsIn  = GIGS.filter(g=>g.deposit).reduce((s,g)=>s+gigZar(g),0);
+
+  const setTxt=(id,v)=>{const el=document.getElementById(id); if(el) el.firstChild ? el.firstChild.nodeValue=v : el.textContent=v;};
+  const heroYtd=document.getElementById('hero-ytd');
+  if(heroYtd) heroYtd.innerHTML = fmtZarShort(ytdZar)+'<span class="delta">↑ 31%</span>';
+  const heroAvg=document.getElementById('hero-avg');
+  if(heroAvg) heroAvg.innerHTML = fmtZarShort(avgZar)+'<span class="delta">↑ 8%</span>';
+  const heroCities=document.getElementById('hero-cities');
+  if(heroCities) heroCities.textContent = cities;
+  // "Cities '25" → dynamic year label
+  document.querySelectorAll('.hero-stat-label').forEach(el=>{
+    if(/^Cities '/.test(el.textContent)) el.textContent = "Cities '"+yy;
+  });
+
+  // Spark cards: replace static data-count with live values
+  const sparks=[
+    {sel:'.spark-card.blue .spark-num', v:confirmed.length},
+    {sel:'.spark-card.yel .spark-num',  v:holds.length},
+    {sel:'.spark-card.red .spark-num',  v:GIGS.filter(g=>g.contract==='pending').length},
+    {sel:'.spark-card.grn .spark-num',  v:Math.round(depositsIn/1e6*10)/10},
+  ];
+  sparks.forEach(s=>{const el=document.querySelector(s.sel); if(el){el.removeAttribute('data-count'); el.textContent=s.v;}});
+  const holdFoot=document.querySelector('.spark-card.yel .spark-foot');
+  if(holdFoot) holdFoot.textContent = fmtZarShort(holdZar)+' potential';
+
+  // Hero subtitle (page-sub under dashboard title)
+  const sub=document.querySelector('#view-dashboard .page-sub, .page-sub');
+  if(sub && /confirmed/.test(sub.textContent)){
+    sub.innerHTML = `${(ARTISTS.find(a=>a.id===curArtist)||{}).name||'Roster'} · <b>${confirmed.length} confirmed</b> gigs · <b>${fmtZarShort(confirmedZar)}</b> locked · <b>${fmtZarShort(holdZar)}</b> in holds`;
+  }
+
+  // Revenue page tiles (data-count placeholders → live)
+  const revYtd=document.querySelector('.spark-card.blue .spark-num[data-prefix], #view-revenue .spark-num');
+  const revTiles=document.querySelectorAll('#view-revenue .spark-num');
+  if(revTiles.length>=4){
+    revTiles[0].removeAttribute('data-count'); revTiles[0].textContent=fmtZarShort(ytdZar);
+    revTiles[1].removeAttribute('data-count'); revTiles[1].textContent=fmtZarShort(avgZar);
+    revTiles[2].removeAttribute('data-count'); revTiles[2].textContent=fmtZarShort(holdZar+inquiries.reduce((s,g)=>s+gigZar(g),0));
+    revTiles[3].removeAttribute('data-count'); revTiles[3].textContent=fmtZarShort(GIGS.filter(g=>!g.deposit&&g.status==='confirmed').reduce((s,g)=>s+gigZar(g),0));
+  }
+}
+
 function renderDashboard(){
   /* Pipeline */
   const cols=[
@@ -1508,11 +1593,12 @@ function renderDashboard(){
     {key:'completed',label:'Completed',color:'#5F6368'},
   ];
   let totalSum=0;
+  const PIVOT=new Date(); PIVOT.setHours(0,0,0,0);
   document.getElementById('pipelineBoard').innerHTML=cols.map(col=>{
     let list;
-    if(col.key==='completed') list=GIGS.filter(g=>new Date(g.date)<new Date('2025-04-26'));
-    else list=GIGS.filter(g=>g.status===col.key && new Date(g.date)>=new Date('2025-04-26'));
-    const sum=list.reduce((s,g)=>s+g.fee,0);
+    if(col.key==='completed') list=GIGS.filter(g=>new Date(g.date)<PIVOT);
+    else list=GIGS.filter(g=>g.status===col.key && new Date(g.date)>=PIVOT);
+    const sum=list.reduce((s,g)=>s+gigZar(g),0);
     if(col.key!=='completed')totalSum+=sum;
     return `<div class="kanban-col">
       <div class="kanban-head">
@@ -1520,16 +1606,16 @@ function renderDashboard(){
         <div class="kanban-name">${col.label}</div>
         <div class="kanban-count">${list.length}</div>
       </div>
-      <div class="kanban-sum">R${Math.round(sum/1000)}k ${col.key==='completed'?'earned':col.key==='confirmed'?'locked':'potential'}</div>
+      <div class="kanban-sum">${fmtZarShort(sum)} ${col.key==='completed'?'earned':col.key==='confirmed'?'locked':'potential'}</div>
       <div class="kanban-list">
         ${list.length?list.map(g=>renderGigCard(g,col.color)).join(''):'<div class="kanban-empty">No bookings</div>'}
       </div>
     </div>`;
   }).join('');
-  document.getElementById('pipelineSum').textContent=`R${Math.round(totalSum/1000)}k pipeline · ${GIGS.length} bookings tracked`;
+  document.getElementById('pipelineSum').textContent=`${fmtZarShort(totalSum)} pipeline · ${GIGS.length} bookings tracked`;
 
   /* Upcoming list */
-  const up=GIGS.filter(g=>g.status==='confirmed' && new Date(g.date)>=new Date('2025-04-26')).slice(0,5);
+  const up=GIGS.filter(g=>g.status==='confirmed' && new Date(g.date)>=PIVOT).slice(0,5);
   document.getElementById('upcomingList').innerHTML=up.map(g=>`
     <div class="feed-item" onclick="openDetail(${g.id})">
       <div class="feed-icon blue">${g.flag}</div>
@@ -1550,7 +1636,11 @@ function renderDashboard(){
     </div>`).join('');
 
   /* Notif badge count */
-  document.getElementById('nav-gigs-count').textContent=GIGS.filter(g=>new Date(g.date)>=new Date('2025-04-26')).length;
+  const PIVOT2=new Date(); PIVOT2.setHours(0,0,0,0);
+  document.getElementById('nav-gigs-count').textContent=GIGS.filter(g=>new Date(g.date)>=PIVOT2).length;
+
+  /* Live FX-normalised hero + spark + revenue stats */
+  renderHeroStats();
 }
 
 function renderGigCard(g,accent){
@@ -1861,6 +1951,7 @@ async function onAuthSuccess(session){
   };
 
   // Pull data from DB into local caches
+  await loadFxRates();
   await loadArtistsFromDb();
   await loadGigsFromDb();
 
@@ -1898,7 +1989,10 @@ function rowToGig(r){
     date:      r.gig_date || '',
     status:    r.status,
     fee:       Number(r.fee) || 0,
-    cur:       r.currency || 'ZAR',
+    feeMinor:  (typeof r.fee_amount_minor === 'number') ? r.fee_amount_minor
+               : (Number(r.fee)||0) * 100,
+    cur:       (r.fee_currency || r.currency || 'ZAR').toUpperCase(),
+    fxSnap:    r.fx_rate_snapshot != null ? Number(r.fx_rate_snapshot) : null,
     deposit:   !!r.deposit_received,
     contract:  r.contract,
     type:      r.kind,
@@ -1920,7 +2014,16 @@ function gigToRow(g){
     status:           g.status || 'inquiry',
     kind:             g.type || 'Club',
     fee:              Number(g.fee) || 0,
+    fee_amount_minor: (typeof g.feeMinor === 'number') ? g.feeMinor : (Number(g.fee)||0)*100,
     currency:         (g.cur || 'ZAR').toUpperCase(),
+    fee_currency:     (g.cur || 'ZAR').toUpperCase(),
+    /* Snapshot the FX rate the moment a booking is confirmed, so settlement
+       can later compute variance against the rate at settlement time. */
+    fx_rate_snapshot: (g.status === 'confirmed')
+                        ? (FX[(g.cur||'ZAR').toUpperCase()] ?? 1)
+                        : (g.fxSnap ?? null),
+    fx_rate_source:   (g.status === 'confirmed') ? 'app-fallback' : null,
+    fx_rate_at:       (g.status === 'confirmed') ? new Date().toISOString() : null,
     deposit_received: !!g.deposit,
     contract:         g.contract || 'none',
     promoter:         g.promoter || '',
@@ -2367,8 +2470,8 @@ function init(){
       if(np.classList.contains('open'))np.classList.remove('open');
     }
   });
-  /* Animated counters after a brief delay */
-  setTimeout(animateCounters,180);
+  /* Animated counters after a brief delay, then overwrite with live FX-normalised stats */
+  setTimeout(()=>{ animateCounters(); renderHeroStats(); }, 180);
 }
 /* ═══════════════════════════════════════════════════ PRELOADER ═══ */
 function runPreloader(){
