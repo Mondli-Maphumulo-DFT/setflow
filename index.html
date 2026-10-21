@@ -354,6 +354,27 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
   .modal-head{padding:22px 22px 6px}
   .foot-inner{grid-template-columns:1fr;gap:24px}
 }
+
+/* ────────────────────────────────────────────────── LIVE SHOWCASE */
+.show{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:40px;align-items:center}
+.show-card{background:var(--surface);border:1px solid var(--gold);border-radius:16px;box-shadow:0 0 0 1px var(--gold),0 8px 24px rgba(201,169,97,.18);color:var(--ink-2);padding:22px;position:relative;overflow:hidden}
+.show-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#007A4D 0 33%,#FFB612 33% 50%,#DE3831 50% 67%,#002395 67%)}
+.show-ev{font-family:'Roboto Mono';font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-h);margin-bottom:4px}
+.show-title{font-family:'Google Sans';font-size:26px;font-weight:500;color:var(--ink);letter-spacing:-.4px}
+.show-meta{font-size:13px;color:var(--muted);margin-bottom:18px}
+.show-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.show-kpi{background:var(--surface-2);border-radius:8px;padding:12px}
+.show-kpi b{display:block;font-family:'Roboto Mono';font-size:18px;font-weight:500;color:var(--ink)}
+.show-kpi span{font-size:11.5px;color:var(--muted)}
+.show-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--border-soft);font-size:13.5px}
+.show-row .pill{font-size:11px;font-weight:500;padding:3px 9px;border-radius:100px;white-space:nowrap}
+.show-row .ok{background:var(--g-grn-bg);color:#188038}.show-row .hold{background:var(--g-yel-bg);color:var(--g-yel-ink)}.show-row .tax{background:var(--g-blue-bg);color:var(--g-blue)}
+.show-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.show-list li{display:flex;gap:10px;font-size:15px;color:var(--ink-2)}
+.show-list li::before{content:'';flex:none;width:8px;height:8px;border-radius:50%;margin-top:8px;background:var(--gold)}
+.show-note{font-size:12px;color:var(--dim);margin-top:14px}
+@media (max-width:980px){.show{grid-template-columns:1fr;gap:28px}}
+@media (max-width:480px){.show-kpis{grid-template-columns:1fr 1fr}.show-title{font-size:22px}}
 </style>
 </head>
 <body>
@@ -376,6 +397,7 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
       <a href="#for-promoters" class="nav-link">For Promoters</a>
       <a href="#features" class="nav-link">Features</a>
       <a href="#pricing" class="nav-link">Pricing</a>
+      <a href="/lastdance26/" class="nav-link">Live showcase</a>
       <a href="#contact" class="nav-link">Contact</a>
     </div>
     <div class="nav-cta">
@@ -631,6 +653,41 @@ textarea.field-input{height:auto;min-height:100px;padding:12px 16px;resize:verti
   </div>
 </section>
 
+
+<!-- ════════════════════════════════════════════════════ LIVE SHOWCASE ══ -->
+<section class="sec" id="showcase">
+  <div class="show">
+    <div>
+      <div class="sec-tag gold">LIVE SHOWCASE · SAT 5 DEC 2026</div>
+      <h2 class="sec-h2">One real night, run end to end. <span class="gold">LastDance26 at Mea Culpa.</span></h2>
+      <p class="sec-sub" style="margin-bottom:24px">Click through how SetFlow would run Deep Soul Sensation’s year-end closer in Kew, Johannesburg. Switch between promoter, manager and artist to see what each person gets.</p>
+      <ul class="show-list">
+        <li>Ticket pace with a projected sell-out date</li>
+        <li>Lineup pipeline with live 72-hour hold timers</li>
+        <li>Settlement in EUR, USD and rand, with 15% SARS withholding on foreign acts</li>
+        <li>Shared rider checklist and e-signed contracts</li>
+      </ul>
+      <div class="hero-cta-row">
+        <a class="btn primary lg" href="/lastdance26/">Open the live demo</a>
+        <a class="btn lg" href="#contact">Run your next event on SetFlow</a>
+      </div>
+    </div>
+    <a class="show-card" href="/lastdance26/" style="text-decoration:none;display:block">
+      <div class="show-ev">Deep Soul Sensation presents</div>
+      <div class="show-title">LastDance26</div>
+      <div class="show-meta">Sat 5 Dec 2026 · Mea Culpa, 35 11th Road, Kew · Doors 20:00</div>
+      <div class="show-kpis">
+        <div class="show-kpi"><b>766</b><span>of 1 200 sold</span></div>
+        <div class="show-kpi"><b>3</b><span>sets confirmed</span></div>
+        <div class="show-kpi"><b>~22 Nov</b><span>projected sell-out</span></div>
+      </div>
+      <div class="show-row"><span>Peak-time set · EUR fee</span><span class="pill tax">15% WHT calculated</span></div>
+      <div class="show-row"><span>Guest set · USD fee</span><span class="pill hold">Hold · 31h left</span></div>
+      <div class="show-row"><span>Headliner · ZAR fee</span><span class="pill ok">Contracted</span></div>
+      <div class="show-note">Event details from the public listing. Artists, ticket counts and fees in the demo are sample figures.</div>
+    </a>
+  </div>
+</section>
 
 <!-- ════════════════════════════════════════════════════ TESTIMONIALS ══ -->
 <section class="sec">
