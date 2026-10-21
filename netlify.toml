@@ -11,6 +11,12 @@
   to = "/app/index.html"
   status = 200
 
+# Live showcase: /lastdance26 → /lastdance26/index.html
+[[redirects]]
+  from = "/lastdance26"
+  to = "/lastdance26/index.html"
+  status = 200
+
 # Security headers — applied to every response
 [[headers]]
   for = "/*"

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="description" content="SetFlow v3 live showcase: lineup, ticket pace, settlement and advance for LastDance26 at Mea Culpa, Johannesburg. Sample figures.">
+<meta name="robots" content="noindex">
+<title>SetFlow · LastDance26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: app shell — left rail (bottom bar on phones), event header, tabbed work surface of gold-edged cards.
+   Matches the live SetFlow brand: light Google surfaces, gold on the edges, SA flag stripe on top. Single light look by choice. */
+:root{
+  color-scheme:light;
+  --bg:#FAFBFC; --bg2:#F1F3F4; --card:#FFFFFF; --card2:#F1F3F4; --line:#DADCE0;
+  --fg:#202124; --mute:#5F6368; --dim:#80868B;
+  --blue:#1A73E8; --blue-h:#1557B0; --blue-bg:#E8F0FE; --red:#EA4335; --red-ink:#C5221F; --yellow:#F9AB00; --yel-ink:#A8530A; --green:#34A853; --grn-ink:#188038;
+  --gold:#C9A961; --gold2:#E8DBB7; --gold-ink:#8A6A24; --goldline:rgba(201,169,97,.55); --gold-bg:rgba(201,169,97,.08);
+  --sa-green:#007A4D; --sa-gold:#FFB612; --sa-red:#DE3831; --sa-blue:#002395;
+  --shadow:0 1px 3px rgba(60,64,67,.10),0 4px 8px rgba(60,64,67,.05);
+  --shadow-md:0 2px 6px rgba(60,64,67,.12),0 8px 24px rgba(60,64,67,.08);
+  --f-display:"Google Sans","Roboto",system-ui,sans-serif;
+  --f-body:"Roboto","Google Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Roboto Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:14px; --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box}
+body{margin:0}
+a{color:inherit}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100%}
+.rail{background:var(--card);border-right:1px solid var(--goldline);padding:20px 14px;display:flex;flex-direction:column;gap:22px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:10px;padding:0 6px}
+.mark{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,var(--sa-green) 0%,var(--sa-gold) 45%,var(--sa-red) 70%,var(--sa-blue) 100%);box-shadow:0 0 0 1px var(--gold),0 4px 12px rgba(0,122,77,.25)}
+.mark span{font:700 17px var(--f-display);color:#fff}
+.brand b{font:500 18px var(--f-display);letter-spacing:-.01em}
+.brand small{display:block;font-size:10px;color:var(--gold-ink);font-family:var(--f-mono);letter-spacing:.14em;text-transform:uppercase}
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav button{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:1px solid transparent;background:none;color:var(--mute);text-align:left;font-weight:600;transition:all .2s var(--ease)}
+.nav button svg{width:18px;height:18px;flex:none}
+.nav button:hover{color:var(--fg);background:var(--bg2)}
+.nav button.on{color:var(--blue);background:var(--blue-bg);border-color:transparent}
+.nav button.on svg{color:var(--blue)}
+.rail .who{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px}
+.seg button{border:0;background:none;border-radius:7px;padding:7px 4px;font-size:12px;font-weight:700;color:var(--mute)}
+.seg button.on{background:var(--card);color:var(--blue);box-shadow:0 0 0 1px var(--goldline),var(--shadow)}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-block:14px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--card)}
+.flag{position:fixed;inset:env(safe-area-inset-top,0px) 0 auto;height:3px;z-index:30;background:linear-gradient(90deg,var(--sa-green) 0 33%,var(--sa-gold) 33% 50%,var(--sa-red) 50% 67%,var(--sa-blue) 67%);pointer-events:none}
+.ev{min-width:0;flex:1}
+.ev .eyebrow{font-size:11px;color:var(--gold-ink);letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.ev h1{margin:2px 0 0;font:500 clamp(18px,2.6vw,24px)/1.15 var(--f-display);text-wrap:balance}
+.ev p{margin:2px 0 0;color:var(--mute);font-size:13px}
+.count{display:flex;gap:6px}
+.count div{background:var(--card);border:1px solid var(--goldline);border-radius:10px;padding:6px 10px;text-align:center;min-width:52px}
+.count b{display:block;font:600 18px var(--f-mono)}
+.count span{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:9px 14px;font-weight:700;border:1px solid var(--line);background:var(--card);transition:transform .15s var(--ease),background .2s,border-color .2s}
+.btn:hover{border-color:var(--goldline);background:var(--card2)}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.pri:hover{background:var(--blue-h);border-color:var(--blue-h)}
+.btn.gold{background:linear-gradient(180deg,#D9BE7E,var(--gold));color:#2b2105;border-color:var(--gold);box-shadow:0 2px 8px rgba(201,169,97,.35)}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:8px}
+.btn svg{width:16px;height:16px}
+
+.view{padding-block:22px 40px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px;animation:in .35s var(--ease)}
+@keyframes in{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+.banner{display:flex;gap:10px;align-items:center;font-size:12.5px;color:var(--mute);background:var(--bg2);border:1px dashed var(--line);border-radius:10px;padding:8px 12px}
+.banner i{width:8px;height:8px;border-radius:50%;flex:none}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g2{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.g2e{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{position:relative;background:var(--card);box-shadow:var(--shadow);border:1px solid var(--line);border-radius:var(--r);padding:18px;min-width:0}
+.card.edge{border-color:var(--goldline);box-shadow:var(--shadow)}
+.card.edge::before{content:"";position:absolute;inset:0 18px auto;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.9}
+.card h2{margin:0;font-size:13px;font-weight:700;letter-spacing:.02em;display:flex;align-items:center;gap:8px}
+.card .sub{color:var(--dim);font-size:12px;margin-top:2px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.kpi .v{font:600 clamp(20px,2.4vw,26px) var(--f-mono);margin-top:8px;letter-spacing:-.01em}
+.kpi .t{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mute);margin-top:4px}
+.kpi .dot{width:8px;height:8px;border-radius:2px}
+.bar{height:6px;background:var(--bg);border-radius:6px;overflow:hidden;margin-top:12px}
+.bar i{display:block;height:100%;border-radius:6px;transition:width .6s var(--ease)}
+
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;border:1px solid;white-space:nowrap}
+.p-inquiry{color:var(--blue);border-color:#AECBFA;background:var(--blue-bg)}
+.p-hold{color:var(--yel-ink);border-color:#FDE293;background:#FEF7E0}
+.p-contracted{color:var(--grn-ink);border-color:#A8D5B5;background:#E6F4EA}
+.p-settled{color:var(--gold-ink);border-color:var(--goldline);background:var(--gold-bg)}
+.p-alert{color:var(--red-ink);border-color:#F8C0BB;background:#FCE8E6}
+
+svg.chart{width:100%;height:auto;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:14px;height:3px;border-radius:2px;display:inline-block}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:700;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:10px;border-bottom:1px solid var(--line)}
+td.r,th.r{text-align:right}
+.scroll{overflow-x:auto}
+
+/* run of show */
+.ros{position:relative;margin-top:6px}
+.ros .hours{display:grid;grid-template-columns:repeat(8,1fr);font:11px var(--f-mono);color:var(--dim);border-bottom:1px solid var(--line);padding-bottom:6px}
+.ros .track{position:relative;height:62px;margin-top:10px}
+.ros .blk{position:absolute;top:0;bottom:0;border-radius:10px;padding:8px 10px;overflow:hidden;border:1px solid;transition:transform .2s var(--ease)}
+.ros .blk:hover{transform:translateY(-2px)}
+.ros .blk b{display:block;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ros .blk span{font:11px var(--f-mono);opacity:.8}
+.now{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--red)}
+
+/* pipeline */
+.kanban{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:14px;overflow-x:auto;padding-bottom:6px}
+.col{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:12px;min-height:280px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s,background .2s}
+.col.over{border-color:var(--gold);background:var(--gold-bg)}
+.col header{display:flex;justify-content:space-between;align-items:center}
+.col header .sum{font:12px var(--f-mono);color:var(--mute)}
+.bk{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:grab;transition:transform .18s var(--ease),border-color .2s,box-shadow .2s;display:flex;flex-direction:column;gap:8px}
+.bk:hover{border-color:var(--goldline);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.bk.drag{opacity:.4}
+.bk .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.bk b{font-size:14px}
+.bk .meta{font-size:12px;color:var(--mute)}
+.av{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-weight:800;font-size:12px;flex:none}
+.timer{font:600 12px var(--f-mono);color:var(--yel-ink)}
+.timer.hot{color:var(--red-ink)}
+
+/* settlement */
+.ledger .ln{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.ledger .ln span:first-child{color:var(--mute)}
+.ledger .ln.tot{border-bottom:0;padding-top:14px;font-weight:700}
+.ledger .ln.tot .num{font-size:22px;color:var(--gold-ink)}
+.neg{color:var(--red-ink)}.pos{color:var(--grn-ink)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;color:var(--mute);font-weight:600}
+.inp{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;transition:border-color .2s}
+.inp:focus{border-color:var(--blue);outline:none}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.switch{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mute)}
+.switch input{appearance:none;width:38px;height:22px;border-radius:999px;background:var(--line);position:relative;transition:background .2s;cursor:pointer;flex:none}
+.switch input::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s var(--ease)}
+.switch input:checked{background:var(--green)}
+.switch input:checked::after{transform:translateX(16px)}
+.lock{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:10px;background:var(--gold-bg);border:1px solid var(--goldline);color:var(--gold-ink);font-size:12.5px}
+
+/* advance */
+.chk{display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.chk input{appearance:none;width:20px;height:20px;border-radius:6px;border:1.5px solid var(--dim);display:grid;place-items:center;flex:none;transition:all .2s}
+.chk input:checked{background:var(--green);border-color:var(--green)}
+.chk input:checked::after{content:"";width:6px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chk.done span{color:var(--dim);text-decoration:line-through}
+.chk small{margin-left:auto;font-size:11px;color:var(--dim)}
+.ring{width:84px;height:84px;flex:none}
+.artist-pick{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--bg2);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;color:var(--mute);transition:all .2s}
+.chip.on{color:var(--fg);border-color:var(--gold);background:var(--card);box-shadow:var(--shadow)}
+
+.audit li{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.audit time{font:11px var(--f-mono);color:var(--dim);white-space:nowrap}
+.audit ul{list-style:none;margin:0;padding:0;max-height:260px;overflow:auto}
+
+/* modal + toast */
+.scrim{position:fixed;inset:0;background:rgba(32,33,36,.38);backdrop-filter:blur(4px);z-index:50;display:grid;place-items:center;padding:16px;animation:fade .2s}
+@keyframes fade{from{opacity:0}}
+.modal{width:min(560px,100%);max-height:calc(100% - 32px);overflow:auto;background:var(--card);box-shadow:0 4px 14px rgba(60,64,67,.15),0 16px 48px rgba(60,64,67,.12);border:1px solid var(--goldline);border-radius:18px;padding:22px;animation:pop .28s var(--ease);position:relative}
+.modal::before{content:"";position:absolute;inset:0 24px auto;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}}
+.modal h3{margin:0 0 4px;font:500 20px var(--f-display)}
+.modal .x{position:absolute;top:14px;right:14px;border:0;background:var(--bg2);width:32px;height:32px;border-radius:9px;color:var(--mute)}
+.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+canvas.sig{width:100%;height:160px;background:#FFFDF7;border-radius:12px;border:1px solid var(--gold);touch-action:none;display:block}
+.toasts{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:var(--card);border:1px solid var(--goldline);border-left:3px solid var(--green);border-radius:10px;padding:10px 14px;font-size:13px;box-shadow:var(--shadow-md);animation:pop .25s var(--ease)}
+.stmt{background:var(--bg);border:1px solid var(--line);color:#1b1d23;border-radius:12px;padding:18px;font-size:12.5px}
+.stmt h4{margin:0;font:700 14px var(--f-display);color:#1b1d23}
+.stmt .ln{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #e7e3d8}
+.stmt .ln:last-child{border-bottom:0;font-weight:800}
+.stmt .gl{height:3px;background:linear-gradient(90deg,#007A4D 0 25%,#FFB612 25% 50%,#DE3831 50% 75%,#002395 75%);margin:10px 0 12px;border-radius:2px}
+.hint{font-size:12px;color:var(--dim)}
+.empty{color:var(--dim);font-size:12.5px;text-align:center;padding:18px;border:1px dashed var(--line);border-radius:10px}
+
+@media (max-width:1100px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g2{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){
+  .app{grid-template-columns:1fr}
+  .rail{position:fixed;inset:auto 0 0 0;top:auto;height:auto;flex-direction:row;padding:8px max(8px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));z-index:20;border-right:0;border-top:1px solid var(--goldline);gap:0}
+  .brand,.rail .who{display:none}
+  .nav{flex-direction:row;width:100%;justify-content:space-around}
+  .nav button{flex-direction:column;gap:3px;font-size:10.5px;padding:6px 8px}
+  .main{padding-bottom:76px}
+  .top,.view{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .mobile-role{display:flex!important}
+  .g2e,.fgrid{grid-template-columns:minmax(0,1fr)}
+  .count div{min-width:44px;padding:5px 7px}
+  .toasts{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:440px){.g4{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.kpi .v{font-size:18px}}
+.mobile-role{display:none;width:100%}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="flag" aria-hidden="true"></div>
+<div class="app">
+  <aside class="rail">
+    <a class="brand" href="/" style="text-decoration:none"><div class="mark"><span>S</span></div><div><b>SetFlow</b><small>v3 · Press Play.</small></div></a>
+    <nav class="nav" id="nav"></nav>
+    <div class="who">
+      <span class="label">Viewing as</span>
+      <div class="seg" id="roleSeg"></div>
+      <span class="hint" id="roleHint"></span>
+      <a class="btn sm gold" href="/#contact" style="justify-content:center;text-decoration:none">Book a walkthrough</a>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="top">
+      <div class="ev">
+        <div class="eyebrow">Deep Soul Sensation presents</div>
+        <h1>LastDance26</h1>
+        <p>Sat 5 Dec 2026 · Mea Culpa, 35 11th Road, Kew, Johannesburg · Doors 20:00</p>
+      </div>
+      <div class="count" id="count" aria-label="Countdown to doors"></div>
+      <div class="mobile-role"><div class="seg" id="roleSeg2" style="width:100%"></div></div>
+    </header>
+    <section id="view"></section>
+  </main>
+</div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div id="modalRoot"></div>
+
+<script>
+/* ======== State. Money is stored in integer minor units (cents). ======== */
+const NOW = new Date();
+const DOORS = new Date('2026-12-05T20:00:00+02:00');
+const H = 3600e3;
+const S = {
+  role:'promoter', tab:'event', advArtist:'b2', setlArtist:'b2',
+  fx:{ZAR:1, EUR:20.38, USD:17.52},          // sample spot rates, ZAR per unit
+  capacity:1200,
+  tiers:[
+    {id:'eb', name:'Early Bird', price:25000, cap:300, sold:300, heads:1, color:'var(--green)'},
+    {id:'ga', name:'General', price:35000, cap:600, sold:412, heads:1, color:'var(--blue)'},
+    {id:'lr', name:'Last Release', price:45000, cap:204, sold:0, heads:1, color:'var(--yellow)'},
+    {id:'vip', name:'VIP Table (6 pax)', price:600000, cap:16, sold:9, heads:6, color:'var(--gold)'}
+  ],
+  weekly:[{d:'31 Aug',v:120},{d:'7 Sep',v:260},{d:'14 Sep',v:340},{d:'21 Sep',v:410},{d:'28 Sep',v:488},{d:'5 Oct',v:560},{d:'12 Oct',v:655},{d:'19 Oct',v:766}],
+  bookings:[
+    {id:'b1', artist:'Nomvula Kaze', from:'Durban, ZA', role:'Headliner', start:'00:30', end:'02:30', cur:'ZAR', fee:18000000, agent:10, dep:50, depRate:1, depDate:'2026-09-10', status:'contracted', signed:false, intl:false, c:'var(--red)'},
+    {id:'b2', artist:'Elias Brandt', from:'Berlin, DE', role:'Peak time', start:'23:00', end:'00:30', cur:'EUR', fee:650000, agent:10, dep:50, depRate:19.62, depDate:'2026-09-02', status:'contracted', signed:true, intl:true, c:'var(--blue)'},
+    {id:'b3', artist:'Kweku Asante', from:'Accra, GH', role:'Guest set', start:'21:30', end:'23:00', cur:'USD', fee:400000, agent:12, dep:50, depRate:17.40, depDate:null, status:'hold', holdUntil:+NOW+31*H, signed:false, intl:true, c:'var(--yellow)'},
+    {id:'b4', artist:'Thabo Seroto', from:'Soweto, ZA', role:'Support', start:'21:30', end:'23:00', cur:'ZAR', fee:4500000, agent:10, dep:50, depRate:1, depDate:'2026-09-18', status:'contracted', signed:true, intl:false, c:'var(--green)'},
+    {id:'b5', artist:'Lerato Moon', from:'Pretoria, ZA', role:'Warm-up', start:'20:00', end:'21:30', cur:'ZAR', fee:1500000, agent:0, dep:0, depRate:1, depDate:null, status:'inquiry', signed:false, intl:false, c:'#A78BFA'},
+    {id:'b6', artist:'Sipho & Dineo (b2b)', from:'Johannesburg, ZA', role:'Closing', start:'02:30', end:'04:00', cur:'ZAR', fee:3000000, agent:10, dep:50, depRate:1, depDate:null, status:'inquiry', signed:false, intl:false, c:'#F28B82'}
+  ],
+  riders:{
+    b1:[['CDJ-3000 × 3 + DJM-A9','Tech',1],['Booth monitors at 105 dB','Tech',1],['Green room, 6 guests','Hospitality',0],['Airport pickup KSIA → Kew','Travel',0],['Hotel, 2 nights, Sandton','Travel',1],['Still water, no plastic','Hospitality',0]],
+    b2:[['Allen & Heath Xone:96 mixer','Tech',1],['Technics SL-1210 MK7 × 2','Tech',0],['Flight FRA → JNB confirmed','Travel',1],['Work permit / visa letter','Travel',1],['Hotel, 3 nights, Rosebank','Travel',1],['Vegetarian meal after set','Hospitality',0],['Stage plot signed off','Tech',0]],
+    b3:[['CDJ-3000 × 2','Tech',0],['Flight ACC → JNB','Travel',0],['Visa invitation letter','Travel',0]],
+    b4:[['CDJ-3000 × 3','Tech',1],['Guest list, 4','Hospitality',1],['Parking bay','Travel',1]],
+    b5:[['CDJ-3000 × 2','Tech',0]],
+    b6:[['CDJ-3000 × 4 for b2b','Tech',0],['Guest list, 8','Hospitality',0]]
+  },
+  settled:{}, audit:[]
+};
+const STATUSES=[['inquiry','Inquiry'],['hold','Hold'],['contracted','Contracted'],['settled','Settled']];
+const ROLES={promoter:'Promoter',manager:'Manager',artist:'Artist'};
+const ROLE_HINT={promoter:'Deep Soul Sensation. Agent commission hidden.',manager:'Elias Brandt’s management. Full settlement view.',artist:'Elias Brandt. Own gig and net pay only.'};
+const ME='b2'; // the manager and artist personas are tied to Elias Brandt
+
+/* ======== Money helpers ======== */
+const SYM={ZAR:'R',EUR:'€',USD:'$'};
+const fmt=(minor,cur='ZAR',dp=0)=>{const n=minor/100;return (n<0?'−':'')+SYM[cur]+' '+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:dp,maximumFractionDigits:dp}).replace(/,/g,' ')};
+const toZAR=(minor,cur,rate)=>Math.round(minor*(rate??S.fx[cur]));
+const pct=(minor,p)=>Math.round(minor*p/100);
+function calc(b){
+  const gross=b.fee, wht=b.intl?pct(gross,15):0, comm=pct(gross,b.agent);
+  const net=gross-wht-comm, deposit=pct(gross,b.dep), balance=gross-deposit;
+  const depZAR=b.depDate?toZAR(deposit,b.cur,b.depRate):0;
+  const balZAR=toZAR(balance,b.cur);
+  const fxVar=b.depDate?Math.round(deposit*(S.fx[b.cur]-b.depRate)):0; // deposit converted early: + = saved
+  return {gross,wht,comm,net,deposit,balance,depZAR,balZAR,fxVar,grossZAR:toZAR(gross,b.cur),netZAR:toZAR(net,b.cur),whtZAR:toZAR(wht,b.cur)};
+}
+const ticketsSold=()=>S.tiers.reduce((a,t)=>a+t.sold*t.heads,0);
+const ticketRev=()=>S.tiers.reduce((a,t)=>a+t.sold*t.price,0);
+const artistCost=()=>S.bookings.filter(b=>b.status!=='inquiry').reduce((a,b)=>a+calc(b).grossZAR,0);
+
+/* ======== Utilities ======== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initials=n=>n.split(/\s+/).filter(w=>/[A-Za-z]/.test(w[0])).slice(0,2).map(w=>w[0]).join('');
+function toast(msg,color='var(--green)'){const t=document.createElement('div');t.className='toast';t.style.borderLeftColor=color;t.textContent=msg;$('#toasts').appendChild(t);setTimeout(()=>t.remove(),3200)}
+function log(msg){S.audit.unshift({t:new Date(),who:ROLES[S.role],msg})}
+const I={
+  event:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>',
+  lineup:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="11" rx="1.5"/><rect x="17" y="4" width="4" height="7" rx="1.5"/></svg>',
+  settle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="18" cy="17" r="2.5"/></svg>',
+  advance:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h9"/></svg>',
+  gig:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>',
+  pen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/></svg>',
+  lockI:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>'
+};
+function tabsFor(role){
+  if(role==='artist') return [['gig','My Gig',I.gig],['advance','Advance',I.advance]];
+  return [['event','Event',I.event],['lineup','Lineup',I.lineup],['settle','Settlement',I.settle],['advance','Advance',I.advance]];
+}
+
+/* ======== Shell ======== */
+function renderShell(){
+  const tabs=tabsFor(S.role);
+  if(!tabs.some(t=>t[0]===S.tab)) S.tab=tabs[0][0];
+  $('#nav').innerHTML=tabs.map(([id,l,ic])=>`<button class="${S.tab===id?'on':''}" data-tab="${id}" aria-current="${S.tab===id?'page':'false'}">${ic}<span>${l}</span></button>`).join('');
+  const seg=Object.entries(ROLES).map(([k,v])=>`<button class="${S.role===k?'on':''}" data-role="${k}">${v}</button>`).join('');
+  $('#roleSeg').innerHTML=seg;$('#roleSeg2').innerHTML=seg;
+  $('#roleHint').textContent=ROLE_HINT[S.role];
+}
+function render(){renderShell();const v=$('#view');v.className='view';v.innerHTML=VIEWS[S.tab]();void v.offsetWidth;after[S.tab]&&after[S.tab]()}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-tab]');if(t){S.tab=t.dataset.tab;render();window.scrollTo({top:0,behavior:'smooth'});return}
+  const r=e.target.closest('[data-role]');if(r){S.role=r.dataset.role;if(S.role!=='promoter'){S.setlArtist=ME;S.advArtist=ME}render();toast('Viewing as '+ROLES[S.role]+'. '+ROLE_HINT[S.role],'var(--gold)');return}
+  const a=e.target.closest('[data-act]');if(a){ACT[a.dataset.act](a.dataset.id,a)}
+});
+
+function tickCount(){
+  let d=Math.max(0,DOORS-Date.now());const D=Math.floor(d/864e5);d%=864e5;const h=Math.floor(d/H);d%=H;const m=Math.floor(d/6e4);const s=Math.floor(d%6e4/1e3);
+  $('#count').innerHTML=[[D,'days'],[h,'hrs'],[m,'min'],[s,'sec']].map(([n,l])=>`<div><b>${String(n).padStart(2,'0')}</b><span>${l}</span></div>`).join('');
+  document.querySelectorAll('[data-timer]').forEach(el=>{const b=S.bookings.find(x=>x.id===el.dataset.timer);if(!b)return;const left=b.holdUntil-Date.now();
+    if(left<=0){el.textContent='Hold expired';el.classList.add('hot');return}
+    const hh=Math.floor(left/H),mm=Math.floor(left%H/6e4),ss=Math.floor(left%6e4/1e3);el.textContent=`${hh}h ${String(mm).padStart(2,'0')}m ${String(ss).padStart(2,'0')}s left`;el.classList.toggle('hot',left<12*H)});
+}
+
+/* ======== Views ======== */
+const VIEWS={}, after={};
+
+VIEWS.event=()=>{
+  const sold=ticketsSold(),rev=ticketRev(),cost=artistCost(),margin=rev-cost;
+  const proj=projection();
+  const lineup=S.bookings.filter(b=>b.status==='contracted'||b.status==='settled');
+  return `
+  <div class="banner"><i style="background:var(--gold)"></i>Pitch preview for Deep Soul Sensation. Event details are from the public listing; artists, ticket counts and fees are sample figures.</div>
+  <div class="grid g4">
+    ${kpi('Tickets sold',`${sold} <span style="font-size:.55em;color:var(--dim)">/ ${S.capacity}</span>`,`${Math.round(sold/S.capacity*100)}% of capacity`,'var(--blue)',sold/S.capacity)}
+    ${kpi('Ticket revenue',fmt(rev),'Gross, before platform fees','var(--green)')}
+    ${kpi('Artist fees',fmt(cost),'FX-normalised to ZAR, holds included','var(--yellow)')}
+    ${kpi('Margin at today’s sales',fmt(margin),margin>0?'Already covering talent':`Break-even after ${Math.ceil(-margin/45000)} more Last Release tickets`,margin>0?'var(--green)':'var(--yellow)')}
+  </div>
+  <div class="grid g2">
+    <div class="card edge">
+      <div class="head"><div><h2>Ticket sales pace</h2><div class="sub">Cumulative heads by week, with projection to doors</div></div>
+        <button class="btn sm pri" data-act="sell">${I.plus} Simulate a sales drop</button></div>
+      <div id="salesChart"></div>
+      <div class="legend" style="margin-top:8px"><span><i style="background:var(--blue)"></i>Sold</span><span><i style="background:repeating-linear-gradient(90deg,var(--gold) 0 4px,transparent 4px 7px)"></i>Projection</span><span><i style="background:var(--red)"></i>Capacity ${S.capacity}</span></div>
+      <p class="hint" style="margin:10px 0 0">${proj.text}</p>
+    </div>
+    <div class="card edge">
+      <div class="head"><div><h2>Revenue by tier</h2><div class="sub">Sold against allocation</div></div></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+      ${S.tiers.map(t=>`<div><div style="display:flex;justify-content:space-between;gap:8px;font-size:13px"><span>${t.name} <span class="hint num">${fmt(t.price)}</span></span><span class="num">${t.sold}/${t.cap}</span></div>
+        <div class="bar"><i style="width:${t.sold/t.cap*100}%;background:${t.color}"></i></div>
+        <div class="hint num" style="margin-top:4px">${fmt(t.sold*t.price)}${t.sold>=t.cap?' · <span style="color:var(--green)">Sold out</span>':''}</div></div>`).join('')}
+      </div>
+    </div>
+  </div>
+  <div class="card edge">
+    <div class="head"><div><h2>Run of show</h2><div class="sub">Contracted sets only. Holds appear once confirmed.</div></div><span class="pill p-contracted">${lineup.length} confirmed</span></div>
+    <div class="scroll"><div style="min-width:640px">${rosHTML(lineup)}</div></div>
+  </div>
+  ${auditCard()}`;
+};
+after.event=()=>drawSales();
+
+function kpi(t,v,sub,c,frac){return `<div class="card edge kpi"><div class="label">${t}</div><div class="v">${v}</div><div class="t"><i class="dot" style="background:${c}"></i>${sub}</div>${frac!=null?`<div class="bar"><i style="width:${Math.min(100,frac*100)}%;background:${c}"></i></div>`:''}</div>`}
+
+function projection(){
+  const w=S.weekly, n=w.length, pace=(w[n-1].v-w[n-5].v)/4;
+  const last=new Date('2026-10-19T12:00:00+02:00');
+  const weeksLeft=(DOORS-last)/(7*864e5);
+  const atDoors=Math.round(w[n-1].v+pace*weeksLeft);
+  if(w[n-1].v>=S.capacity) return {pace,atDoors:S.capacity,text:'Sold out. Release a waitlist or a second room.'};
+  if(atDoors>=S.capacity){const wk=(S.capacity-w[n-1].v)/pace;const d=new Date(+last+wk*7*864e5);
+    return {pace,atDoors,text:`At ${Math.round(pace)} tickets a week you sell out around ${d.toLocaleDateString('en-ZA',{day:'numeric',month:'short'})}. Consider opening Last Release now at a higher price.`}}
+  return {pace,atDoors,text:`At ${Math.round(pace)} tickets a week you reach about ${atDoors} by doors. A push in the next two weeks closes the gap.`};
+}
+function drawSales(){
+  const el=$('#salesChart');if(!el)return;
+  const W=620,Hh=230,L=44,R=14,T=14,B=28;const w=S.weekly;const p=projection();
+  const pts=w.length+6; const max=Math.max(S.capacity,p.atDoors)*1.08;
+  const x=i=>L+i*(W-L-R)/(pts-1), y=v=>T+(Hh-T-B)*(1-v/max);
+  const grid=[0,300,600,900,1200].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" fill="var(--dim)" font-size="10" font-family="Roboto Mono">${v}</text>`).join('');
+  const line=w.map((d,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(d.v).toFixed(1)}`).join('');
+  const area=line+`L${x(w.length-1)},${y(0)}L${x(0)},${y(0)}Z`;
+  const li=w.length-1;const projEnd=Math.min(p.atDoors,max/1.02);
+  const labels=w.map((d,i)=>i%2?'' :`<text x="${x(i)}" y="${Hh-8}" text-anchor="middle" fill="var(--dim)" font-size="10" font-family="Roboto Mono">${d.d}</text>`).join('')+`<text x="${x(pts-1)}" y="${Hh-8}" text-anchor="end" fill="var(--gold)" font-size="10" font-family="Roboto Mono">5 Dec</text>`;
+  el.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Ticket sales chart">
+    <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A73E8" stop-opacity=".22"/><stop offset="1" stop-color="#1A73E8" stop-opacity="0"/></linearGradient></defs>
+    ${grid}
+    <line x1="${L}" x2="${W-R}" y1="${y(S.capacity)}" y2="${y(S.capacity)}" stroke="var(--red)" stroke-dasharray="2 4" stroke-width="1.5"/>
+    <path d="${area}" fill="url(#ga)"/>
+    <path d="${line}" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M${x(li)},${y(w[li].v)}L${x(pts-1)},${y(projEnd)}" stroke="var(--gold)" stroke-width="2" stroke-dasharray="5 5" fill="none"/>
+    <circle cx="${x(li)}" cy="${y(w[li].v)}" r="5" fill="var(--blue)" stroke="#fff" stroke-width="2"/>
+    <text x="${x(li)}" y="${y(w[li].v)-12}" text-anchor="middle" fill="var(--fg)" font-size="12" font-weight="700" font-family="Roboto Mono">${w[li].v}</text>
+    ${labels}</svg>`;
+}
+function rosHTML(list){
+  const start=20,span=8,toH=t=>{let [h,m]=t.split(':').map(Number);if(h<12)h+=24;return h+m/60};
+  const hours=Array.from({length:8},(_,i)=>`<span>${String((start+i)%24).padStart(2,'0')}:00</span>`).join('');
+  if(!list.length) return '<div class="empty">No confirmed sets yet. Move a booking to Contracted to place it here.</div>';
+  return `<div class="ros"><div class="hours">${hours}</div><div class="track">${list.map(b=>{const a=(toH(b.start)-start)/span*100,w=(toH(b.end)-toH(b.start))/span*100;
+    return `<div class="blk" style="left:${a}%;width:calc(${w}% - 4px);background:color-mix(in srgb,${b.c} 16%,transparent);border-color:color-mix(in srgb,${b.c} 50%,transparent)"><b>${esc(b.artist)}</b><span>${b.start}–${b.end}</span></div>`}).join('')}</div></div>`;
+}
+function auditCard(){return `<div class="card"><div class="head"><div><h2>Activity</h2><div class="sub">Append-only. Every money and contract change is logged.</div></div></div><div class="audit">${S.audit.length?`<ul>${S.audit.map(a=>`<li><time>${a.t.toLocaleTimeString('en-ZA',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}</time><span><b>${a.who}</b> · ${esc(a.msg)}</span></li>`).join('')}</ul>`:'<div class="empty">Changes you make in this demo appear here with a timestamp.</div>'}</div></div>`}
+
+/* ---- Lineup pipeline ---- */
+VIEWS.lineup=()=>{
+  const cols=STATUSES.map(([k,l])=>{const items=S.bookings.filter(b=>b.status===k);const tot=items.reduce((a,b)=>a+calc(b).grossZAR,0);
+    return `<div class="col" data-col="${k}"><header><span class="pill p-${k}">${l} · ${items.length}</span><span class="sum">${fmt(tot)}</span></header>
+      ${items.map(cardHTML).join('')||'<div class="empty">Drop a booking here</div>'}</div>`}).join('');
+  return `<div class="head" style="margin:0"><div><h2 style="font:700 18px var(--f-display);margin:0">Lineup pipeline</h2><div class="sub" style="color:var(--mute)">Drag a card to move it. Tap a card for details, contracts and holds.</div></div>
+    <button class="btn pri" data-act="newBooking">${I.plus} New offer</button></div>
+    <div class="kanban">${cols}</div>
+    <div class="grid g2e">
+      <div class="card edge"><h2>Talent cost by currency</h2><div class="sub">Each fee converted at today’s rate, then summed. Never added raw.</div>
+        <div class="scroll" style="margin-top:10px"><table><thead><tr><th>Currency</th><th class="r">Fees</th><th class="r">Rate</th><th class="r">In ZAR</th></tr></thead><tbody>
+        ${['ZAR','EUR','USD'].map(c=>{const f=S.bookings.filter(b=>b.cur===c&&b.status!=='inquiry').reduce((a,b)=>a+b.fee,0);return `<tr><td>${c}</td><td class="r num">${fmt(f,c)}</td><td class="r num">${S.fx[c].toFixed(2)}</td><td class="r num">${fmt(toZAR(f,c))}</td></tr>`}).join('')}
+        <tr><td><b>Total</b></td><td></td><td></td><td class="r num"><b>${fmt(artistCost())}</b></td></tr></tbody></table></div></div>
+      ${auditCard()}
+    </div>`;
+};
+function cardHTML(b){
+  const c=calc(b);
+  return `<article class="bk" draggable="true" data-id="${b.id}" data-act="openBooking" tabindex="0">
+    <div class="row"><div style="display:flex;gap:10px;align-items:center;min-width:0"><div class="av" style="background:color-mix(in srgb,${b.c} 22%,transparent);color:${b.c}">${initials(b.artist)}</div><div style="min-width:0"><b>${esc(b.artist)}</b><div class="meta">${esc(b.from)}</div></div></div></div>
+    <div class="row"><span class="meta">${b.role} · ${b.start}</span><span class="num" style="font-weight:600">${fmt(b.fee,b.cur)}</span></div>
+    ${b.status==='hold'?`<div class="timer" data-timer="${b.id}">…</div>`:''}
+    ${b.status==='contracted'?`<div class="row"><span class="pill ${b.signed?'p-contracted':'p-alert'}">${b.signed?'Contract signed':'Awaiting signature'}</span>${b.intl?'<span class="pill p-hold">15% WHT</span>':''}</div>`:''}
+    ${b.cur!=='ZAR'?`<div class="meta num">≈ ${fmt(c.grossZAR)} today</div>`:''}
+  </article>`;
+}
+after.lineup=()=>{
+  document.querySelectorAll('.bk').forEach(el=>{
+    el.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',el.dataset.id);el.classList.add('drag')});
+    el.addEventListener('dragend',()=>el.classList.remove('drag'));
+    el.addEventListener('keydown',e=>{if(e.key==='Enter')ACT.openBooking(el.dataset.id)});
+  });
+  document.querySelectorAll('.col').forEach(col=>{
+    col.addEventListener('dragover',e=>{e.preventDefault();col.classList.add('over')});
+    col.addEventListener('dragleave',()=>col.classList.remove('over'));
+    col.addEventListener('drop',e=>{e.preventDefault();col.classList.remove('over');moveBooking(e.dataTransfer.getData('text/plain'),col.dataset.col)});
+  });
+  tickCount();
+};
+function moveBooking(id,to){
+  const b=S.bookings.find(x=>x.id===id);if(!b||b.status===to)return;
+  if(b.status==='settled'){toast('Settled bookings are locked. Raise an adjustment instead.','var(--red)');return}
+  if(to==='settled'){toast('Close a booking from the Settlement tab so the statement is generated.','var(--yellow)');return}
+  if(to==='contracted'&&b.status==='inquiry'){toast('Place a hold first, then contract.','var(--yellow)');return}
+  const from=b.status;b.status=to;
+  if(to==='hold')b.holdUntil=Date.now()+72*H;
+  if(to==='contracted'&&!b.depDate){b.depDate=new Date().toISOString().slice(0,10);b.depRate=S.fx[b.cur]}
+  log(`${b.artist}: ${from} → ${to}`);toast(`${b.artist} moved to ${to[0].toUpperCase()+to.slice(1)}`);render();
+}
+
+/* ---- Settlement ---- */
+VIEWS.settle=()=>{
+  const list=S.role==='promoter'?S.bookings.filter(b=>b.status==='contracted'||b.status==='settled'):S.bookings.filter(b=>b.id===ME);
+  if(!list.some(b=>b.id===S.setlArtist))S.setlArtist=list[0]?.id;
+  const b=S.bookings.find(x=>x.id===S.setlArtist);const c=calc(b);const locked=b.status==='settled';
+  const isMgr=S.role==='manager';
+  const totalWht=S.bookings.filter(x=>x.status!=='inquiry'&&x.status!=='hold').reduce((a,x)=>a+calc(x).whtZAR,0);
+  return `<div class="banner"><i style="background:${isMgr?'var(--green)':'var(--blue)'}"></i>${isMgr?'Manager view: commission, net to artist and FX variance are visible.':'Promoter view: you see what you owe and what to withhold for SARS. The artist’s agent commission stays private to their side.'}</div>
+  ${S.role==='promoter'?`<div class="artist-pick">${list.map(x=>`<button class="chip ${x.id===S.setlArtist?'on':''}" data-act="pickSettle" data-id="${x.id}">${esc(x.artist)}</button>`).join('')}</div>`:''}
+  <div class="grid g2">
+    <div class="card edge">
+      <div class="head"><div><h2>${esc(b.artist)} · ${b.role}</h2><div class="sub">${esc(b.from)} · ${b.start}–${b.end} · Fee in ${b.cur}</div></div>
+        <span class="pill ${locked?'p-settled':'p-contracted'}">${locked?'Settled':'Open'}</span></div>
+      <div class="ledger">
+        <div class="ln"><span>Contracted fee</span><span class="num">${fmt(c.gross,b.cur,2)}</span></div>
+        ${b.intl?`<div class="ln"><span>Withholding tax for non-resident entertainers (15%)</span><span class="num neg">${fmt(-c.wht,b.cur,2)}</span></div>`:''}
+        ${isMgr?`<div class="ln"><span>Agent commission (${b.agent}%)</span><span class="num neg">${fmt(-c.comm,b.cur,2)}</span></div>`:''}
+        <div class="ln"><span>Deposit paid ${b.depDate?`${b.depDate} at ${b.depRate.toFixed(2)}`:''} (${b.dep}%)</span><span class="num">${fmt(c.deposit,b.cur,2)}</span></div>
+        <div class="ln"><span>Balance due on the night</span><span class="num">${fmt(c.balance-(b.intl?c.wht:0),b.cur,2)}</span></div>
+        ${b.cur!=='ZAR'&&b.depDate?`<div class="ln"><span>FX on deposit: ${b.depRate.toFixed(2)} then vs ${S.fx[b.cur].toFixed(2)} today</span><span class="num ${c.fxVar>=0?'pos':'neg'}">${c.fxVar>=0?'Saved ':'Cost '}${fmt(Math.abs(c.fxVar))}</span></div>`:''}
+        <div class="ln tot"><span>${isMgr?'Net to artist':'Total cash out (incl. SARS)'}</span><span class="num">${isMgr?fmt(c.net,b.cur,2):fmt(c.gross,b.cur,2)}</span></div>
+        <div class="hint num" style="text-align:right">${b.cur!=='ZAR'?`≈ ${fmt(isMgr?c.netZAR:c.grossZAR)} at ${S.fx[b.cur].toFixed(2)}`:''}</div>
+      </div>
+      <div class="actions" style="justify-content:flex-start">
+        ${locked?`<div class="lock">${I.lockI}<span>Locked ${esc(S.settled[b.id].at)} by ${esc(S.settled[b.id].by)}. Settlements are append-only; changes go in as adjustments.</span></div>`
+        :`<button class="btn gold" data-act="statement" data-id="${b.id}">Generate statement</button>`}
+      </div>
+    </div>
+    <div class="card edge">
+      <h2>Inputs</h2><div class="sub">Change a value and every line recalculates.</div>
+      <div class="fgrid" style="margin-top:14px">
+        <div class="field"><label for="in-fee">Fee (${b.cur})</label><input class="inp num" id="in-fee" type="number" min="0" step="100" value="${b.fee/100}" ${locked?'disabled':''}></div>
+        <div class="field"><label for="in-rate">${b.cur}/ZAR today</label><input class="inp num" id="in-rate" type="number" step="0.01" value="${S.fx[b.cur]}" ${b.cur==='ZAR'||locked?'disabled':''}></div>
+        ${isMgr?`<div class="field"><label for="in-agent">Agent commission %</label><input class="inp num" id="in-agent" type="number" min="0" max="30" step="0.5" value="${b.agent}" ${locked?'disabled':''}></div>`:''}
+        <div class="field"><label for="in-dep">Deposit %</label><input class="inp num" id="in-dep" type="number" min="0" max="100" step="5" value="${b.dep}" ${locked?'disabled':''}></div>
+      </div>
+      <label class="switch" style="margin-top:14px"><input type="checkbox" id="in-wht" ${b.intl?'checked':''} ${locked?'disabled':''}>Non-resident artist, withhold 15% for SARS</label>
+      ${S.role==='promoter'?`<div class="lock" style="margin-top:16px;color:var(--fg)"><span>Total withholding to pay over to SARS for this event: <b class="num" style="color:var(--gold-ink)">${fmt(totalWht)}</b>. Due by the end of the month after you pay the artist.</span></div>`:''}
+    </div>
+  </div>
+  ${auditCard()}`;
+};
+after.settle=()=>{
+  const b=S.bookings.find(x=>x.id===S.setlArtist);
+  const bind=(id,fn)=>{const el=$('#'+id);if(el)el.addEventListener('change',()=>{fn(el);log(`${b.artist}: ${id.replace('in-','')} changed to ${el.type==='checkbox'?el.checked:el.value}`);render();const f=$('#'+id);f&&f.focus()})};
+  bind('in-fee',el=>b.fee=Math.max(0,Math.round(+el.value*100)));
+  bind('in-rate',el=>S.fx[b.cur]=Math.max(.01,+el.value));
+  bind('in-agent',el=>b.agent=Math.min(30,Math.max(0,+el.value)));
+  bind('in-dep',el=>b.dep=Math.min(100,Math.max(0,+el.value)));
+  bind('in-wht',el=>b.intl=el.checked);
+};
+
+/* ---- Advance / rider ---- */
+VIEWS.advance=()=>{
+  const list=S.role==='promoter'?S.bookings.filter(b=>b.status!=='inquiry'):S.bookings.filter(b=>b.id===ME);
+  if(!list.some(b=>b.id===S.advArtist))S.advArtist=list[0].id;
+  const b=S.bookings.find(x=>x.id===S.advArtist);const items=S.riders[b.id];const done=items.filter(i=>i[2]).length;const p=items.length?done/items.length:0;
+  const C=2*Math.PI*34;
+  return `${S.role==='promoter'?`<div class="artist-pick">${list.map(x=>{const it=S.riders[x.id],d=it.filter(i=>i[2]).length;return `<button class="chip ${x.id===S.advArtist?'on':''}" data-act="pickAdv" data-id="${x.id}">${esc(x.artist)} <span class="num" style="color:var(--dim)">${d}/${it.length}</span></button>`}).join('')}</div>`:''}
+  <div class="grid g2">
+    <div class="card edge">
+      <div class="head"><div><h2>Rider and advance · ${esc(b.artist)}</h2><div class="sub">Tick items as they are confirmed. Both sides see the same list.</div></div>
+        <button class="btn sm" data-act="addRider">${I.plus} Add item</button></div>
+      ${['Tech','Travel','Hospitality'].map(g=>{const rows=items.map((it,i)=>[it,i]).filter(([it])=>it[1]===g);if(!rows.length)return'';
+        return `<div class="label" style="margin:14px 0 2px">${g}</div>`+rows.map(([it,i])=>`<label class="chk ${it[2]?'done':''}"><input type="checkbox" data-rider="${i}" ${it[2]?'checked':''}><span>${esc(it[0])}</span><small>${it[2]?'Confirmed':'Open'}</small></label>`).join('')}).join('')}
+    </div>
+    <div class="card edge" style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;gap:16px;align-items:center">
+        <svg class="ring" viewBox="0 0 84 84"><circle cx="42" cy="42" r="34" fill="none" stroke="var(--line)" stroke-width="8"/><circle cx="42" cy="42" r="34" fill="none" stroke="${p===1?'var(--green)':'var(--gold)'}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-p)}" transform="rotate(-90 42 42)" style="transition:stroke-dashoffset .6s var(--ease)"/><text x="42" y="47" text-anchor="middle" fill="var(--fg)" font-size="16" font-weight="700" font-family="Roboto Mono">${Math.round(p*100)}%</text></svg>
+        <div><h2>Advance ${p===1?'complete':'in progress'}</h2><div class="sub">${done} of ${items.length} items confirmed</div></div>
+      </div>
+      <div class="ledger">
+        <div class="ln"><span>Set</span><span class="num">${b.start}–${b.end}</span></div>
+        <div class="ln"><span>Venue</span><span>Mea Culpa, Kew</span></div>
+        <div class="ln"><span>Contract</span><span class="pill ${b.signed?'p-contracted':'p-alert'}">${b.signed?'Signed':'Awaiting signature'}</span></div>
+      </div>
+      ${!b.signed&&b.status==='contracted'?`<button class="btn pri" data-act="sign" data-id="${b.id}">${I.pen} Send signing link</button>`:''}
+    </div>
+  </div>`;
+};
+after.advance=()=>{document.querySelectorAll('[data-rider]').forEach(el=>el.addEventListener('change',()=>{const it=S.riders[S.advArtist][+el.dataset.rider];it[2]=el.checked?1:0;log(`${S.bookings.find(b=>b.id===S.advArtist).artist}: “${it[0]}” ${el.checked?'confirmed':'reopened'}`);render()}))};
+
+/* ---- Artist: My Gig ---- */
+VIEWS.gig=()=>{
+  const b=S.bookings.find(x=>x.id===ME);const c=calc(b);const items=S.riders[ME];const done=items.filter(i=>i[2]).length;
+  return `<div class="banner"><i style="background:var(--green)"></i>Artist view. You see your own set, travel and take-home pay. Ticket sales and other artists’ fees are not shown.</div>
+  <div class="grid g4">
+    ${kpi('Your set',`${b.start}–${b.end}`,'Peak time, main room','var(--blue)')}
+    ${kpi('Take-home',fmt(c.net,b.cur),`After tax and commission · ≈ ${fmt(c.netZAR)}`,'var(--green)')}
+    ${kpi('Advance',`${done}/${items.length}`,'Rider items confirmed','var(--yellow)',done/items.length)}
+    ${kpi('Doors in',`${Math.ceil((DOORS-Date.now())/864e5)} days`,'Sat 5 Dec, 20:00 SAST','var(--gold)')}
+  </div>
+  <div class="grid g2">
+    <div class="card edge"><h2>Day sheet</h2><div class="sub">Saturday 5 December 2026</div>
+      <div class="ledger" style="margin-top:8px">
+        <div class="ln"><span>15:30</span><span>Hotel check-in, Rosebank</span></div>
+        <div class="ln"><span>19:00</span><span>Sound check slot</span></div>
+        <div class="ln"><span>22:15</span><span>Car from hotel</span></div>
+        <div class="ln"><span>23:00</span><span><b>Set starts</b></span></div>
+        <div class="ln"><span>00:30</span><span>Handover to Nomvula Kaze</span></div>
+        <div class="ln"><span>01:15</span><span>Car back to hotel</span></div>
+      </div></div>
+    <div class="card edge"><h2>Promoter contact</h2><div class="sub">Deep Soul Sensation · advancing team</div>
+      <p class="hint" style="margin-top:12px">Questions about the rider or travel go through the Advance tab, so both sides keep one record.</p>
+      <button class="btn" data-tab="advance" style="margin-top:6px">Open advance</button></div>
+  </div>`;
+};
+
+/* ======== Actions + modals ======== */
+function modal(html,onMount){const root=$('#modalRoot');root.innerHTML=`<div class="scrim" data-scrim><div class="modal" role="dialog" aria-modal="true"><button class="x" data-close aria-label="Close">✕</button>${html}</div></div>`;
+  root.querySelector('[data-scrim]').addEventListener('click',e=>{if(e.target.matches('[data-scrim],[data-close]'))closeModal()});onMount&&onMount(root);const f=root.querySelector('input,select,button:not(.x)');f&&f.focus()}
+function closeModal(){$('#modalRoot').innerHTML=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+const ACT={
+  sell(){const n=40+Math.floor(Math.random()*50);const ga=S.tiers[1];const room=ga.cap-ga.sold;const a=Math.min(n,room);ga.sold+=a;const rest=n-a;if(rest>0)S.tiers[2].sold=Math.min(S.tiers[2].cap,S.tiers[2].sold+rest);
+    S.weekly[S.weekly.length-1].v=ticketsSold();log(`${n} tickets sold in a drop`);toast(`${n} tickets sold. Revenue now ${fmt(ticketRev())}`,'var(--blue)');render()},
+  pickSettle(id){S.setlArtist=id;render()},
+  pickAdv(id){S.advArtist=id;render()},
+  openBooking(id){const b=S.bookings.find(x=>x.id===id);const c=calc(b);
+    modal(`<h3>${esc(b.artist)}</h3><div class="sub" style="color:var(--mute)">${esc(b.from)} · ${b.role} · ${b.start}–${b.end}</div>
+    <div class="ledger" style="margin-top:12px">
+      <div class="ln"><span>Fee</span><span class="num">${fmt(b.fee,b.cur)}${b.cur!=='ZAR'?` <span class="hint">≈ ${fmt(c.grossZAR)}</span>`:''}</span></div>
+      <div class="ln"><span>Stage</span><span class="pill p-${b.status}">${b.status}</span></div>
+      ${b.status==='hold'?`<div class="ln"><span>Hold</span><span class="timer" data-timer="${b.id}">…</span></div>`:''}
+      <div class="ln"><span>Contract</span><span>${b.signed?'Signed':'Not signed'}</span></div>
+    </div>
+    <div class="field" style="margin-top:14px"><label for="mv">Move to stage</label><select class="inp" id="mv">${STATUSES.filter(s=>s[0]!=='settled').map(([k,l])=>`<option value="${k}" ${b.status===k?'selected':''}>${l}</option>`).join('')}</select></div>
+    <div class="actions">
+      ${b.status==='hold'?`<button class="btn" data-act="extend" data-id="${b.id}">Extend hold 48h</button>`:''}
+      ${b.status==='contracted'&&!b.signed?`<button class="btn pri" data-act="sign" data-id="${b.id}">${I.pen} Sign contract</button>`:''}
+      <button class="btn gold" data-act="applyMove" data-id="${b.id}">Save</button>
+    </div>`);tickCount()},
+  applyMove(id){const to=$('#mv').value;closeModal();moveBooking(id,to)},
+  extend(id){const b=S.bookings.find(x=>x.id===id);b.holdUntil+=48*H;log(`${b.artist}: hold extended 48h`);toast('Hold extended by 48 hours','var(--yellow)');closeModal();render()},
+  newBooking(){modal(`<h3>New offer</h3><div class="sub" style="color:var(--mute)">Creates a 72-hour hold on the slot.</div>
+    <form id="nb" style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+      <div class="field"><label for="nb-a">Artist</label><input class="inp" id="nb-a" required placeholder="Artist or act name"></div>
+      <div class="fgrid">
+        <div class="field"><label for="nb-f">From</label><input class="inp" id="nb-f" placeholder="City, country code" required></div>
+        <div class="field"><label for="nb-r">Billing</label><select class="inp" id="nb-r"><option>Guest set</option><option>Support</option><option>Warm-up</option><option>Closing</option></select></div>
+        <div class="field"><label for="nb-c">Currency</label><select class="inp" id="nb-c"><option>ZAR</option><option>EUR</option><option>USD</option></select></div>
+        <div class="field"><label for="nb-fee">Fee</label><input class="inp num" id="nb-fee" type="number" min="0" step="100" required placeholder="25000"></div>
+        <div class="field"><label for="nb-s">Start</label><input class="inp num" id="nb-s" type="time" value="21:30"></div>
+        <div class="field"><label for="nb-e">End</label><input class="inp num" id="nb-e" type="time" value="23:00"></div>
+      </div>
+      <label class="switch"><input type="checkbox" id="nb-i">Non-resident artist (15% WHT applies)</label>
+      <div class="actions"><button type="button" class="btn" data-close>Cancel</button><button class="btn gold" type="submit">Place 72h hold</button></div>
+    </form>`,root=>{root.querySelector('#nb').addEventListener('submit',e=>{e.preventDefault();
+      const cur=$('#nb-c').value;const b={id:'b'+Date.now(),artist:$('#nb-a').value.trim(),from:$('#nb-f').value.trim(),role:$('#nb-r').value,start:$('#nb-s').value,end:$('#nb-e').value,cur,fee:Math.round(+$('#nb-fee').value*100),agent:10,dep:50,depRate:S.fx[cur],depDate:null,status:'hold',holdUntil:Date.now()+72*H,signed:false,intl:$('#nb-i').checked,c:['var(--blue)','var(--green)','var(--yellow)','var(--red)'][S.bookings.length%4]};
+      S.bookings.push(b);S.riders[b.id]=[['DJ equipment confirmed','Tech',0],['Travel booked','Travel',0]];log(`New offer: ${b.artist}, ${fmt(b.fee,cur)}`);closeModal();toast(`${b.artist} on hold for 72 hours`,'var(--yellow)');render()})})},
+  addRider(){modal(`<h3>Add rider item</h3><form id="ar" style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+      <div class="field"><label for="ar-t">Item</label><input class="inp" id="ar-t" required placeholder="e.g. Fog machine off during set"></div>
+      <div class="field"><label for="ar-g">Group</label><select class="inp" id="ar-g"><option>Tech</option><option>Travel</option><option>Hospitality</option></select></div>
+      <div class="actions"><button type="button" class="btn" data-close>Cancel</button><button class="btn gold" type="submit">Add item</button></div></form>`,
+      root=>root.querySelector('#ar').addEventListener('submit',e=>{e.preventDefault();S.riders[S.advArtist].push([$('#ar-t').value.trim(),$('#ar-g').value,0]);log('Rider item added: '+$('#ar-t').value.trim());closeModal();toast('Rider item added');render()}))},
+  sign(id){const b=S.bookings.find(x=>x.id===id);
+    modal(`<h3>Sign performance agreement</h3><div class="sub" style="color:var(--mute)">${esc(b.artist)} × Deep Soul Sensation · LastDance26 · ${fmt(b.fee,b.cur)}</div>
+      <p class="hint" style="margin:12px 0 8px">The signer opens a one-time link on their phone, no account needed. Sign in the box to try it.</p>
+      <canvas class="sig" id="sig"></canvas>
+      <div class="actions"><button class="btn" id="sigClear" type="button">Clear</button><button class="btn gold" id="sigOk" type="button" disabled>Sign and lock</button></div>`,root=>{
+      const cv=root.querySelector('#sig'),ctx=cv.getContext('2d');const r=cv.getBoundingClientRect();const dpr=window.devicePixelRatio||1;cv.width=r.width*dpr;cv.height=r.height*dpr;ctx.scale(dpr,dpr);
+      ctx.lineWidth=2.4;ctx.lineCap='round';ctx.strokeStyle='#1b1d23';let draw=false,ink=0;
+      const pos=e=>{const b=cv.getBoundingClientRect();return [e.clientX-b.left,e.clientY-b.top]};
+      cv.addEventListener('pointerdown',e=>{draw=true;cv.setPointerCapture(e.pointerId);ctx.beginPath();ctx.moveTo(...pos(e))});
+      cv.addEventListener('pointermove',e=>{if(!draw)return;ctx.lineTo(...pos(e));ctx.stroke();ink++;if(ink>12)root.querySelector('#sigOk').disabled=false});
+      cv.addEventListener('pointerup',()=>draw=false);
+      root.querySelector('#sigClear').onclick=()=>{ctx.clearRect(0,0,cv.width,cv.height);ink=0;root.querySelector('#sigOk').disabled=true};
+      root.querySelector('#sigOk').onclick=()=>{b.signed=true;log(`${b.artist}: contract signed, hash ${Math.random().toString(16).slice(2,10)}`);closeModal();toast('Contract signed and locked');render()};
+    })},
+  statement(id){const b=S.bookings.find(x=>x.id===id);const c=calc(b);const isMgr=S.role==='manager';const ref='SF-LD26-'+id.toUpperCase()+'-'+String(Date.now()).slice(-4);
+    modal(`<h3>Settlement statement</h3><div class="sub" style="color:var(--mute)">Review, then lock. Locked statements cannot be edited.</div>
+    <div class="stmt" style="margin-top:14px"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><h4>SetFlow</h4><span style="font-family:var(--f-mono)">${ref}</span></div><div class="gl"></div>
+      <div style="margin-bottom:8px"><b>${esc(b.artist)}</b> · LastDance26, Mea Culpa · 5 Dec 2026</div>
+      <div class="ln"><span>Fee</span><span>${fmt(c.gross,b.cur,2)}</span></div>
+      ${b.intl?`<div class="ln"><span>Withholding tax 15% (paid to SARS)</span><span>${fmt(-c.wht,b.cur,2)}</span></div>`:''}
+      ${isMgr?`<div class="ln"><span>Agent commission ${b.agent}%</span><span>${fmt(-c.comm,b.cur,2)}</span></div>`:''}
+      <div class="ln"><span>Deposit received</span><span>${fmt(c.deposit,b.cur,2)}</span></div>
+      <div class="ln"><span>${isMgr?'Net to artist':'Paid to artist (fee less tax)'}</span><span>${fmt(isMgr?c.net:c.gross-c.wht,b.cur,2)}</span></div>
+    </div>
+    <div class="actions"><button class="btn" data-close>Back</button><button class="btn gold" data-act="lock" data-id="${id}">${I.lockI} Lock settlement</button></div>`)},
+  lock(id){const b=S.bookings.find(x=>x.id===id);b.status='settled';S.settled[id]={at:new Date().toLocaleString('en-ZA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}),by:ROLES[S.role]};log(`${b.artist}: settlement locked`);closeModal();toast('Settlement locked. Statement ready to send.','var(--gold)');render()}
+};
+
+/* seed audit so the activity feed reads as a live workspace */
+[['Promoter','Elias Brandt: deposit received at 19.62'],['Manager','Elias Brandt: rider v3 uploaded'],['Promoter','Kweku Asante: 72h hold placed']].forEach(([w,m],i)=>S.audit.push({t:new Date(Date.now()-(i+1)*37*6e4),who:w,msg:m}));
+
+render();tickCount();setInterval(tickCount,1000);
+</script>
+
+</body>
+</html>
